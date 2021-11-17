@@ -4,13 +4,61 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>FleetCard Form</title>
+    <title>Dodaj Kartę floty</title>
 </head>
 <body>
 <div layout:fragment="content">
+    <!--Content of the page-->
     <div class="container-fluid px-4">
-        <!--Content of the page-->
-        <h1>FleetCard Form</h1>
+        <h1 class="mt-4">Dodaj Kartę floty</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+            <li class="breadcrumb-item"><a href="/fleetcard">Karty floty</a></li>
+            <li class="breadcrumb-item active">Dodaj Kartę floty</li>
+        </ol>
+        <div class="row">
+            <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
+                <form>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-align-justify me-1"></i>
+                            Formularz dodawania Karty floty
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1">Numer karty:</label>
+                                <input
+                                    class="form-control"
+                                    id="exampleFormControlInput1"
+                                    type="text"
+                                    placeholder="123456789012345">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput2">Data ważności:</label>
+                                <input
+                                    class="form-control"
+                                    id="exampleFormControlInput2"
+                                    type="date"
+                                    placeholder="Data">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput3">Typ:</label>
+                                <input
+                                    class="form-control"
+                                    id="exampleFormControlInput3"
+                                    type="text"
+                                    placeholder="Typ">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Wyślij</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>
