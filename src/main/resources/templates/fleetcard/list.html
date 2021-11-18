@@ -4,14 +4,61 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-  <title>FleetCard List</title>
+    <title>Lista Kart floty</title>
 </head>
 <body>
 <div layout:fragment="content">
-  <div class="container-fluid px-4">
-    <!--Content of the page-->
-    <h1>FleetCard List</h1>
-  </div>
+    <div class="container-fluid px-4">
+        <!--Content of the page-->
+        <h1 class="mt-4">Lista Kart floty</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+            <li class="breadcrumb-item"><a href="/fleetcard">Karty floty</a></li>
+            <li class="breadcrumb-item active">Lista Kart floty</li>
+        </ol>
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Lista Karty floty
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Numer</th>
+                                <th>Data ważności</th>
+                                <th>Typ</th>
+                                <th>Akcje</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Numer</th>
+                                <th>Data ważności</th>
+                                <th>Typ</th>
+                                <th>Akcje</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="fleetCard : ${fleetCards}">
+                                <th th:text="${fleetCard.id}"></th>
+                                <td th:text="${fleetCard.number}"></td>
+                                <td th:text="${fleetCard.expirationDate}"></td>
+                                <td th:text="${fleetCard.type}"></td>
+                                <td>Akcje</td>
+                            </tr>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -13,4 +13,14 @@ public class FleetCardMapper {
                 .type(request.getType())
                 .build();
     }
+
+    public FleetCardResponse mapFleetCardToFleetCardResponse(FleetCard fleetCard) {
+
+        return FleetCardResponse.builder()
+                .id(fleetCard.getId())
+                .number(fleetCard.getNumber())
+                .expirationDate(fleetCard.getExpirationDate())
+                .type(fleetCard.getType())
+                .build();
+    }
 }
