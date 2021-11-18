@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FleetCardMapper {
 
-    protected FleetCard mapFleetCardCreateRequestToFleetCard(FleetCardCreateRequest request) {
+    public FleetCard mapFleetCardCreateRequestToFleetCard(FleetCardCreateRequest request) {
 
         return FleetCard.builder()
                 .number(request.getNumber())

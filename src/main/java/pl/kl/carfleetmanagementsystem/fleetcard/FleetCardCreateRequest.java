@@ -1,13 +1,13 @@
 package pl.kl.carfleetmanagementsystem.fleetcard;
 
-import lombok.Getter;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Getter
+@Data
 public class FleetCardCreateRequest {
         @NotBlank(message = "Fleet card number cannot be blank")
         private String number;

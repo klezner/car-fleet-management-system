@@ -16,23 +16,23 @@ public class FleetCardController {
 
     @GetMapping("")
     public String getFleetCardHomePage() {
-        return "/fleetcard/index";
+        return "fleetcard/index";
     }
 
     @GetMapping("/form")
     public String getFleetCardForm(Model model) {
-        model.addAttribute("createdFleetCard", new FleetCard());
-        return "/fleetcard/form";
+        model.addAttribute("fleetCardCreateRequest", new FleetCardCreateRequest());
+        return "fleetcard/form";
     }
 
-    @PostMapping("/")
-    public String submitFleetCard(FleetCardCreateRequest request) {
-        fleetCardService.createFleetCard(request);
-        return "redirect:/fleetcard/list";
+    @PostMapping
+    public String submitFleetCard(FleetCardCreateRequest fleetCardCreateRequest) {
+        fleetCardService.createFleetCard(fleetCardCreateRequest);
+        return "redirect:fleetcard/list";
     }
 
     @GetMapping("/list")
     public String getFleetCardList(Model model) {
-        return "/fleetcard/list";
+        return "fleetcard/list";
     }
 }
