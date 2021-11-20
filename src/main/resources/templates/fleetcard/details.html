@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Karta floty - szczegóły</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid px-4">
+        <!--Content of the page-->
+        <h1 class="mt-4">Karta floty - szczegóły</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+            <li class="breadcrumb-item"><a href="/fleetcard">Karty floty</a></li>
+            <li class="breadcrumb-item active">Karta floty - szczegóły</li>
+        </ol>
+        <div class="row">
+            <div class="col-10 col-sm-8 col-md-6 col-lg-6 col-xxl-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-info me-1"></i>
+                        Karta floty - szczegóły
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th scope="row">#</th>
+                                <td th:text="${fleetCard.id}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Numer</th>
+                                <td th:text="${fleetCard.number}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Data ważności</th>
+                                <td th:text="${fleetCard.expirationDate}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Typ</th>
+                                <td th:text="${fleetCard.type}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/fleetcard/list">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy Kart
+                        floty
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

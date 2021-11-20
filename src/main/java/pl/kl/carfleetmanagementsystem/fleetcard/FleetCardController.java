@@ -36,15 +36,22 @@ public class FleetCardController {
 
     @GetMapping("/list")
     public String getFleetCardList(Model model) {
-        List<FleetCardResponse> fleetCards = fleetCardService.fetchAllFleetCardsResponses();
+        final List<FleetCardResponse> fleetCards = fleetCardService.fetchAllFleetCardsResponses();
         model.addAttribute("fleetCards", fleetCards);
         return "fleetcard/list";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/edit/{id}")
     public String getFleetCardEditForm(Model model, @PathVariable(name = "id") Long id) {
-        FleetCardRequest fleetCard = fleetCardService.fetchFleetCardRequest(id);
+        final FleetCardRequest fleetCard = fleetCardService.fetchFleetCardRequest(id);
         model.addAttribute("fleetCard", fleetCard);
         return "fleetcard/edit-form";
+    }
+
+    @GetMapping("/{id}")
+    public String getFleetCardDetails(Model model, @PathVariable(name = "id") Long id) {
+        final FleetCardResponse fleetCard = fleetCardService.fetchFleetCardResponse(id);
+        model.addAttribute("fleetCard", fleetCard);
+        return "fleetcard/details";
     }
 }

@@ -41,4 +41,9 @@ public class FleetCardService {
         return fleetCardRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("FleetCard with id: " + id + " not found!"));
     }
+
+    public FleetCardResponse fetchFleetCardResponse(Long id) {
+        final FleetCard fleetCardEntity = fetchFleetCardById(id);
+        return fleetCardMapper.mapFleetCardToFleetCardResponse(fleetCardEntity);
+    }
 }

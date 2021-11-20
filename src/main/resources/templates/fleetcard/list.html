@@ -21,10 +21,10 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Lista Karty floty
+                        Lista Kart floty
                     </div>
                     <div class="card-body">
-                        <table id="datatablesSimple">
+                        <table class="table" id="datatablesSimple">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -53,10 +53,10 @@
                                     <div class="d-flex justify-content-center btn-group-sm" role="group">
                                         <a th:href="@{/fleetcard/{id}(id=${fleetCard.id})}">
                                             <button class="btn btn-sm btn-outline-info m-1">
-                                                <i class="fas fa-search"></i>
+                                                <i class="fas fa-info-circle"></i>
                                             </button>
                                         </a>
-                                        <a th:href="@{/fleetcard/{id}(id=${fleetCard.id})}">
+                                        <a th:href="@{/fleetcard/edit/{id}(id=${fleetCard.id})}">
                                             <button class="btn btn-sm btn-outline-warning m-1">
                                                 <i class="fas fa-edit"></i>
                                             </button>
@@ -74,6 +74,14 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/fleetcard">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Kart floty
+                    </button>
+                </a>
             </div>
         </div>
     </div>
