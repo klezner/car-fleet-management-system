@@ -27,29 +27,26 @@
                         <table class="table" id="datatablesSimple">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Numer</th>
-                                <th>Data ważności</th>
-                                <th>Typ</th>
-                                <th>Akcje</th>
+                                <th class="col col-6">Numer</th>
+                                <th class="col col-2">Data ważności</th>
+                                <th class="col col-2">Typ</th>
+                                <th class="col col-2">Akcje</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>#</th>
-                                <th>Numer</th>
-                                <th>Data ważności</th>
-                                <th>Typ</th>
-                                <th>Akcje</th>
+                                <th class="col col-6">Numer</th>
+                                <th class="col col-2">Data ważności</th>
+                                <th class="col col-2">Typ</th>
+                                <th class="col col-2">Akcje</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <tr th:each="fleetCard : ${fleetCards}">
-                                <th th:text="${fleetCard.id}"></th>
-                                <td th:text="${fleetCard.number}"></td>
-                                <td th:text="${fleetCard.expirationDate}"></td>
-                                <td th:text="${fleetCard.type}"></td>
-                                <td>
+                                <td class="col col-6" th:text="${fleetCard.number}"></td>
+                                <td class="col col-2" th:text="${fleetCard.expirationDate}"></td>
+                                <td class="col col-2" th:text="${fleetCard.type}"></td>
+                                <td class="col col-2">
                                     <div class="d-flex justify-content-center btn-group-sm" role="group">
                                         <a th:href="@{/fleetcard/{id}(id=${fleetCard.id})}">
                                             <button class="btn btn-sm btn-outline-info m-1">
