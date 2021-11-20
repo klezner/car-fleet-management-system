@@ -23,9 +23,9 @@ public class FleetCardController {
     }
 
     @GetMapping("/form")
-    public String getFleetCardForm(Model model) {
+    public String getFleetCardAddForm(Model model) {
         model.addAttribute("fleetCard", new FleetCardRequest());
-        return "fleetcard/form";
+        return "fleetcard/add-form";
     }
 
     @PostMapping
@@ -42,9 +42,9 @@ public class FleetCardController {
     }
 
     @GetMapping("/{id}")
-    public String getFleetCardForm(Model model, @PathVariable(name = "id") Long id) {
+    public String getFleetCardEditForm(Model model, @PathVariable(name = "id") Long id) {
         FleetCardRequest fleetCard = fleetCardService.fetchFleetCardRequest(id);
         model.addAttribute("fleetCard", fleetCard);
-        return "/fleetcard/form";
+        return "fleetcard/edit-form";
     }
 }

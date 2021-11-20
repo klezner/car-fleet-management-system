@@ -2,6 +2,7 @@ package pl.kl.carfleetmanagementsystem.fleetcard;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -14,6 +15,7 @@ public class FleetCardService {
     private final FleetCardMapper fleetCardMapper;
     private final FleetCardRepository fleetCardRepository;
 
+    @Transactional
     public void saveFleetCard(FleetCardRequest fleetCardRequest) {
         final FleetCard fleetCard = fleetCardMapper.mapFleetCardRequestToFleetCard(fleetCardRequest);
         fleetCardRepository.save(fleetCard);
