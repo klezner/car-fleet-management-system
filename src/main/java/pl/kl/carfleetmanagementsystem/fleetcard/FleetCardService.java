@@ -46,4 +46,8 @@ public class FleetCardService {
         final FleetCard fleetCardEntity = fetchFleetCardById(id);
         return fleetCardMapper.mapFleetCardToFleetCardResponse(fleetCardEntity);
     }
+
+    public void deleteFleetCard(Long id) {
+        fleetCardRepository.deleteById(id);
+    }
 }

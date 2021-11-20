@@ -31,7 +31,7 @@ public class FleetCardController {
     @PostMapping
     public String submitFleetCardForm(FleetCardRequest fleetCardRequest) {
         fleetCardService.saveFleetCard(fleetCardRequest);
-        return "redirect:fleetcard/list";
+        return "redirect:/fleetcard/list";
     }
 
     @GetMapping("/list")
@@ -53,5 +53,11 @@ public class FleetCardController {
         final FleetCardResponse fleetCard = fleetCardService.fetchFleetCardResponse(id);
         model.addAttribute("fleetCard", fleetCard);
         return "fleetcard/details";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteFleetCard(@PathVariable(name = "id") Long id) {
+        fleetCardService.deleteFleetCard(id);
+        return "redirect:/fleetcard/list";
     }
 }
