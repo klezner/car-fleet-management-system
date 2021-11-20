@@ -18,24 +18,30 @@
         </ol>
         <div class="row">
             <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
-                <form th:action="@{/fleetcard}" method="post" th:object="${fleetCardCreateRequest}">
+                <form th:action="@{/fleetcard}" method="post" th:object="${fleetCard}">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-align-justify me-1"></i>
                             Formularz dodawania Karty floty
                         </div>
                         <div class="card-body">
+                            <input type="hidden" th:field="*{id}" th:value="*{id}">
                             <div class="mb-3">
                                 <label for="number">Numer karty:</label>
-                                <input class="form-control" id="number" type="text" placeholder="123456789012345" th:field="*{number}" th:value="*{number}">
+                                <input class="form-control" id="number" type="text" placeholder="123456789012345"
+                                       required
+                                       th:value="*{number}" th:field="*{number}">
                             </div>
                             <div class="mb-3">
                                 <label for="expirationDate">Data ważności:</label>
-                                <input class="form-control" id="expirationDate" type="date" placeholder="01.01.2021" th:field="*{expirationDate}" th:value="*{expirationDate}">
+                                <input class="form-control" id="expirationDate" type="date" placeholder="2021-01-01"
+                                       required
+                                       th:value="*{expirationDate}" th:field="*{expirationDate}">
                             </div>
                             <div class="mb-3">
                                 <label for="type">Typ:</label>
-                                <input class="form-control" id="type" type="text" placeholder="Typ" th:field="*{type}" th:value="*{type}">
+                                <input class="form-control" id="type" type="text" placeholder="Typ" required
+                                       th:value="*{type}" th:field="*{type}">
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Wyślij</button>
@@ -46,7 +52,6 @@
                 </form>
             </div>
         </div>
-
     </div>
 </div>
 </body>

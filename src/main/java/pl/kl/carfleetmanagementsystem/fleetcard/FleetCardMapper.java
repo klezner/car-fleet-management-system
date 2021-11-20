@@ -5,17 +5,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class FleetCardMapper {
 
-    public FleetCard mapFleetCardCreateRequestToFleetCard(FleetCardCreateRequest request) {
-
+    public FleetCard mapFleetCardRequestToFleetCard(FleetCardRequest fleetCardRequest) {
         return FleetCard.builder()
-                .number(request.getNumber())
-                .expirationDate(request.getExpirationDate())
-                .type(request.getType())
+                .id(fleetCardRequest.getId())
+                .number(fleetCardRequest.getNumber())
+                .expirationDate(fleetCardRequest.getExpirationDate())
+                .type(fleetCardRequest.getType())
+                .build();
+    }
+
+    public FleetCardRequest mapFleetCardToFleetCardRequest(FleetCard fleetCard) {
+        return FleetCardRequest.builder()
+                .id(fleetCard.getId())
+                .number(fleetCard.getNumber())
+                .expirationDate(fleetCard.getExpirationDate())
+                .type(fleetCard.getType())
                 .build();
     }
 
     public FleetCardResponse mapFleetCardToFleetCardResponse(FleetCard fleetCard) {
-
         return FleetCardResponse.builder()
                 .id(fleetCard.getId())
                 .number(fleetCard.getNumber())
