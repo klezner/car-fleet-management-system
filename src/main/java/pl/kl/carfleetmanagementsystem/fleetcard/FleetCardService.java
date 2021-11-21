@@ -3,8 +3,10 @@ package pl.kl.carfleetmanagementsystem.fleetcard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.kl.carfleetmanagementsystem.validator.DateValidator;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,8 +17,11 @@ public class FleetCardService {
     private final FleetCardMapper fleetCardMapper;
     private final FleetCardRepository fleetCardRepository;
 
+    private final LocalDate SYSTEM_START_DATE = LocalDate.of(2020, 1, 1);
+
     @Transactional
     public void saveFleetCard(FleetCardRequest fleetCardRequest) {
+        DateValidator.validateFleetCardExpirationDate(fleetCardRequest.getExpirationDate(), SYSTEM_START_DATE);
         final FleetCard fleetCard = fleetCardMapper.mapFleetCardRequestToFleetCard(fleetCardRequest);
         fleetCardRepository.save(fleetCard);
     }
