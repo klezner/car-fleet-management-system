@@ -50,4 +50,18 @@ public class FleetCardService {
     public void deleteFleetCard(Long id) {
         fleetCardRepository.deleteById(id);
     }
+
+    @Transactional
+    public void setActive(Long id) {
+        final FleetCard fleetCard = fetchFleetCardById(id);
+        fleetCard.setActive();
+        fleetCardRepository.save(fleetCard);
+    }
+
+    @Transactional
+    public void setInactive(Long id) {
+        final FleetCard fleetCard = fetchFleetCardById(id);
+        fleetCard.setInactive();
+        fleetCardRepository.save(fleetCard);
+    }
 }

@@ -5,11 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.kl.carfleetmanagementsystem.status.Status;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -30,4 +28,14 @@ public class FleetCard {
     private LocalDate expirationDate;
     @NotBlank(message = "Fleet card type cannot be blank")
     private String type;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    protected void setActive() {
+        status = Status.ACTIVE;
+    }
+
+    protected void setInactive() {
+        status = Status.INACTIVE;
+    }
 }

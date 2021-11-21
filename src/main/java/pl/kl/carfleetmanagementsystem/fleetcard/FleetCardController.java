@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kl.carfleetmanagementsystem.status.SetStatus;
 
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/fleetcard")
-public class FleetCardController {
+public class FleetCardController implements SetStatus {
 
     private final FleetCardService fleetCardService;
 
@@ -58,6 +59,20 @@ public class FleetCardController {
     @GetMapping("/delete/{id}")
     public String deleteFleetCard(@PathVariable(name = "id") Long id) {
         fleetCardService.deleteFleetCard(id);
+        return "redirect:/fleetcard/list";
+    }
+
+    @GetMapping("/active/{id}")
+    @Override
+    public String setActive(@PathVariable(name = "id") Long id) {
+        fleetCardService.setActive(id);
+        return "redirect:/fleetcard/list";
+    }
+
+    @GetMapping("/inactive/{id}")
+    @Override
+    public String setInactive(@PathVariable(name = "id") Long id) {
+        fleetCardService.setInactive(id);
         return "redirect:/fleetcard/list";
     }
 }

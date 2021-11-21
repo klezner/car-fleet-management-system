@@ -50,9 +50,18 @@
                                 <th class="col col-3" scope="row">Typ</th>
                                 <td class="col col-9" th:text="${fleetCard.type}"></td>
                             </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Status</th>
+                                <td class="col col-9"
+                                    th:text="${fleetCard.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE ? 'Aktywna' : 'Nieaktywna'}"></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <!--Status-->
+                <div>
+
                 </div>
             </div>
         </div>
