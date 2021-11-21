@@ -66,13 +66,13 @@ public class FleetCardController implements SetStatus {
     @Override
     public String setActive(@PathVariable(name = "id") Long id) {
         fleetCardService.setActive(id);
-        return "redirect:/fleetcard/list";
+        return "redirect:/fleetcard/{id}";
     }
 
     @GetMapping("/inactive/{id}")
     @Override
     public String setInactive(@PathVariable(name = "id") Long id) {
         fleetCardService.setInactive(id);
-        return "redirect:/fleetcard/list";
+        return "redirect:/fleetcard/{id}";
     }
 }
