@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import pl.kl.carfleetmanagementsystem.status.Status;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -38,4 +39,14 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Vehicle type cannot be blank")
     private VehicleType type;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    protected void setActive() {
+        status = Status.ACTIVE;
+    }
+
+    protected void setInactive() {
+        status = Status.INACTIVE;
+    }
 }

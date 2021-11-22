@@ -47,7 +47,7 @@
                         <button class="btn btn-outline-success m-1" data-toggle="tooltip"
                                 data-placement="top" title="Ustaw status: Aktywna">
                             <i class="fas fa-check-circle" style="font-size: x-large"></i><br>
-                            Ustaw status: Aktywna
+                            Ustaw status: Aktywny
                         </button>
                     </a>
                     <a th:if="${fleetCard.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}"
@@ -55,7 +55,7 @@
                         <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
                                 data-placement="top" title="Ustaw status: Nieaktywna">
                             <i class="fas fa-times-circle" style="font-size: x-large"></i><br>
-                            Ustaw status: Nieaktywna
+                            Ustaw status: Nieaktywny
                         </button>
                     </a>
                 </div>
@@ -91,10 +91,12 @@
                                 <th class="col col-3" scope="row">Status</th>
                                 <td class="col col-9">
                                     <span th:if="${fleetCard.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}">
-                                        <i class="fas fa-check me-1"></i> Aktywna
+                                        <i class="fas fa-check me-1"></i><span
+                                            th:text="${fleetCard.status.getCommonName()}"></span>
                                     </span>
                                     <span th:if="${fleetCard.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}">
-                                        <i class="fas fa-times me-1"></i> Nieaktywna
+                                        <i class="fas fa-times me-1"></i><span
+                                            th:text="${fleetCard.status.getCommonName()}"></span>
                                     </span>
                                 </td>
                             </tr>

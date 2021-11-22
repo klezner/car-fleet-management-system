@@ -1,6 +1,7 @@
 package pl.kl.carfleetmanagementsystem.vehicle;
 
 import org.springframework.stereotype.Component;
+import pl.kl.carfleetmanagementsystem.status.Status;
 
 @Component
 public class VehicleMapper {
@@ -14,6 +15,7 @@ public class VehicleMapper {
                 .vinNumber(vehicleRequest.getVinNumber())
                 .productionYear(vehicleRequest.getProductionYear())
                 .type(vehicleRequest.getType())
+                .status(Status.ACTIVE)
                 .build();
     }
 
@@ -26,6 +28,7 @@ public class VehicleMapper {
                 .vinNumber(vehicle.getVinNumber())
                 .productionYear(vehicle.getProductionYear())
                 .type(vehicle.getType())
+                .status(vehicle.getStatus())
                 .build();
     }
 }

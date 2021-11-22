@@ -58,10 +58,12 @@
                                 <td class="col col-1" th:text="${fleetCard.type}"></td>
                                 <td class="col col-1">
                                     <span th:if="${fleetCard.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}">
-                                        <i class="fas fa-check me-1"></i> Aktywna
+                                        <i class="fas fa-check me-1"></i><span
+                                            th:text="${fleetCard.status.getCommonName()}"></span>
                                     </span>
                                     <span th:if="${fleetCard.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}">
-                                        <i class="fas fa-times me-1"></i> Nieaktywna
+                                        <i class="fas fa-times me-1"></i><span
+                                            th:text="${fleetCard.status.getCommonName()}"></span>
                                     </span>
                                 </td>
                                 <td class="col col-1">
