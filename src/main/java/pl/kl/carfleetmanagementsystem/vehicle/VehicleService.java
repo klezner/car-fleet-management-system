@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,5 +30,15 @@ public class VehicleService {
 
     private List<Vehicle> fetchAllVehicles() {
         return vehicleRepository.findAll();
+    }
+
+    public VehicleRequest fetchVehicleRequest(Long id) {
+        final Vehicle vehicle = fetchVehicleById(id);
+        return vehicleMapper.mapVehicleToVehicleRequest(vehicle);
+    }
+
+    private Vehicle fetchVehicleById(Long id) {
+        return vehicleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Vehicle with id: " + id + " not found!"));
     }
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -39,5 +40,13 @@ public class VehicleController {
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
         model.addAttribute("vehicles", vehicles);
         return "vehicle/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getVehicleEditForm(Model model, @PathVariable(name = "id") Long id) {
+        final VehicleRequest vehicle = vehicleService.fetchVehicleRequest(id);
+        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("types", VehicleType.values());
+        return "vehicle/edit-form";
     }
 }
