@@ -67,7 +67,8 @@
                             <div class="mb-3">
                                 <label for="type">Typ</label>
                                 <select class="form-control" id="type" required th:field="*{type}">
-                                    <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+                                    <option th:each="type : ${types}" th:value="${type}"
+                                            th:text="${type.getCommonName()}"></option>
                                 </select>
                             </div>
                             <div class="text-center">
