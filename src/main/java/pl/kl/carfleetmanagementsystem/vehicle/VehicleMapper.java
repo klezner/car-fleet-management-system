@@ -16,4 +16,16 @@ public class VehicleMapper {
                 .type(vehicleRequest.getType())
                 .build();
     }
+
+    public VehicleResponse mapVehicleToVehicleResponse(Vehicle vehicle) {
+        return VehicleResponse.builder()
+                .id(vehicle.getId())
+                .brand(vehicle.getBrand())
+                .model(vehicle.getModel())
+                .registrationNumber(vehicle.getRegistrationNumber())
+                .vinNumber(vehicle.getVinNumber())
+                .productionYear(vehicle.getProductionYear())
+                .type(vehicle.getType())
+                .build();
+    }
 }

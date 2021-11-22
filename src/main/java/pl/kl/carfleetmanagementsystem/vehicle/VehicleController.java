@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/vehicle")
@@ -30,5 +32,12 @@ public class VehicleController {
     public String submitVehicleForm(VehicleRequest vehicleRequest) {
         vehicleService.saveVehicle(vehicleRequest);
         return "redirect:/vehicle/list";
+    }
+
+    @GetMapping("/list")
+    public String getVehicleList(Model model) {
+        final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
+        model.addAttribute("vehicles", vehicles);
+        return "vehicle/list";
     }
 }
