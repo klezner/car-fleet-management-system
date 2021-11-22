@@ -41,4 +41,27 @@ public class VehicleService {
         return vehicleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Vehicle with id: " + id + " not found!"));
     }
+
+    public VehicleResponse fetchVehicleResponse(Long id) {
+        final Vehicle vehicle = fetchVehicleById(id);
+        return vehicleMapper.mapVehicleToVehicleResponse(vehicle);
+    }
+
+    public void deleteVehicle(Long id) {
+        vehicleRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void setActive(Long id) {
+        final Vehicle vehicle = fetchVehicleById(id);
+        vehicle.setActive();
+        vehicleRepository.save(vehicle);
+    }
+
+    @Transactional
+    public void setInactive(Long id) {
+        final Vehicle vehicle = fetchVehicleById(id);
+        vehicle.setInactive();
+        vehicleRepository.save(vehicle);
+    }
 }

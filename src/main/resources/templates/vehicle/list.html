@@ -57,7 +57,8 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr th:each="vehicle : ${vehicles}">
+                            <tr th:each="vehicle : ${vehicles}"
+                                th:class="${vehicle.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
                                 <td class="col col-2" th:text="${vehicle.registrationNumber}"></td>
                                 <td class="col col-2" th:text="${vehicle.brand}"></td>
                                 <td class="col col-2" th:text="${vehicle.model}"></td>
