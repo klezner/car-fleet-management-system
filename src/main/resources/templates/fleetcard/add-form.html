@@ -34,20 +34,20 @@
                         <div class="card-body">
                             <input type="hidden" th:field="*{id}" th:value="*{id}">
                             <div class="mb-3">
-                                <label for="number">Numer karty:</label>
+                                <label for="number">Numer karty</label>
                                 <input class="form-control" id="number" type="text" placeholder="123456789012345"
                                        required
                                        th:value="*{number}" th:field="*{number}">
                             </div>
                             <div class="mb-3">
-                                <label for="expirationDate">Data ważności:</label>
+                                <label for="expirationDate">Data ważności</label>
                                 <input class="form-control" id="expirationDate" type="date" placeholder="2021-01-01"
                                        min="2020-01-01" max="2050-12-31" required
                                        th:value="*{expirationDate}" th:field="*{expirationDate}">
                             </div>
 
                             <div class="mb-3">
-                                <label for="type">Typ:</label>
+                                <label for="type">Typ</label>
                                 <input class="form-control" id="type" type="text" placeholder="Typ" required
                                        th:value="*{type}" th:field="*{type}">
                             </div>

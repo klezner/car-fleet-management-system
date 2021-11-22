@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Dodaj Pojazd</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/vehicle">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Kart floty
+                    </button>
+                </a>
+            </div>
+        </div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+            <li class="breadcrumb-item"><a href="/vehicle">Pojazdy</a></li>
+            <li class="breadcrumb-item active">Dodaj Pojazd</li>
+        </ol>
+        <div class="row">
+            <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
+                <form th:action="@{/vehicle}" method="post" th:object="${vehicle}">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-align-justify me-1"></i>
+                            Formularz dodawania Pojazdu
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" th:field="*{id}" th:value="*{id}">
+                            <div class="mb-3">
+                                <label for="brand">Marka</label>
+                                <input class="form-control" id="brand" type="text" placeholder="Marka"
+                                       required
+                                       th:value="*{brand}" th:field="*{brand}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="model">Marka</label>
+                                <input class="form-control" id="model" type="text" placeholder="Model"
+                                       required
+                                       th:value="*{model}" th:field="*{model}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="registrationNumber">Numer rejestracyjny</label>
+                                <input class="form-control" id="registrationNumber" type="text"
+                                       placeholder="Numer rejestracyjny"
+                                       minlength="3" maxlength="8" required
+                                       th:value="*{registrationNumber}" th:field="*{registrationNumber}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="vinNumber">Numer VIN</label>
+                                <input class="form-control" id="vinNumber" type="text" placeholder="Numer rejestracyjny"
+                                       minlength="17" maxlength="17" required
+                                       th:value="*{vinNumber}" th:field="*{vinNumber}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="productionYear">Rok produkcji:</label>
+                                <input class="form-control" id="productionYear" type="number" placeholder="2020"
+                                       min="2000" max="2050" required
+                                       th:value="*{productionYear}" th:field="*{productionYear}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="type">Typ</label>
+                                <select class="form-control" id="type" required th:field="*{type}">
+                                    <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Wyślij</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
