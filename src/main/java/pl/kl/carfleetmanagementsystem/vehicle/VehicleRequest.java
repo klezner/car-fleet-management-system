@@ -2,6 +2,7 @@ package pl.kl.carfleetmanagementsystem.vehicle;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import pl.kl.carfleetmanagementsystem.status.Status;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -31,4 +32,6 @@ public class VehicleRequest {
     private Integer productionYear;
     @NotNull(message = "Vehicle type cannot be blank")
     private VehicleType type;
+    @NotNull(message = "Vehicle status cannot be blank")
+    private Status status;
 }

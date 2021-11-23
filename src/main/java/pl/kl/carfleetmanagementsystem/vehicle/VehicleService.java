@@ -22,8 +22,8 @@ public class VehicleService {
     }
 
     public List<VehicleResponse> fetchAllVehiclesResponses() {
-        final List<Vehicle> vehicleEntites = fetchAllVehicles();
-        return vehicleEntites.stream()
+        final List<Vehicle> vehicleEntities = fetchAllVehicles();
+        return vehicleEntities.stream()
                 .map(vehicleMapper::mapVehicleToVehicleResponse)
                 .collect(Collectors.toList());
     }

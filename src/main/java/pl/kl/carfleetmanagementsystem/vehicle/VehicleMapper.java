@@ -7,7 +7,7 @@ import pl.kl.carfleetmanagementsystem.status.Status;
 public class VehicleMapper {
 
     public Vehicle mapVehicleRequestToVehicle(VehicleRequest vehicleRequest) {
-        return Vehicle.builder()
+        final Vehicle vehicle = Vehicle.builder()
                 .id(vehicleRequest.getId())
                 .brand(vehicleRequest.getBrand())
                 .model(vehicleRequest.getModel())
@@ -15,8 +15,15 @@ public class VehicleMapper {
                 .vinNumber(vehicleRequest.getVinNumber())
                 .productionYear(vehicleRequest.getProductionYear())
                 .type(vehicleRequest.getType())
-                .status(Status.ACTIVE)
                 .build();
+
+        if (vehicleRequest.getStatus() == null || vehicleRequest.getStatus() == Status.ACTIVE) {
+            vehicle.setActive();
+        } else if (vehicleRequest.getStatus() == Status.INACTIVE) {
+            vehicle.setInactive();
+        }
+
+        return vehicle;
     }
 
     public VehicleResponse mapVehicleToVehicleResponse(Vehicle vehicle) {
@@ -41,6 +48,7 @@ public class VehicleMapper {
                 .vinNumber(vehicle.getVinNumber())
                 .productionYear(vehicle.getProductionYear())
                 .type(vehicle.getType())
+                .status(vehicle.getStatus())
                 .build();
     }
 }
