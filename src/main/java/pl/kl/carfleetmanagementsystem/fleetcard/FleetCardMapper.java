@@ -7,13 +7,20 @@ import pl.kl.carfleetmanagementsystem.status.Status;
 public class FleetCardMapper {
 
     public FleetCard mapFleetCardRequestToFleetCard(FleetCardRequest fleetCardRequest) {
-        return FleetCard.builder()
+        final FleetCard fleetCard = FleetCard.builder()
                 .id(fleetCardRequest.getId())
                 .number(fleetCardRequest.getNumber())
                 .expirationDate(fleetCardRequest.getExpirationDate())
                 .type(fleetCardRequest.getType())
-                .status(Status.ACTIVE)
                 .build();
+
+        if (fleetCardRequest.getStatus() == null || fleetCardRequest.getStatus() == Status.ACTIVE) {
+            fleetCard.setActive();
+        } else if (fleetCardRequest.getStatus() == Status.INACTIVE) {
+            fleetCard.setInactive();
+        }
+
+        return fleetCard;
     }
 
     public FleetCardRequest mapFleetCardToFleetCardRequest(FleetCard fleetCard) {
@@ -22,6 +29,7 @@ public class FleetCardMapper {
                 .number(fleetCard.getNumber())
                 .expirationDate(fleetCard.getExpirationDate())
                 .type(fleetCard.getType())
+                .status(fleetCard.getStatus())
                 .build();
     }
 
