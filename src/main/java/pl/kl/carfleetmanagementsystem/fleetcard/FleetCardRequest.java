@@ -24,7 +24,7 @@ public class FleetCardRequest {
     private LocalDate expirationDate;
     @NotBlank(message = "Fleet card type cannot be blank")
     private String type;
+    private Long vehicleId;
     @Enumerated(EnumType.STRING)
     private Status status;
-    private Long vehicleId;
 }

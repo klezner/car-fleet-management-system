@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.kl.carfleetmanagementsystem.status.Status;
 import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
@@ -12,6 +14,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -23,16 +26,26 @@ public class FleetCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "Fleet card number cannot be blank")
+    @Column(nullable = false, unique = true)
     private String number;
+    @Column(nullable = false)
     @NotNull(message = "Fleet card expiration date cannot be blank")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expirationDate;
+    @Column(nullable = false)
     @NotBlank(message = "Fleet card type cannot be blank")
     private String type;
-    @Enumerated(EnumType.STRING)
-    private Status status;
     @OneToOne
     private Vehicle vehicle;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    public LocalDateTime createdDate;
+    @Column(nullable = false)
+    @UpdateTimestamp
+    public LocalDateTime modifiedDate;
 
     protected void setActive() {
         status = Status.ACTIVE;
