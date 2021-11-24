@@ -34,26 +34,28 @@
                         <table class="table" id="datatablesSimple">
                             <thead>
                             <tr>
-                                <th class="col col-7">Numer</th>
+                                <th class="col col-5">Numer</th>
                                 <th class="col col-2">Data ważności</th>
                                 <th class="col col-1">Typ</th>
                                 <th class="col col-1">Status</th>
+                                <th class="col col-2">Pojazd</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th class="col col-7">Numer</th>
+                                <th class="col col-5">Numer</th>
                                 <th class="col col-2">Data ważności</th>
                                 <th class="col col-1">Typ</th>
                                 <th class="col col-1">Status</th>
+                                <th class="col col-2">Pojazd</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <tr th:each="fleetCard : ${fleetCards}"
                                 th:class="${fleetCard.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
-                                <td class="col col-7" th:text="${fleetCard.number}"></td>
+                                <td class="col col-5" th:text="${fleetCard.number}"></td>
                                 <td class="col col-2" th:text="${fleetCard.expirationDate}"></td>
                                 <td class="col col-1" th:text="${fleetCard.type}"></td>
                                 <td class="col col-1">
@@ -66,6 +68,8 @@
                                             th:text="${fleetCard.status.getCommonName()}"></span>
                                     </span>
                                 </td>
+                                <td class="col col-2"
+                                    th:text="${fleetCard.vehicle != null} ? '[' + ${fleetCard.vehicle.registrationNumber} + '] ' + ${fleetCard.vehicle.brand} + ' ' + ${fleetCard.vehicle.model}"></td>
                                 <td class="col col-1">
                                     <div class="d-flex justify-content-center btn-group-sm" role="group">
                                         <a th:href="@{/fleetcard/{id}(id=${fleetCard.id})}">
