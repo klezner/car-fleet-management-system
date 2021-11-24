@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kl.carfleetmanagementsystem.status.SetStatus;
+import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
+import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @RequestMapping("/fleetcard")
 public class FleetCardController implements SetStatus {
 
+    private final VehicleService vehicleService;
     private final FleetCardService fleetCardService;
 
     @GetMapping("")
@@ -25,6 +28,8 @@ public class FleetCardController implements SetStatus {
 
     @GetMapping("/form")
     public String getFleetCardAddForm(Model model) {
+        List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponsesWithoutFleetCard();
+        model.addAttribute("vehicles", vehicles);
         model.addAttribute("fleetCard", new FleetCardRequest());
         return "fleetcard/add-form";
     }

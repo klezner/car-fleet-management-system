@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.kl.carfleetmanagementsystem.status.Status;
+import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -30,6 +31,8 @@ public class FleetCard {
     private String type;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @OneToOne
+    private Vehicle vehicle;
 
     protected void setActive() {
         status = Status.ACTIVE;
@@ -37,5 +40,9 @@ public class FleetCard {
 
     protected void setInactive() {
         status = Status.INACTIVE;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 }

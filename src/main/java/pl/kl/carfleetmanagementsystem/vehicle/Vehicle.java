@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import pl.kl.carfleetmanagementsystem.fleetcard.FleetCard;
 import pl.kl.carfleetmanagementsystem.status.Status;
 
 import javax.persistence.*;
@@ -41,6 +42,8 @@ public class Vehicle {
     private VehicleType type;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @OneToOne(mappedBy = "vehicle")
+    private FleetCard fleetCard;
 
     protected void setActive() {
         status = Status.ACTIVE;
