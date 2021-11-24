@@ -21,12 +21,20 @@ public class FleetCardMapper {
     }
 
     public FleetCardRequest mapFleetCardToFleetCardRequest(FleetCard fleetCard) {
+        Long vehicleId;
+        if (fleetCard.getVehicle() != null) {
+            vehicleId = fleetCard.getVehicle().getId();
+        } else {
+            vehicleId = null;
+        }
+
         return FleetCardRequest.builder()
                 .id(fleetCard.getId())
                 .number(fleetCard.getNumber())
                 .expirationDate(fleetCard.getExpirationDate())
                 .type(fleetCard.getType())
                 .status(fleetCard.getStatus())
+                .vehicleId(vehicleId)
                 .build();
     }
 

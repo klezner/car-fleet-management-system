@@ -69,7 +69,7 @@
                                     </span>
                                 </td>
                                 <td class="col col-2"
-                                    th:text="${fleetCard.vehicle != null} ? '[' + ${fleetCard.vehicle.registrationNumber} + '] ' + ${fleetCard.vehicle.brand} + ' ' + ${fleetCard.vehicle.model}"></td>
+                                    th:text="${fleetCard.vehicle != null} ? '[' + ${fleetCard.vehicle.registrationNumber} + '] ' + ${fleetCard.vehicle.brand} + ' ' + ${fleetCard.vehicle.model} : 'Brak'"></td>
                                 <td class="col col-1">
                                     <div class="d-flex justify-content-center btn-group-sm" role="group">
                                         <a th:href="@{/fleetcard/{id}(id=${fleetCard.id})}">

@@ -49,7 +49,12 @@ public class FleetCardController implements SetStatus {
 
     @GetMapping("/edit/{id}")
     public String getFleetCardEditForm(Model model, @PathVariable(name = "id") Long id) {
+        final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponsesWithoutFleetCard();
         final FleetCardRequest fleetCard = fleetCardService.fetchFleetCardRequest(id);
+        if (fleetCard.getVehicleId() != null) {
+            vehicles.add(vehicleService.fetchVehicleResponse(fleetCard.getVehicleId()));
+        }
+        model.addAttribute("vehicles", vehicles);
         model.addAttribute("fleetCard", fleetCard);
         return "fleetcard/edit-form";
     }
