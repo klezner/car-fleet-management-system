@@ -39,6 +39,7 @@ public class FleetCard {
     private Vehicle vehicle;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Fleet card status cannot be blank")
     private Status status;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

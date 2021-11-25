@@ -1,4 +1,4 @@
-package pl.kl.carfleetmanagementsystem.company;
+package pl.kl.carfleetmanagementsystem.department;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,16 +18,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Builder
-public class Company {
+public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    @NotBlank(message = "Company name cannot be blank")
+    @NotBlank(message = "Department name cannot be blank")
     private String name;
     @Column(nullable = false)
+    @NotBlank(message = "Department abbreviation cannot be blank")
+    private String abbreviation;
+    private String comment;
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Company name cannot be blank")
+    @NotNull(message = "Department status cannot be blank")
     private Status status;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -35,12 +39,4 @@ public class Company {
     @Column(nullable = false)
     @UpdateTimestamp
     public LocalDateTime modified;
-
-    protected void setActive() {
-        status = Status.ACTIVE;
-    }
-
-    protected void setInactive() {
-        status = Status.INACTIVE;
-    }
 }

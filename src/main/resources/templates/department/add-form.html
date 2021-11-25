@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Dodaj Departament</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/fleetcard">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu
+                        Departamentów
+                    </button>
+                </a>
+            </div>
+        </div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+            <li class="breadcrumb-item"><a href="/department">Departamenty</a></li>
+            <li class="breadcrumb-item active">Dodaj Departament</li>
+        </ol>
+        <div class="row">
+            <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
+                <form th:action="@{/department}" method="post" th:object="${department}">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-align-justify me-1"></i>
+                            Formularz dodawania Departamentu
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" th:field="*{id}" th:value="*{id}">
+                            <div class="mb-3">
+                                <label for="name">Nazwa</label>
+                                <input class="form-control" id="name" type="text" placeholder="Nazwa"
+                                       required
+                                       th:value="*{name}" th:field="*{name}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="abbreviation">Skrót</label>
+                                <input class="form-control" id="abbreviation" type="text" placeholder="Skrót"
+                                       required
+                                       th:value="*{abbreviation}" th:field="*{abbreviation}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="comment">Opis</label>
+                                <input class="form-control" id="comment" type="text" placeholder="Opis"
+                                       th:value="*{comment}" th:field="*{comment}">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Wyślij</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
