@@ -37,7 +37,7 @@ public class VehicleService {
         return vehicleMapper.mapVehicleToVehicleRequest(vehicle);
     }
 
-    private Vehicle fetchVehicleById(Long id) {
+    public Vehicle fetchVehicleById(Long id) {
         return vehicleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Vehicle with id: " + id + " not found!"));
     }
@@ -63,5 +63,16 @@ public class VehicleService {
         final Vehicle vehicle = fetchVehicleById(id);
         vehicle.setInactive();
         vehicleRepository.save(vehicle);
+    }
+
+    public List<VehicleResponse> fetchAllVehiclesResponsesWithoutFleetCard() {
+        final List<Vehicle> vehicleEntities = fetchAllVehiclesWithoutFleetCard();
+        return vehicleEntities.stream()
+                .map(vehicleMapper::mapVehicleToVehicleResponse)
+                .collect(Collectors.toList());
+    }
+
+    private List<Vehicle> fetchAllVehiclesWithoutFleetCard() {
+        return vehicleRepository.findAllByFleetCardIsNull();
     }
 }

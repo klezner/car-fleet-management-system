@@ -22,6 +22,7 @@
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
             <li class="breadcrumb-item"><a href="/fleetcard">Karty floty</a></li>
+            <li class="breadcrumb-item"><a href="/fleetcard/list">Lista Kart floty</a></li>
             <li class="breadcrumb-item active">Karta floty - szczegóły</li>
         </ol>
         <!--Buttons-->
@@ -86,6 +87,11 @@
                             <tr>
                                 <th class="col col-3" scope="row">Typ</th>
                                 <td class="col col-9" th:text="${fleetCard.type}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Pojazd</th>
+                                <td class="col col-9"
+                                    th:text="${fleetCard.vehicle != null} ? '[' + ${fleetCard.vehicle.registrationNumber} + '] ' + ${fleetCard.vehicle.brand} + ' ' + ${fleetCard.vehicle.model} : 'Brak'"></td>
                             </tr>
                             <tr th:class="${fleetCard.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
                                 <th class="col col-3" scope="row">Status</th>

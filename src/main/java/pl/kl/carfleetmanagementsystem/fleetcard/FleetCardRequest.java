@@ -2,7 +2,10 @@ package pl.kl.carfleetmanagementsystem.fleetcard;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.kl.carfleetmanagementsystem.status.Status;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -21,4 +24,7 @@ public class FleetCardRequest {
     private LocalDate expirationDate;
     @NotBlank(message = "Fleet card type cannot be blank")
     private String type;
+    private Long vehicleId;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }
