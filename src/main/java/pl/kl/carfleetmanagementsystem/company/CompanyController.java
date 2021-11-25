@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -18,6 +19,18 @@ public class CompanyController {
     @GetMapping("")
     public String getCompanyHomePage() {
         return "company/index";
+    }
+
+    @GetMapping("/form")
+    public String getCompanyAddForm(Model model) {
+        model.addAttribute("company", new CompanyRequest());
+        return "company/add-form";
+    }
+
+    @PostMapping
+    public String submitCompanyForm(CompanyRequest companyRequest) {
+        companyService.saveCompany(companyRequest);
+        return "redirect:/company/list";
     }
 
     @GetMapping("/list")
