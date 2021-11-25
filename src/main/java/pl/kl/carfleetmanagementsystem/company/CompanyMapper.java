@@ -29,4 +29,12 @@ public class CompanyMapper {
                 .status(company.getStatus())
                 .build();
     }
+
+    public CompanyRequest mapCompanyToCompanyRequest(Company company) {
+        return CompanyRequest.builder()
+                .id(company.getId())
+                .name(company.getName())
+                .status(company.getStatus())
+                .build();
+    }
 }

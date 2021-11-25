@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,5 +30,15 @@ public class CompanyService {
 
     private List<Company> fetchAllCompanies() {
         return companyRepository.findAll();
+    }
+
+    public CompanyRequest fetchCompanyRequest(Long id) {
+        final Company company = fetchCompanyById(id);
+        return companyMapper.mapCompanyToCompanyRequest(company);
+    }
+
+    private Company fetchCompanyById(Long id) {
+        return companyRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Company with id: " + id + " not found!"));
     }
 }
