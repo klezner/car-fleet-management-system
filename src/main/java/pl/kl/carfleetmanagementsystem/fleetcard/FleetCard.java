@@ -25,8 +25,8 @@ public class FleetCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Fleet card number cannot be blank")
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "Fleet card number cannot be blank")
     private String number;
     @Column(nullable = false)
     @NotNull(message = "Fleet card expiration date cannot be blank")
@@ -42,10 +42,10 @@ public class FleetCard {
     private Status status;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    public LocalDateTime createdDate;
+    public LocalDateTime created;
     @Column(nullable = false)
     @UpdateTimestamp
-    public LocalDateTime modifiedDate;
+    public LocalDateTime modified;
 
     protected void setActive() {
         status = Status.ACTIVE;
