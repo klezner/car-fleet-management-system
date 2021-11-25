@@ -47,4 +47,11 @@ public class CompanyController {
         model.addAttribute("company", company);
         return "company/edit-form";
     }
+
+    @GetMapping("{id}")
+    public String getCompanyDetails(Model model, @PathVariable(name = "id") Long id) {
+        final CompanyResponse company = companyService.fetchCompanyResponse(id);
+        model.addAttribute("company", company);
+        return "company/details";
+    }
 }
