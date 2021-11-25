@@ -33,4 +33,14 @@ public class DepartmentMapper {
                 .status(department.getStatus())
                 .build();
     }
+
+    public DepartmentRequest mapDepartmentToDepartmentRequest(Department department) {
+        return DepartmentRequest.builder()
+                .id(department.getId())
+                .name(department.getName())
+                .abbreviation(department.getAbbreviation())
+                .comment(department.getComment())
+                .status(department.getStatus())
+                .build();
+    }
 }

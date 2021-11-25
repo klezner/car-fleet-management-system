@@ -3,6 +3,7 @@ package pl.kl.carfleetmanagementsystem.department;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,7 @@ public class DepartmentService {
         departmentRepository.save(department);
     }
 
-    public List<DepartmentResponse> fetchAllDepartmentsReponses() {
+    public List<DepartmentResponse> fetchAllDepartmentsResponses() {
         final List<Department> departmentEntities = fetchAllDepartments();
         return departmentEntities.stream()
                 .map(departmentMapper::mapDepartmentToDepartmentResponse)
@@ -28,5 +29,15 @@ public class DepartmentService {
 
     private List<Department> fetchAllDepartments() {
         return departmentRepository.findAll();
+    }
+
+    public DepartmentRequest fetchDepartmentRequest(Long id) {
+        final Department department = fetchDepartmentById(id);
+        return departmentMapper.mapDepartmentToDepartmentRequest(department);
+    }
+
+    private Department fetchDepartmentById(Long id) {
+        return departmentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Department with id: " + id + " not found!"));
     }
 }
