@@ -33,4 +33,12 @@ public class Company {
     @Column(nullable = false)
     @UpdateTimestamp
     public LocalDateTime modified;
+
+    protected void setActive() {
+        status = Status.ACTIVE;
+    }
+
+    protected void setInactive() {
+        status = Status.INACTIVE;
+    }
 }

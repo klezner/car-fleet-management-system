@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kl.carfleetmanagementsystem.status.SetStatus;
 
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/company")
-public class CompanyController {
+public class CompanyController implements SetStatus {
 
     private final CompanyService companyService;
 
@@ -53,5 +54,19 @@ public class CompanyController {
         final CompanyResponse company = companyService.fetchCompanyResponse(id);
         model.addAttribute("company", company);
         return "company/details";
+    }
+
+    @GetMapping("/active/{id}")
+    @Override
+    public String setActive(@PathVariable(name = "id") Long id) {
+        companyService.setActive(id);
+        return "redirect:/company/{id}";
+    }
+
+    @GetMapping("/inactive/{id}")
+    @Override
+    public String setInactive(@PathVariable(name = "id") Long id) {
+        companyService.setInactive(id);
+        return "redirect:/company/{id}";
     }
 }

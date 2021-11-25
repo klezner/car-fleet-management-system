@@ -46,4 +46,16 @@ public class CompanyService {
         final Company company = fetchCompanyById(id);
         return companyMapper.mapCompanyToCompanyResponse(company);
     }
+
+    public void setActive(Long id) {
+        final Company company = fetchCompanyById(id);
+        company.setActive();
+        companyRepository.save(company);
+    }
+
+    public void setInactive(Long id) {
+        final Company company = fetchCompanyById(id);
+        company.setInactive();
+        companyRepository.save(company);
+    }
 }
