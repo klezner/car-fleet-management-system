@@ -3,7 +3,6 @@ package pl.kl.carfleetmanagementsystem.fleetcard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.kl.carfleetmanagementsystem.status.Status;
 import pl.kl.carfleetmanagementsystem.validator.DateValidator;
 import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
@@ -27,7 +26,6 @@ public class FleetCardService {
     public void saveFleetCard(FleetCardRequest fleetCardRequest) {
         DateValidator.validateFleetCardExpirationDate(fleetCardRequest.getExpirationDate(), SYSTEM_START_DATE);
         final FleetCard fleetCard = fleetCardMapper.mapFleetCardRequestToFleetCard(fleetCardRequest);
-        setFleetCardStatus(fleetCard, fleetCardRequest.getStatus());
         addVehicleToFleetCard(fleetCard, fleetCardRequest.getVehicleId());
         fleetCardRepository.save(fleetCard);
     }
@@ -36,14 +34,6 @@ public class FleetCardService {
         if (vehicleId != null) {
             final Vehicle vehicle = vehicleService.fetchVehicleById(vehicleId);
             fleetCard.setVehicle(vehicle);
-        }
-    }
-
-    private void setFleetCardStatus(FleetCard fleetCard, Status status) {
-        if (status == null || status == Status.ACTIVE) {
-            fleetCard.setActive();
-        } else if (status == Status.INACTIVE) {
-            fleetCard.setInactive();
         }
     }
 

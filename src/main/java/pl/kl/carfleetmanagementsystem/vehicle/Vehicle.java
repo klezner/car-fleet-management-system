@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 import pl.kl.carfleetmanagementsystem.fleetcard.FleetCard;
 import pl.kl.carfleetmanagementsystem.status.Status;
@@ -13,6 +15,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -23,27 +26,39 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     @NotBlank(message = "Vehicle brand cannot be blank")
     private String brand;
     @NotBlank(message = "Vehicle model cannot be blank")
     private String model;
+    @Column(nullable = false, unique = true)
     @NotBlank(message = "Vehicle registration number cannot be blank")
     @Length(min = 3, max = 8, message = "Incorrect vehicle registration number length")
     private String registrationNumber;
+    @Column(nullable = false, unique = true)
     @NotBlank(message = "Vehicle vin number cannot be blank")
     @Length(min = 17, max = 17, message = "Incorrect vehicle vin number length")
     private String vinNumber;
+    @Column(nullable = false)
     @NotNull(message = "Vehicle production year cannot be blank")
     @Min(2000)
     @Max(2050)
     private Integer productionYear;
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Vehicle type cannot be blank")
     private VehicleType type;
-    @Enumerated(EnumType.STRING)
-    private Status status;
     @OneToOne(mappedBy = "vehicle")
     private FleetCard fleetCard;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    public LocalDateTime created;
+    @Column(nullable = false)
+    @UpdateTimestamp
+    public LocalDateTime modified;
 
     protected void setActive() {
         status = Status.ACTIVE;

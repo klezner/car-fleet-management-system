@@ -2,6 +2,7 @@ package pl.kl.carfleetmanagementsystem.fleetcard;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import pl.kl.carfleetmanagementsystem.status.Status;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleMapper;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
 
@@ -17,7 +18,16 @@ public class FleetCardMapper {
                 .number(fleetCardRequest.getNumber())
                 .expirationDate(fleetCardRequest.getExpirationDate())
                 .type(fleetCardRequest.getType())
+                .status(setFleetCardStatus(fleetCardRequest.getStatus()))
                 .build();
+    }
+
+    private Status setFleetCardStatus(Status status) {
+        if (status == Status.INACTIVE) {
+            return Status.INACTIVE;
+        } else {
+            return Status.ACTIVE;
+        }
     }
 
     public FleetCardRequest mapFleetCardToFleetCardRequest(FleetCard fleetCard) {
