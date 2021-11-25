@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Lista Firm</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/company">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Firm
+                    </button>
+                </a>
+            </div>
+        </div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+            <li class="breadcrumb-item"><a href="/company">Firmy</a></li>
+            <li class="breadcrumb-item active">Lista Firm</li>
+        </ol>
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Lista Firm
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th class="col col-10">Nazwa</th>
+                                <th class="col col-1">Status</th>
+                                <th class="col col-1">Akcje</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th class="col col-10">Nazwa</th>
+                                <th class="col col-1">Status</th>
+                                <th class="col col-1">Akcje</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="company : ${companies}"
+                                th:class="${company.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
+                                <td class="col col-10" th:text="${company.name}"></td>
+                                <td class="col col-1">
+                                    <span th:if="${company.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}">
+                                        <i class="fas fa-check me-1"></i><span
+                                            th:text="${company.status.getCommonName()}"></span>
+                                    </span>
+                                    <span th:if="${company.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}">
+                                        <i class="fas fa-times me-1"></i><span
+                                            th:text="${company.status.getCommonName()}"></span>
+                                    </span>
+                                </td>
+                                <td class="col col-1">
+                                    <div class="d-flex justify-content-center btn-group-sm" role="group">
+                                        <a th:href="@{/company/{id}(id=${company.id})}">
+                                            <button class="btn btn-sm btn-outline-info m-1" data-toggle="tooltip"
+                                                    data-placement="top" title="Szczegóły Firmy">
+                                                <i class="fas fa-info-circle"></i> Szczegóły
+                                            </button>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

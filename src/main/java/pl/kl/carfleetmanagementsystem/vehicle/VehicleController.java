@@ -19,7 +19,7 @@ public class VehicleController implements SetStatus {
     private final VehicleService vehicleService;
 
     @GetMapping("")
-    public String getCarHomePage() {
+    public String getVehicleHomePage() {
         return "vehicle/index";
     }
 
