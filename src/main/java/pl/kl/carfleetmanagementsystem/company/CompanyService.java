@@ -47,12 +47,18 @@ public class CompanyService {
         return companyMapper.mapCompanyToCompanyResponse(company);
     }
 
+    public void deleteCompany(Long id) {
+        companyRepository.deleteById(id);
+    }
+
+    @Transactional
     public void setActive(Long id) {
         final Company company = fetchCompanyById(id);
         company.setActive();
         companyRepository.save(company);
     }
 
+    @Transactional
     public void setInactive(Long id) {
         final Company company = fetchCompanyById(id);
         company.setInactive();

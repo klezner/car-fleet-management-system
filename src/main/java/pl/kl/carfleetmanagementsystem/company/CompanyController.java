@@ -56,6 +56,12 @@ public class CompanyController implements SetStatus {
         return "company/details";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deleteCompany(@PathVariable(name = "id") Long id) {
+        companyService.deleteCompany(id);
+        return "redirect:/company/list";
+    }
+
     @GetMapping("/active/{id}")
     @Override
     public String setActive(@PathVariable(name = "id") Long id) {
