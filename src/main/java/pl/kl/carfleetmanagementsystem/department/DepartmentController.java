@@ -54,4 +54,10 @@ public class DepartmentController {
         model.addAttribute("department", department);
         return "department/details";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteDepartment(@PathVariable(name = "id") Long id) {
+        departmentService.deleteDepartment(id);
+        return "redirect:/department/list";
+    }
 }

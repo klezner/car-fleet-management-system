@@ -45,4 +45,8 @@ public class DepartmentService {
         final Department department = fetchDepartmentById(id);
         return departmentMapper.mapDepartmentToDepartmentResponse(department);
     }
+
+    public void deleteDepartment(Long id) {
+        departmentRepository.deleteById(id);
+    }
 }
