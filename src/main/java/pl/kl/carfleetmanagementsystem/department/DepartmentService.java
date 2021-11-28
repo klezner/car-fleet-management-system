@@ -2,6 +2,7 @@ package pl.kl.carfleetmanagementsystem.department;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -48,5 +49,18 @@ public class DepartmentService {
 
     public void deleteDepartment(Long id) {
         departmentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void setActive(Long id) {
+        final Department department = fetchDepartmentById(id);
+        department.setActive();
+        departmentRepository.save(department);
+    }
+
+    public void setInactive(Long id) {
+        final Department department = fetchDepartmentById(id);
+        department.setInactive();
+        departmentRepository.save(department);
     }
 }

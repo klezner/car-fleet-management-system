@@ -60,4 +60,16 @@ public class DepartmentController {
         departmentService.deleteDepartment(id);
         return "redirect:/department/list";
     }
+
+    @GetMapping("/active/{id}")
+    public String setActive(@PathVariable(name = "id") Long id) {
+        departmentService.setActive(id);
+        return "redirect:/department/{id}";
+    }
+
+    @GetMapping("/inactive/{id}")
+    public String setInactive(@PathVariable(name = "id") Long id) {
+        departmentService.setInactive(id);
+        return "redirect:/department/{id}";
+    }
 }

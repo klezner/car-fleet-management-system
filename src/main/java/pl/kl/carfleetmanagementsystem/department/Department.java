@@ -39,4 +39,12 @@ public class Department {
     @Column(nullable = false)
     @UpdateTimestamp
     public LocalDateTime modified;
+
+    public void setActive() {
+        this.status = Status.ACTIVE;
+    }
+
+    public void setInactive() {
+        this.status = Status.INACTIVE;
+    }
 }
