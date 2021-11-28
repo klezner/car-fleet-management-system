@@ -47,4 +47,11 @@ public class DepartmentController {
         model.addAttribute("department", department);
         return "department/edit-form";
     }
+
+    @GetMapping("/{id}")
+    public String getDepartmentDetails(Model model, @PathVariable(name = "id") Long id) {
+        final DepartmentResponse department = departmentService.fetchDepartmentResponse(id);
+        model.addAttribute("department", department);
+        return "department/details";
+    }
 }
