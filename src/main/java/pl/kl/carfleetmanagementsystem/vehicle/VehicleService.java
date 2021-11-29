@@ -3,6 +3,8 @@ package pl.kl.carfleetmanagementsystem.vehicle;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.kl.carfleetmanagementsystem.department.Department;
+import pl.kl.carfleetmanagementsystem.department.DepartmentService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -12,13 +14,22 @@ import java.util.stream.Collectors;
 @Service
 public class VehicleService {
 
+    private final DepartmentService departmentService;
     private final VehicleMapper vehicleMapper;
     private final VehicleRepository vehicleRepository;
 
     @Transactional
     public void saveVehicle(VehicleRequest vehicleRequest) {
         final Vehicle vehicle = vehicleMapper.mapVehicleRequestToVehicle(vehicleRequest);
+        addDepartmentToVehicle(vehicle, vehicleRequest.getDepartmentId());
         vehicleRepository.save(vehicle);
+    }
+
+    private void addDepartmentToVehicle(Vehicle vehicle, Long departmentId) {
+        if (departmentId != null) {
+            final Department department = departmentService.fetchDepartmentById(departmentId);
+            vehicle.setDepartment(department);
+        }
     }
 
     public List<VehicleResponse> fetchAllVehiclesResponses() {

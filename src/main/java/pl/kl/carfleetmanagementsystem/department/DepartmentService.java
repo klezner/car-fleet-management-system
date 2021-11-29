@@ -46,7 +46,7 @@ public class DepartmentService {
         return departmentMapper.mapDepartmentToDepartmentRequest(department);
     }
 
-    private Department fetchDepartmentById(Long id) {
+    public Department fetchDepartmentById(Long id) {
         return departmentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Department with id: " + id + " not found!"));
     }

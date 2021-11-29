@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kl.carfleetmanagementsystem.department.DepartmentResponse;
+import pl.kl.carfleetmanagementsystem.department.DepartmentService;
 import pl.kl.carfleetmanagementsystem.status.SetStatus;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequestMapping("/vehicle")
 public class VehicleController implements SetStatus {
 
+    private final DepartmentService departmentService;
     private final VehicleService vehicleService;
 
     @GetMapping("")
@@ -25,8 +28,10 @@ public class VehicleController implements SetStatus {
 
     @GetMapping("/form")
     public String getVehicleAddForm(Model model) {
-        model.addAttribute("vehicle", new VehicleRequest());
+        final List<DepartmentResponse> departments = departmentService.fetchAllDepartmentsResponses();
+        model.addAttribute("departments", departments);
         model.addAttribute("types", VehicleType.values());
+        model.addAttribute("vehicle", new VehicleRequest());
         return "vehicle/add-form";
     }
 
@@ -45,7 +50,9 @@ public class VehicleController implements SetStatus {
 
     @GetMapping("/edit/{id}")
     public String getVehicleEditForm(Model model, @PathVariable(name = "id") Long id) {
+        final List<DepartmentResponse> departments = departmentService.fetchAllDepartmentsResponses();
         final VehicleRequest vehicle = vehicleService.fetchVehicleRequest(id);
+        model.addAttribute("departments", departments);
         model.addAttribute("vehicle", vehicle);
         model.addAttribute("types", VehicleType.values());
         return "vehicle/edit-form";

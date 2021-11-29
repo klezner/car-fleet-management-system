@@ -2,6 +2,7 @@ package pl.kl.carfleetmanagementsystem.vehicle;
 
 import lombok.Builder;
 import lombok.Getter;
+import pl.kl.carfleetmanagementsystem.department.DepartmentResponse;
 import pl.kl.carfleetmanagementsystem.status.Status;
 
 @Getter
@@ -14,5 +15,6 @@ public class VehicleResponse {
     private String vinNumber;
     private Integer productionYear;
     private VehicleType type;
+    private DepartmentResponse department;
     private Status status;
 }
