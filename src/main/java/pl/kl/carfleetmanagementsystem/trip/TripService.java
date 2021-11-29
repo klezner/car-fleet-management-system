@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,5 +30,15 @@ public class TripService {
 
     private List<Trip> fetchAllTrips() {
         return tripRepository.findAll();
+    }
+
+    private Trip fetchTripById(Long id) {
+        return tripRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Trip with id: " + id + " not found!"));
+    }
+
+    public TripResponse fetchTripResponse(Long id) {
+        final Trip trip = fetchTripById(id);
+        return tripMapper.mapTripToTripResponse(trip);
     }
 }
