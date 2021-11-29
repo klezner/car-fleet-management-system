@@ -41,6 +41,13 @@ public class TripController {
         return "trip/list";
     }
 
+    @GetMapping("/edit/{id}")
+    public String getTripEditForm(Model model, @PathVariable(name = "id") Long id) {
+        final TripRequest trip = tripService.fetchTripRequest(id);
+        model.addAttribute("trip", trip);
+        return "trip/edit-form";
+    }
+
     @GetMapping("{id}")
     public String getTripDetails(Model model, @PathVariable(name = "id") Long id) {
         final TripResponse trip = tripService.fetchTripResponse(id);

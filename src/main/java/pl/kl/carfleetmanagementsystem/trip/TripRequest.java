@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @Builder
 public class TripRequest {
-    private Long Id;
+    private Long id;
     @NotNull(message = "Departure date cannot be blank")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate departureDate;

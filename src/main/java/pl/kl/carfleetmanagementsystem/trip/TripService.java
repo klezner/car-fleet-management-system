@@ -41,4 +41,9 @@ public class TripService {
         final Trip trip = fetchTripById(id);
         return tripMapper.mapTripToTripResponse(trip);
     }
+
+    public TripRequest fetchTripRequest(Long id) {
+        final Trip trip = fetchTripById(id);
+        return tripMapper.mapTripToTripRequest(trip);
+    }
 }
