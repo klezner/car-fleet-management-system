@@ -14,4 +14,15 @@ public class TripMapper {
                 .comments(tripRequest.getComments())
                 .build();
     }
+
+    public TripResponse mapTripToTripResponse(Trip trip) {
+        return TripResponse.builder()
+                .id(trip.getId())
+                .departureDate(trip.getDepartureDate())
+                .returnDate(trip.getReturnDate())
+                .departureMeterStatus(trip.getDepartureMeterStatus())
+                .returnMeterStatus(trip.getReturnMeterStatus())
+                .comments(trip.getComments())
+                .build();
+    }
 }

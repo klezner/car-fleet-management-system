@@ -36,9 +36,9 @@
                             <tr>
                                 <th class="col col-2">Data wyjazdu</th>
                                 <th class="col col-2">Data powrotu</th>
-                                <th class="col col-1">Stan licznika przed</th>
-                                <th class="col col-1">Stan licznika po</th>
-                                <th class="col col-5">Opis</th>
+                                <th class="col col-2">Stan licznika przed</th>
+                                <th class="col col-3">Stan licznika po</th>
+                                <th class="col col-3">Opis</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </thead>
@@ -46,23 +46,23 @@
                             <tr>
                                 <th class="col col-2">Data wyjazdu</th>
                                 <th class="col col-2">Data powrotu</th>
-                                <th class="col col-1">Stan licznika przed</th>
-                                <th class="col col-1">Stan licznika po</th>
-                                <th class="col col-5">Opis</th>
+                                <th class="col col-2">Stan licznika przed</th>
+                                <th class="col col-2">Stan licznika po</th>
+                                <th class="col col-3">Opis</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <tr th:each="trip : ${trips}">
-                                <td class="col col-5" th:text="${trip.departureDate}"></td>
+                                <td class="col col-2" th:text="${trip.departureDate}"></td>
                                 <td class="col col-2" th:text="${trip.returnDate}"></td>
                                 <td class="col col-2" th:text="${trip.departureMeterStatus}"></td>
                                 <td class="col col-2" th:text="${trip.returnMeterStatus}"></td>
-                                <td class="col col-2"
+                                <td class="col col-3"
                                     th:text="${trip.comments != null} ? ${trip.comments} : 'Brak'"></td>
                                 <td class="col col-1">
                                     <div class="d-flex justify-content-center btn-group-sm" role="group">
-                                        <a th:href="@{/fleetcard/{id}(id=${fleetCard.id})}">
+                                        <a th:href="@{/trip/{id}(id=${trip.id})}">
                                             <button class="btn btn-sm btn-outline-info m-1" data-toggle="tooltip"
                                                     data-placement="top" title="Szczegóły Karty floty">
                                                 <i class="fas fa-info-circle"></i> Szczegóły
