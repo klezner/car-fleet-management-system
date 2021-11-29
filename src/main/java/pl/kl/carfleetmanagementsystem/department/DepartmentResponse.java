@@ -2,6 +2,7 @@ package pl.kl.carfleetmanagementsystem.department;
 
 import lombok.Builder;
 import lombok.Getter;
+import pl.kl.carfleetmanagementsystem.company.CompanyResponse;
 import pl.kl.carfleetmanagementsystem.status.Status;
 
 @Getter
@@ -11,5 +12,6 @@ public class DepartmentResponse {
     private String name;
     private String abbreviation;
     private String comment;
+    private CompanyResponse company;
     private Status status;
 }

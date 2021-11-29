@@ -14,6 +14,6 @@ public class FleetCardResponse {
     private String number;
     private LocalDate expirationDate;
     private String type;
-    private Status status;
     private VehicleResponse vehicle;
+    private Status status;
 }

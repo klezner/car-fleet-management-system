@@ -18,6 +18,7 @@ public class DepartmentRequest {
     @NotBlank(message = "Department abbreviation cannot be blank")
     private String abbreviation;
     private String comment;
+    private Long companyId;
     @NotNull(message = "Department status cannot be blank")
     private Status status;
 }

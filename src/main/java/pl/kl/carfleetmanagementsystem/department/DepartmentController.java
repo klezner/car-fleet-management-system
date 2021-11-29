@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kl.carfleetmanagementsystem.company.CompanyResponse;
+import pl.kl.carfleetmanagementsystem.company.CompanyService;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @RequestMapping("/department")
 public class DepartmentController {
 
+    private final CompanyService companyService;
     private final DepartmentService departmentService;
 
     @GetMapping()
@@ -24,6 +27,8 @@ public class DepartmentController {
 
     @GetMapping("/form")
     public String getDepartmentAddForm(Model model) {
+        final List<CompanyResponse> companies = companyService.fetchAllCompaniesResponses();
+        model.addAttribute("companies", companies);
         model.addAttribute("department", new DepartmentRequest());
         return "department/add-form";
     }
@@ -44,6 +49,8 @@ public class DepartmentController {
     @GetMapping("/edit/{id}")
     public String getDepartmentEditForm(Model model, @PathVariable(name = "id") Long id) {
         final DepartmentRequest department = departmentService.fetchDepartmentRequest(id);
+        final List<CompanyResponse> companies = companyService.fetchAllCompaniesResponses();
+        model.addAttribute("companies", companies);
         model.addAttribute("department", department);
         return "department/edit-form";
     }

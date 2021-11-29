@@ -54,6 +54,13 @@
                                 <input class="form-control" id="comment" type="text" placeholder="Opis"
                                        th:value="*{comment}" th:field="*{comment}">
                             </div>
+                            <div class="mb-3">
+                                <label for="companyId">Firma</label>
+                                <select class="form-control" id="companyId" th:field="*{companyId}">
+                                    <option th:each="company : ${companies}" th:value="${company.id}"
+                                            th:text="${company.name}"></option>
+                                </select>
+                            </div>
                             <div>
                                 <input type="hidden" th:field="*{status}" th:value="*{status}">
                             </div>

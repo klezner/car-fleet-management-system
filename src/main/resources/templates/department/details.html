@@ -88,6 +88,10 @@
                                 <th class="col col-3" scope="row">Opis</th>
                                 <td class="col col-9" th:text="${department.comment}"></td>
                             </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Firma</th>
+                                <td class="col col-9" th:text="${department.company.name}"></td>
+                            </tr>
                             <tr th:class="${department.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
                                 <th class="col col-3" scope="row">Status</th>
                                 <td class="col col-9">

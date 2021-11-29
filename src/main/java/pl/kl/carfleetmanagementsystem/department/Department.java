@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import pl.kl.carfleetmanagementsystem.company.Company;
 import pl.kl.carfleetmanagementsystem.status.Status;
 
 import javax.persistence.*;
@@ -29,6 +30,10 @@ public class Department {
     @NotBlank(message = "Department abbreviation cannot be blank")
     private String abbreviation;
     private String comment;
+    @JoinColumn(nullable = false)
+    @NotNull(message = "Company cannot be blank")
+    @ManyToOne(optional = false)
+    private Company company;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Department status cannot be blank")
@@ -46,5 +51,9 @@ public class Department {
 
     public void setInactive() {
         this.status = Status.INACTIVE;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

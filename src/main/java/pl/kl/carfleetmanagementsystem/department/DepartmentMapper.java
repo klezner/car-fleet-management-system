@@ -1,10 +1,15 @@
 package pl.kl.carfleetmanagementsystem.department;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import pl.kl.carfleetmanagementsystem.company.CompanyMapper;
 import pl.kl.carfleetmanagementsystem.status.Status;
 
 @Component
+@RequiredArgsConstructor
 public class DepartmentMapper {
+
+    private final CompanyMapper companyMapper;
 
     public Department mapDepartmentRequestToDepartment(DepartmentRequest departmentRequest) {
         return Department.builder()
@@ -24,22 +29,24 @@ public class DepartmentMapper {
         }
     }
 
-    public DepartmentResponse mapDepartmentToDepartmentResponse(Department department) {
-        return DepartmentResponse.builder()
-                .id(department.getId())
-                .name(department.getName())
-                .abbreviation(department.getAbbreviation())
-                .comment(department.getComment())
-                .status(department.getStatus())
-                .build();
-    }
-
     public DepartmentRequest mapDepartmentToDepartmentRequest(Department department) {
         return DepartmentRequest.builder()
                 .id(department.getId())
                 .name(department.getName())
                 .abbreviation(department.getAbbreviation())
                 .comment(department.getComment())
+                .companyId(department.getCompany().getId())
+                .status(department.getStatus())
+                .build();
+    }
+
+    public DepartmentResponse mapDepartmentToDepartmentResponse(Department department) {
+        return DepartmentResponse.builder()
+                .id(department.getId())
+                .name(department.getName())
+                .abbreviation(department.getAbbreviation())
+                .comment(department.getComment())
+                .company(companyMapper.mapCompanyToCompanyResponse(department.getCompany()))
                 .status(department.getStatus())
                 .build();
     }
