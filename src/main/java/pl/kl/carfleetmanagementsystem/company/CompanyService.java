@@ -37,7 +37,7 @@ public class CompanyService {
         return companyMapper.mapCompanyToCompanyRequest(company);
     }
 
-    private Company fetchCompanyById(Long id) {
+    public Company fetchCompanyById(Long id) {
         return companyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Company with id: " + id + " not found!"));
     }

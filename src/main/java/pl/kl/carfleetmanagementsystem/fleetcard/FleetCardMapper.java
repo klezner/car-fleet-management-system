@@ -37,8 +37,8 @@ public class FleetCardMapper {
                 .number(fleetCard.getNumber())
                 .expirationDate(fleetCard.getExpirationDate())
                 .type(fleetCard.getType())
-                .status(fleetCard.getStatus())
                 .vehicleId(setVehicleId(fleetCard.getVehicle()))
+                .status(fleetCard.getStatus())
                 .build();
     }
 
@@ -51,20 +51,21 @@ public class FleetCardMapper {
     }
 
     public FleetCardResponse mapFleetCardToFleetCardResponse(FleetCard fleetCard) {
-        VehicleResponse vehicle;
-        if (fleetCard.getVehicle() != null) {
-            vehicle = vehicleMapper.mapVehicleToVehicleResponse(fleetCard.getVehicle());
-        } else {
-            vehicle = null;
-        }
-
         return FleetCardResponse.builder()
                 .id(fleetCard.getId())
                 .number(fleetCard.getNumber())
                 .expirationDate(fleetCard.getExpirationDate())
                 .type(fleetCard.getType())
+                .vehicle(getVehicleResponse(fleetCard))
                 .status(fleetCard.getStatus())
-                .vehicle(vehicle)
                 .build();
+    }
+
+    private VehicleResponse getVehicleResponse(FleetCard fleetCard) {
+        if (fleetCard.getVehicle() != null) {
+            return vehicleMapper.mapVehicleToVehicleResponse(fleetCard.getVehicle());
+        } else {
+            return null;
+        }
     }
 }

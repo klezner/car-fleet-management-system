@@ -1,4 +1,4 @@
-package pl.kl.carfleetmanagementsystem.fleetcard;
+package pl.kl.carfleetmanagementsystem.department;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,14 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
+import pl.kl.carfleetmanagementsystem.company.Company;
 import pl.kl.carfleetmanagementsystem.status.Status;
-import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,25 +19,24 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Builder
-public class FleetCard {
+public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
-    @NotBlank(message = "Fleet card number cannot be blank")
-    private String number;
     @Column(nullable = false)
-    @NotNull(message = "Fleet card expiration date cannot be blank")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate expirationDate;
+    @NotBlank(message = "Department name cannot be blank")
+    private String name;
     @Column(nullable = false)
-    @NotBlank(message = "Fleet card type cannot be blank")
-    private String type;
-    @OneToOne
-    private Vehicle vehicle;
+    @NotBlank(message = "Department abbreviation cannot be blank")
+    private String abbreviation;
+    private String comment;
+    @JoinColumn(nullable = false)
+    @NotNull(message = "Company cannot be blank")
+    @ManyToOne(optional = false)
+    private Company company;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Fleet card status cannot be blank")
+    @NotNull(message = "Department status cannot be blank")
     private Status status;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -48,15 +45,15 @@ public class FleetCard {
     @UpdateTimestamp
     public LocalDateTime modified;
 
-    protected void setActive() {
-        status = Status.ACTIVE;
+    public void setActive() {
+        this.status = Status.ACTIVE;
     }
 
-    protected void setInactive() {
-        status = Status.INACTIVE;
+    public void setInactive() {
+        this.status = Status.INACTIVE;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
