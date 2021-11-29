@@ -54,4 +54,10 @@ public class TripController {
         model.addAttribute("trip", trip);
         return "trip/details";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteTrip(@PathVariable(name = "id") Long id) {
+        tripService.deleteTrip(id);
+        return "redirect:/trip/list";
+    }
 }

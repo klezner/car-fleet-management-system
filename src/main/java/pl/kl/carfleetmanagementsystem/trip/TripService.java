@@ -46,4 +46,8 @@ public class TripService {
         final Trip trip = fetchTripById(id);
         return tripMapper.mapTripToTripRequest(trip);
     }
+
+    public void deleteTrip(Long id) {
+        tripRepository.deleteById(id);
+    }
 }
