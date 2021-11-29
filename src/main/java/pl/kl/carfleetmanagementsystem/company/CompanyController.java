@@ -18,7 +18,7 @@ public class CompanyController implements SetStatus {
 
     private final CompanyService companyService;
 
-    @GetMapping("")
+    @GetMapping
     public String getCompanyHomePage() {
         return "company/index";
     }
