@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
+import pl.kl.carfleetmanagementsystem.department.Department;
 import pl.kl.carfleetmanagementsystem.fleetcard.FleetCard;
 import pl.kl.carfleetmanagementsystem.status.Status;
 
@@ -50,6 +51,8 @@ public class Vehicle {
     private VehicleType type;
     @OneToOne(mappedBy = "vehicle")
     private FleetCard fleetCard;
+    @OneToOne
+    private Department department;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Vehicle status cannot be blank")
@@ -67,5 +70,9 @@ public class Vehicle {
 
     protected void setInactive() {
         status = Status.INACTIVE;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

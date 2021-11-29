@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import pl.kl.carfleetmanagementsystem.company.Company;
 import pl.kl.carfleetmanagementsystem.status.Status;
+import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -34,6 +35,8 @@ public class Department {
     @NotNull(message = "Company cannot be blank")
     @ManyToOne(optional = false)
     private Company company;
+    @OneToOne(mappedBy = "department")
+    private Vehicle vehicle;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Department status cannot be blank")

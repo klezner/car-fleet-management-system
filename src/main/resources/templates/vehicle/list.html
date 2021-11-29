@@ -36,10 +36,11 @@
                             <tr>
                                 <th class="col col-2">Nr rejestracyjny</th>
                                 <th class="col col-2">Marka</th>
-                                <th class="col col-2">Model</th>
+                                <th class="col col-1">Model</th>
                                 <th class="col col-2">VIN</th>
                                 <th class="col col-1">Rok produkcji</th>
                                 <th class="col col-1">Typ</th>
+                                <th class="col col-1">Firma/Departament</th>
                                 <th class="col col-1">Status</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
@@ -48,10 +49,11 @@
                             <tr>
                                 <th class="col col-2">Nr rejestracyjny</th>
                                 <th class="col col-2">Marka</th>
-                                <th class="col col-2">Model</th>
+                                <th class="col col-1">Model</th>
                                 <th class="col col-2">VIN</th>
                                 <th class="col col-1">Rok produkcji</th>
                                 <th class="col col-1">Typ</th>
+                                <th class="col col-1">Firma/Departament</th>
                                 <th class="col col-1">Status</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
@@ -61,10 +63,12 @@
                                 th:class="${vehicle.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
                                 <td class="col col-2" th:text="${vehicle.registrationNumber}"></td>
                                 <td class="col col-2" th:text="${vehicle.brand}"></td>
-                                <td class="col col-2" th:text="${vehicle.model}"></td>
+                                <td class="col col-1" th:text="${vehicle.model}"></td>
                                 <td class="col col-2" th:text="${vehicle.vinNumber}"></td>
                                 <td class="col col-1" th:text="${vehicle.productionYear}"></td>
                                 <td class="col col-1" th:text="${vehicle.type.getCommonName()}"></td>
+                                <td class="col col-1"
+                                    th:text="${vehicle.department != null} ? '[' + ${vehicle.department.company.name} + '] ' + ${vehicle.department.name} : 'Brak'"></td>
                                 <td class="col col-1">
                                     <span th:if="${vehicle.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}">
                                         <i class="fas fa-check me-1"></i><span

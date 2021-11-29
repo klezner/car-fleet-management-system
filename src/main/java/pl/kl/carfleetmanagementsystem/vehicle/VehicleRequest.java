@@ -32,6 +32,7 @@ public class VehicleRequest {
     private Integer productionYear;
     @NotNull(message = "Vehicle type cannot be blank")
     private VehicleType type;
+    private Long departmentId;
     @NotNull(message = "Vehicle status cannot be blank")
     private Status status;
 }
