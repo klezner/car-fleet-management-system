@@ -18,49 +18,59 @@
                 </a>
             </div>
         </div>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
-            <li class="breadcrumb-item"><a href="/trip">Wyjazdy</a></li>
-            <li class="breadcrumb-item active">Dodaj Wyjazd</li>
-        </ol>
         <div class="row">
-            <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
-                <form th:action="@{/trip}" method="post" th:object="${trip}">
+            <div class="col col-12">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+                    <li class="breadcrumb-item"><a href="/trip">Wyjazdy</a></li>
+                    <li class="breadcrumb-item active">Dodaj Wyjazd</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
+                <form th:action="@{/trip/save}" method="post" th:object="${trip}">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-align-justify me-1"></i>
                             Formularz dodawania Wyjazdu
                         </div>
                         <div class="card-body">
-                            <input type="hidden" th:field="*{id}" th:value="*{id}">
                             <div class="mb-3">
                                 <label for="departureDate">Data wyjazdu</label>
                                 <input class="form-control" id="departureDate" type="date" placeholder="2021-01-01"
                                        min="2020-01-01" max="2050-12-31" required
-                                       th:value="*{departureDate}" th:field="*{departureDate}">
+                                       th:field="*{departureDate}">
                             </div>
                             <div class="mb-3">
                                 <label for="returnDate">Data powrotu</label>
                                 <input class="form-control" id="returnDate" type="date" placeholder="2021-01-01"
                                        min="2020-01-01" max="2050-12-31" required
-                                       th:value="*{returnDate}" th:field="*{returnDate}">
+                                       th:field="*{returnDate}">
                             </div>
                             <div class="mb-3">
                                 <label for="departureMeterStatus">Stan licznika przed</label>
                                 <input class="form-control" id="departureMeterStatus" type="number" placeholder="0"
                                        min="0" required
-                                       th:value="*{departureMeterStatus}" th:field="*{departureMeterStatus}">
+                                       th:field="*{departureMeterStatus}">
                             </div>
                             <div class="mb-3">
                                 <label for="returnMeterStatus">Stan licznika po</label>
                                 <input class="form-control" id="returnMeterStatus" type="number" placeholder="0"
                                        min="0" required
-                                       th:value="*{returnMeterStatus}" th:field="*{returnMeterStatus}">
+                                       th:field="*{returnMeterStatus}">
                             </div>
                             <div class="mb-3">
                                 <label for="comments">Opis</label>
                                 <input class="form-control" id="comments" type="text" placeholder="Opis wyjazdu"
-                                       th:value="*{comments}" th:field="*{comments}">
+                                       th:field="*{comments}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="vehicleId">Pojazd</label>
+                                <select class="form-control" id="vehicleId" required th:field="*{vehicleId}">
+                                    <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}"
+                                            th:text="'[' + ${vehicle.registrationNumber} + '] ' + ${vehicle.brand} + ' ' +  ${vehicle.model}"></option>
+                                </select>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Wyślij</button>

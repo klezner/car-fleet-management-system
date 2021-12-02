@@ -27,4 +27,5 @@ public class TripRequest {
     @Min(0)
     private Integer returnMeterStatus;
     private String comments;
+    private Long vehicleId;
 }

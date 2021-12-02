@@ -1,9 +1,15 @@
 package pl.kl.carfleetmanagementsystem.trip;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import pl.kl.carfleetmanagementsystem.vehicle.VehicleMapper;
 
 @Component
+@RequiredArgsConstructor
 public class TripMapper {
+
+    private final VehicleMapper vehicleMapper;
+
     public Trip mapTripRequestToTrip(TripRequest tripRequest) {
         return Trip.builder()
                 .id(tripRequest.getId())
@@ -22,7 +28,9 @@ public class TripMapper {
                 .returnDate(trip.getReturnDate())
                 .departureMeterStatus(trip.getDepartureMeterStatus())
                 .returnMeterStatus(trip.getReturnMeterStatus())
+                .distance(trip.getDistance())
                 .comments(trip.getComments())
+                .vehicle(vehicleMapper.mapVehicleToVehicleResponse(trip.getVehicle()))
                 .build();
     }
 

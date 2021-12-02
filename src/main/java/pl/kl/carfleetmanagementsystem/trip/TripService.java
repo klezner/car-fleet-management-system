@@ -3,6 +3,8 @@ package pl.kl.carfleetmanagementsystem.trip;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
+import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -12,13 +14,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TripService {
 
+    private final VehicleService vehicleService;
     private final TripMapper tripMapper;
     private final TripRepository tripRepository;
 
     @Transactional
     public void saveTrip(TripRequest tripRequest) {
         final Trip trip = tripMapper.mapTripRequestToTrip(tripRequest);
+        addVehicleToTrip(trip, tripRequest.getVehicleId());
         tripRepository.save(trip);
+    }
+
+    private void addVehicleToTrip(Trip trip, Long vehicleId) {
+        final Vehicle vehicle = vehicleService.fetchVehicleById(vehicleId);
+        trip.setVehicle(vehicle);
     }
 
     public List<TripResponse> fetchAllTripsResponses() {
@@ -34,6 +43,7 @@ public class TripService {
 
     private Trip fetchTripById(Long id) {
         return tripRepository.findById(id)
+//                .orElse(null);
                 .orElseThrow(() -> new EntityNotFoundException("Trip with id: " + id + " not found!"));
     }
 

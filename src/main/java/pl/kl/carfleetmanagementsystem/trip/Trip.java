@@ -5,8 +5,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -39,11 +41,21 @@ public class Trip {
     @NotNull(message = "Meter status cannot be blank")
     @Min(0)
     private Integer returnMeterStatus;
+    @Formula("return_meter_status - departure_meter_status")
+    private Integer distance;
     private String comments;
+    @JoinColumn(nullable = false)
+    @NotNull(message = "Vehicle cannot be blank")
+    @ManyToOne(optional = false)
+    private Vehicle vehicle;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     public LocalDateTime created;
     @Column(nullable = false)
     @UpdateTimestamp
     public LocalDateTime modified;
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
 }

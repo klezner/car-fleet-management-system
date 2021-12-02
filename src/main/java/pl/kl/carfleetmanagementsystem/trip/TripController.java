@@ -3,10 +3,9 @@ package pl.kl.carfleetmanagementsystem.trip;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
+import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
 import java.util.List;
 
@@ -15,6 +14,7 @@ import java.util.List;
 @RequestMapping("/trip")
 public class TripController {
 
+    private final VehicleService vehicleService;
     private final TripService tripService;
 
     @GetMapping
@@ -24,12 +24,14 @@ public class TripController {
 
     @GetMapping("/form")
     public String getTripAddForm(Model model) {
+        final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
+        model.addAttribute("vehicles", vehicles);
         model.addAttribute("trip", new TripRequest());
         return "trip/add-form";
     }
 
-    @PostMapping
-    public String submitTripForm(TripRequest tripRequest) {
+    @PostMapping("/save")
+    public String submitTripAddForm(TripRequest tripRequest) {
         tripService.saveTrip(tripRequest);
         return "redirect:/trip/list";
     }
@@ -44,8 +46,16 @@ public class TripController {
     @GetMapping("/edit/{id}")
     public String getTripEditForm(Model model, @PathVariable(name = "id") Long id) {
         final TripRequest trip = tripService.fetchTripRequest(id);
+        final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
+        model.addAttribute("vehicles", vehicles);
         model.addAttribute("trip", trip);
         return "trip/edit-form";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String submitTripEditForm(TripRequest tripRequest) {
+        tripService.saveTrip(tripRequest);
+        return "redirect:/trip/list";
     }
 
     @GetMapping("{id}")
@@ -55,7 +65,7 @@ public class TripController {
         return "trip/details";
     }
 
-    @GetMapping("/delete/{id}")
+    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteTrip(@PathVariable(name = "id") Long id) {
         tripService.deleteTrip(id);
         return "redirect:/trip/list";

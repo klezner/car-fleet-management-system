@@ -29,17 +29,6 @@ public class DepartmentMapper {
         }
     }
 
-    public DepartmentRequest mapDepartmentToDepartmentRequest(Department department) {
-        return DepartmentRequest.builder()
-                .id(department.getId())
-                .name(department.getName())
-                .abbreviation(department.getAbbreviation())
-                .comment(department.getComment())
-                .companyId(department.getCompany().getId())
-                .status(department.getStatus())
-                .build();
-    }
-
     public DepartmentResponse mapDepartmentToDepartmentResponse(Department department) {
         return DepartmentResponse.builder()
                 .id(department.getId())
@@ -47,6 +36,17 @@ public class DepartmentMapper {
                 .abbreviation(department.getAbbreviation())
                 .comment(department.getComment())
                 .company(companyMapper.mapCompanyToCompanyResponse(department.getCompany()))
+                .status(department.getStatus())
+                .build();
+    }
+
+    public DepartmentRequest mapDepartmentToDepartmentRequest(Department department) {
+        return DepartmentRequest.builder()
+                .id(department.getId())
+                .name(department.getName())
+                .abbreviation(department.getAbbreviation())
+                .comment(department.getComment())
+                .companyId(department.getCompany().getId())
                 .status(department.getStatus())
                 .build();
     }
