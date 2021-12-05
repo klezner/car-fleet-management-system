@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
+import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -25,14 +27,15 @@ public class TripController {
     @GetMapping("/form")
     public String getTripAddForm(Model model) {
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
+        model.addAttribute("today", LocalDate.now());
         model.addAttribute("vehicles", vehicles);
         model.addAttribute("trip", new TripRequest());
         return "trip/add-form";
     }
 
     @PostMapping("/save")
-    public String submitTripAddForm(TripRequest tripRequest) {
-        tripService.saveTrip(tripRequest);
+    public String submitTripAddForm(@Valid TripRequest tripRequest) {
+        tripService.saveNewTrip(tripRequest);
         return "redirect:/trip/list";
     }
 
@@ -47,14 +50,15 @@ public class TripController {
     public String getTripEditForm(Model model, @PathVariable(name = "id") Long id) {
         final TripRequest trip = tripService.fetchTripRequest(id);
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
+        model.addAttribute("today", LocalDate.now());
         model.addAttribute("vehicles", vehicles);
         model.addAttribute("trip", trip);
         return "trip/edit-form";
     }
 
     @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String submitTripEditForm(TripRequest tripRequest) {
-        tripService.saveTrip(tripRequest);
+    public String submitTripEditForm(@Valid TripRequest tripRequest) {
+        tripService.saveEditedTrip(tripRequest);
         return "redirect:/trip/list";
     }
 
@@ -69,5 +73,17 @@ public class TripController {
     public String deleteTrip(@PathVariable(name = "id") Long id) {
         tripService.deleteTrip(id);
         return "redirect:/trip/list";
+    }
+
+    @GetMapping("/last-return-date/vehicle/{id}")
+    @ResponseBody
+    public LocalDate getTripsLastReturnDateOfVehicle(@PathVariable(name = "id") Long vehicleId) {
+        return tripService.fetchTripsLastReturnDateOfVehicle(vehicleId);
+    }
+
+    @GetMapping("/last-return-odometer-status/vehicle/{id}")
+    @ResponseBody
+    public Integer getTripsLastOdometerStatusOfVehicle(@PathVariable(name = "id") Long vehicleId) {
+        return tripService.fetchTripsLastOdometerStatusOfVehicle(vehicleId);
     }
 }
