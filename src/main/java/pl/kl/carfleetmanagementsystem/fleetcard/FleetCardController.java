@@ -21,7 +21,7 @@ public class FleetCardController implements SetStatus {
     private final VehicleService vehicleService;
     private final FleetCardService fleetCardService;
 
-    @GetMapping("")
+    @GetMapping
     public String getFleetCardHomePage() {
         return "fleetcard/index";
     }

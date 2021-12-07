@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import pl.kl.carfleetmanagementsystem.department.Department;
 import pl.kl.carfleetmanagementsystem.fleetcard.FleetCard;
 import pl.kl.carfleetmanagementsystem.status.Status;
+import pl.kl.carfleetmanagementsystem.trip.Trip;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -17,6 +18,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -53,6 +55,8 @@ public class Vehicle {
     private FleetCard fleetCard;
     @OneToOne
     private Department department;
+    @OneToMany(mappedBy = "vehicle")
+    private Set<Trip> trips;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Vehicle status cannot be blank")

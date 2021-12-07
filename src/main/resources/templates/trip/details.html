@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Wyjazd - szczegóły</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/trip/list">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy Wyjazdów
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+                    <li class="breadcrumb-item"><a href="/trip">Wyjazdy</a></li>
+                    <li class="breadcrumb-item"><a href="/trip/list">Lista Wyjazdów</a></li>
+                    <li class="breadcrumb-item active">Wyjazd - szczegóły</li>
+                </ol>
+            </div>
+        </div>
+        <!--Buttons-->
+        <div class="row">
+            <div class="col col-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center btn-group-lg" role="group">
+                            <a th:href="@{/trip/edit/{id}(id=${trip.id})}">
+                                <button class="btn btn-outline-warning m-1" data-toggle="tooltip"
+                                        data-placement="top" title="Edytuj Wyjazd">
+                                    <i class="fas fa-edit" style="font-size: x-large"></i><br>
+                                    Edytuj Wyjazd
+                                </button>
+                            </a>
+                            <a th:href="@{/trip/delete/{id}(id=${trip.id})}"
+                               onclick="return confirm('Czy jesteś pewny, że chcesz usunąć ten wyjazd?');">
+                                <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
+                                        data-placement="top" title="Usuń Wyjazd">
+                                    <i class="fas fa-trash" style="font-size: x-large"></i><br>
+                                    Usuń Wyjazd
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-10 col-sm-8 col-md-6 col-lg-6 col-xxl-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-info me-1"></i>
+                        Wyjazd - szczegóły
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th class="col col-3" scope="row">#</th>
+                                <td class="col col-9" th:text="${trip.id}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Data wyjazdu</th>
+                                <td class="col col-9" th:text="${trip.departureDate}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Data powrotu</th>
+                                <td class="col col-9" th:text="${trip.returnDate}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Stan licznika przed</th>
+                                <td class="col col-9" th:text="${trip.departureMeterStatus}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Stan licznika po</th>
+                                <td class="col col-9" th:text="${trip.returnMeterStatus}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Przebyta droga</th>
+                                <td class="col col-9" th:text="${trip.distance} + ' km'"></td>
+                                <!--                                <td class="col col-9"></td>-->
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Opis</th>
+                                <td class="col col-9"
+                                    th:text="${trip.comments != null} ? ${trip.comments} : 'Brak'"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Pojazd</th>
+                                <td class="col col-9"
+                                    th:text="${trip.vehicle != null} ? '[' + ${trip.vehicle.registrationNumber} + '] ' + ${trip.vehicle.brand} + ' ' + ${trip.vehicle.model} : 'Brak'"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

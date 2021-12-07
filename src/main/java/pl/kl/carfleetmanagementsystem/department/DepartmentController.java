@@ -20,7 +20,7 @@ public class DepartmentController {
     private final CompanyService companyService;
     private final DepartmentService departmentService;
 
-    @GetMapping()
+    @GetMapping
     public String getDepartmentHomePage() {
         return "department/index";
     }
