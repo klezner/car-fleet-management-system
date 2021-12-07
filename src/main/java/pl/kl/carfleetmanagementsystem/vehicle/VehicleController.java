@@ -11,6 +11,7 @@ import pl.kl.carfleetmanagementsystem.department.DepartmentResponse;
 import pl.kl.carfleetmanagementsystem.department.DepartmentService;
 import pl.kl.carfleetmanagementsystem.status.SetStatus;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -36,7 +37,7 @@ public class VehicleController implements SetStatus {
     }
 
     @PostMapping
-    public String submitVehicleForm(VehicleRequest vehicleRequest) {
+    public String submitAddOrEditVehicleForm(@Valid VehicleRequest vehicleRequest) {
         vehicleService.saveVehicle(vehicleRequest);
         return "redirect:/vehicle/list";
     }
