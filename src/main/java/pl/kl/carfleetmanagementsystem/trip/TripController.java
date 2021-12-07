@@ -75,15 +75,9 @@ public class TripController {
         return "redirect:/trip/list";
     }
 
-    @GetMapping("/last-return-date/vehicle/{id}")
+    @GetMapping("/last-trip-data/vehicle/{id}")
     @ResponseBody
-    public LocalDate getTripsLastReturnDateOfVehicle(@PathVariable(name = "id") Long vehicleId) {
-        return tripService.fetchTripsLastReturnDateOfVehicle(vehicleId);
-    }
-
-    @GetMapping("/last-return-odometer-status/vehicle/{id}")
-    @ResponseBody
-    public Integer getTripsLastOdometerStatusOfVehicle(@PathVariable(name = "id") Long vehicleId) {
-        return tripService.fetchTripsLastOdometerStatusOfVehicle(vehicleId);
+    public LastTripDataResponse getLastTripDataOfVehicle(@PathVariable(name = "id") Long vehicleId) {
+        return tripService.fetchLastTripDataOfVehicle(vehicleId);
     }
 }

@@ -77,15 +77,19 @@ public class TripService {
         tripRepository.deleteById(id);
     }
 
-    public LocalDate fetchTripsLastReturnDateOfVehicle(Long vehicleId) {
-        final Vehicle vehicle = vehicleService.fetchVehicleById(vehicleId);
-        final Trip trip = tripRepository.findTopByVehicleOrderByReturnDateDesc(vehicle);
-        return trip.getReturnDate();
-    }
-
-    public Integer fetchTripsLastOdometerStatusOfVehicle(Long vehicleId) {
+    public LastTripDataResponse fetchLastTripDataOfVehicle(Long vehicleId) {
         final Vehicle vehicle = vehicleService.fetchVehicleById(vehicleId);
         final Trip trip = tripRepository.findTopByVehicleOrderByReturnMeterStatusDesc(vehicle);
-        return trip.getReturnMeterStatus();
+        if (trip != null) {
+            return LastTripDataResponse.builder()
+                    .returnDate(trip.getReturnDate())
+                    .returnMeterStatus(trip.getReturnMeterStatus())
+                    .build();
+        } else {
+            return LastTripDataResponse.builder()
+                    .returnDate(SYSTEM_START_DATE)
+                    .returnMeterStatus(VEHICLE_START_MILEAGE)
+                    .build();
+        }
     }
 }

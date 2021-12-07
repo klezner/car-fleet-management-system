@@ -40,14 +40,14 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="departureDate">Data wyjazdu</label>
-                                <input class="form-control" id="departureDate" type="date" placeholder="2021-01-01"
+                                <input class="form-control" id="departureDate" type="date" th:placeholder="${today}"
                                        min="2020-01-01" th:max="${today}" required
                                        th:value="*{departureDate}" th:field="*{departureDate}">
                             </div>
                             <div class="mb-3">
                                 <label for="returnDate">Data powrotu</label>
-                                <input class="form-control" id="returnDate" type="date" placeholder="2021-01-01"
-                                       min="2020-01-01" th:max="${today}" required
+                                <input class="form-control" id="returnDate" type="date" th:placeholder="${today}"
+                                       th:min="*{departureDate}" th:max="${today}" required
                                        th:value="*{returnDate}" th:field="*{returnDate}">
                             </div>
                             <div class="mb-3">
@@ -59,7 +59,7 @@
                             <div class="mb-3">
                                 <label for="returnMeterStatus">Stan licznika po</label>
                                 <input class="form-control" id="returnMeterStatus" type="number" placeholder="0"
-                                       min="0" required
+                                       th:min="*{departureMeterStatus + 1}" required
                                        th:value="*{returnMeterStatus}" th:field="*{returnMeterStatus}">
                             </div>
                             <div class="mb-3">
