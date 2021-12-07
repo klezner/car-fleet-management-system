@@ -60,7 +60,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="productionYear">Rok produkcji</label>
-                                <input class="form-control" id="productionYear" type="number" placeholder="2020"
+                                <input class="form-control" id="productionYear" type="number" placeholder="2000"
                                        min="2000" max="2050" required
                                        th:value="*{productionYear}" th:field="*{productionYear}">
                             </div>
@@ -74,7 +74,7 @@
                             <div class="mb-3">
                                 <label for="type">Firma/Departament</label>
                                 <select class="form-control" id="departmentId" th:field="*{departmentId}">
-                                    <option th:value="null">-- Brak Departamentu --</option>
+                                    <option th:value="${null}">-- Brak Departamentu --</option>
                                     <option th:each="department : ${departments}" th:value="${department.id}"
                                             th:text="'[' + ${department.company.name} + '] ' + ${department.name}"></option>
                                 </select>

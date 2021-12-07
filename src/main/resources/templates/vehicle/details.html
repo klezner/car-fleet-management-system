@@ -101,11 +101,13 @@
                             </tr>
                             <tr>
                                 <th class="col col-3" scope="row">Firma</th>
-                                <td class="col col-9" th:text="${vehicle.department.company.name}"></td>
+                                <td class="col col-9"
+                                    th:text="${vehicle.department != null} ? ${vehicle.department.company.name} : 'Brak'"></td>
                             </tr>
                             <tr>
                                 <th class="col col-3" scope="row">Departament</th>
-                                <td class="col col-9" th:text="${vehicle.department.name}"></td>
+                                <td class="col col-9"
+                                    th:text="${vehicle.department != null} ? ${vehicle.department.name} : 'Brak'"></td>
                             </tr>
                             <tr th:class="${vehicle.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
                                 <th class="col col-3" scope="row">Status</th>
