@@ -20,10 +20,10 @@ public class TripRequest {
     @NotNull(message = "Departure date cannot be blank")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate returnDate;
-    @NotNull(message = "Meter status cannot be blank")
+    @NotNull(message = "Odometer status cannot be blank")
     @Min(0)
     private Integer departureOdometerStatus;
-    @NotNull(message = "Meter status cannot be blank")
+    @NotNull(message = "Odometer status cannot be blank")
     @Min(0)
     private Integer returnOdometerStatus;
     private String comments;
