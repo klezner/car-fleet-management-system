@@ -30,7 +30,7 @@ public class CompanyController implements SetStatus {
     }
 
     @PostMapping
-    public String submitCompanyForm(CompanyRequest companyRequest) {
+    public String submitAddOrEditCompanyForm(CompanyRequest companyRequest) {
         companyService.saveCompany(companyRequest);
         return "redirect:/company/list";
     }
