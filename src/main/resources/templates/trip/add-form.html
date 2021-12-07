@@ -68,7 +68,7 @@
                             <div class="mb-3">
                                 <label for="vehicleId">Pojazd</label>
                                 <select class="form-control" id="vehicleId" required th:field="*{vehicleId}">
-                                    <option th:value="${null}" disabled>Wybierz Pojazd</option>
+                                    <option th:value="${null}" disabled>-- Brak Pojazdu --</option>
                                     <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}"
                                             th:text="'[' + ${vehicle.registrationNumber} + '] ' + ${vehicle.brand} + ' ' +  ${vehicle.model}"></option>
                                 </select>
