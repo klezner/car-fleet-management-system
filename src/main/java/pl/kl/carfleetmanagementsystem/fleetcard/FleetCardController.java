@@ -11,6 +11,7 @@ import pl.kl.carfleetmanagementsystem.status.SetStatus;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -35,7 +36,7 @@ public class FleetCardController implements SetStatus {
     }
 
     @PostMapping
-    public String submitFleetCardForm(FleetCardRequest fleetCardRequest) {
+    public String submitAddOrEditFleetCardForm(@Valid FleetCardRequest fleetCardRequest) {
         fleetCardService.saveFleetCard(fleetCardRequest);
         return "redirect:/fleetcard/list";
     }
