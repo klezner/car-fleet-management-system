@@ -36,11 +36,11 @@ public class Trip {
     @Column(nullable = false)
     @NotNull(message = "Meter status cannot be blank")
     @Min(0)
-    private Integer departureMeterStatus;
+    private Integer departureOdometerStatus;
     @Column(nullable = false)
     @NotNull(message = "Meter status cannot be blank")
     @Min(0)
-    private Integer returnMeterStatus;
+    private Integer returnOdometerStatus;
     @Formula("return_meter_status - departure_meter_status")
     private Integer distance;
     private String comments;

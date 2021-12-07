@@ -22,10 +22,10 @@ public class TripRequest {
     private LocalDate returnDate;
     @NotNull(message = "Meter status cannot be blank")
     @Min(0)
-    private Integer departureMeterStatus;
+    private Integer departureOdometerStatus;
     @NotNull(message = "Meter status cannot be blank")
     @Min(0)
-    private Integer returnMeterStatus;
+    private Integer returnOdometerStatus;
     private String comments;
     private Long vehicleId;
 }

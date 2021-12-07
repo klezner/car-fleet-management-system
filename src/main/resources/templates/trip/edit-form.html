@@ -54,13 +54,14 @@
                                 <label for="departureMeterStatus">Stan licznika przed</label>
                                 <input class="form-control" id="departureMeterStatus" type="number" placeholder="0"
                                        min="0" required
-                                       th:value="*{departureMeterStatus}" th:field="*{departureMeterStatus}">
+                                       th:value="*{getDepartureOdometerStatus}"
+                                       th:field="*{getDepartureOdometerStatus}">
                             </div>
                             <div class="mb-3">
                                 <label for="returnMeterStatus">Stan licznika po</label>
                                 <input class="form-control" id="returnMeterStatus" type="number" placeholder="0"
-                                       th:min="*{departureMeterStatus + 1}" required
-                                       th:value="*{returnMeterStatus}" th:field="*{returnMeterStatus}">
+                                       th:min="*{getDepartureOdometerStatus + 1}" required
+                                       th:value="*{getReturnOdometerStatus}" th:field="*{getReturnOdometerStatus}">
                             </div>
                             <div class="mb-3">
                                 <label for="comments">Opis</label>
