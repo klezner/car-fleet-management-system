@@ -34,7 +34,7 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public String submitDepartmentForm(DepartmentRequest departmentRequest) {
+    public String submitAddOrEditDepartmentForm(DepartmentRequest departmentRequest) {
         departmentService.saveDepartment(departmentRequest);
         return "redirect:/department/list";
     }
