@@ -34,14 +34,14 @@ public class Trip {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate returnDate;
     @Column(nullable = false)
-    @NotNull(message = "Meter status cannot be blank")
+    @NotNull(message = "Odometer status cannot be blank")
     @Min(0)
-    private Integer departureMeterStatus;
+    private Integer departureOdometerStatus;
     @Column(nullable = false)
-    @NotNull(message = "Meter status cannot be blank")
+    @NotNull(message = "Odometer status cannot be blank")
     @Min(0)
-    private Integer returnMeterStatus;
-    @Formula("return_meter_status - departure_meter_status")
+    private Integer returnOdometerStatus;
+    @Formula("return_odometer_status - departure_odometer_status")
     private Integer distance;
     private String comments;
     @JoinColumn(nullable = false)

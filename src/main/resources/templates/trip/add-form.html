@@ -49,16 +49,16 @@
                                        th:field="*{returnDate}">
                             </div>
                             <div class="mb-3">
-                                <label for="departureMeterStatus">Stan licznika przed</label>
-                                <input class="form-control" id="departureMeterStatus" type="number" placeholder="1"
+                                <label for="departureOdometerStatus">Stan licznika przed</label>
+                                <input class="form-control" id="departureOdometerStatus" type="number" placeholder="1"
                                        min="1" required
-                                       th:field="*{departureMeterStatus}">
+                                       th:field="*{departureOdometerStatus}">
                             </div>
                             <div class="mb-3">
-                                <label for="returnMeterStatus">Stan licznika po</label>
-                                <input class="form-control" id="returnMeterStatus" type="number" placeholder="1"
+                                <label for="returnOdometerStatus">Stan licznika po</label>
+                                <input class="form-control" id="returnOdometerStatus" type="number" placeholder="1"
                                        min="1" required
-                                       th:field="*{returnMeterStatus}">
+                                       th:field="*{returnOdometerStatus}">
                             </div>
                             <div class="mb-3">
                                 <label for="comments">Opis</label>
@@ -95,11 +95,11 @@
                 $.get(href, function (lastTripData, status) {
                     console.log(status);
                     var returnDate = lastTripData.returnDate;
-                    var returnMeterStatus = lastTripData.returnMeterStatus;
+                    var returnOdometerStatus = lastTripData.returnOdometerStatus;
                     $('#departureDate').val(returnDate).attr("min", returnDate);
                     $('#returnDate').val(returnDate).attr("min", returnDate);
-                    $('#departureMeterStatus').val(returnMeterStatus).attr("min", returnMeterStatus);
-                    $('#returnMeterStatus').val(returnMeterStatus + 1).attr("min", returnMeterStatus);
+                    $('#departureOdometerStatus').val(returnOdometerStatus).attr("min", returnOdometerStatus);
+                    $('#returnOdometerStatus').val(returnOdometerStatus).attr("min", returnOdometerStatus);
                 });
             });
         });

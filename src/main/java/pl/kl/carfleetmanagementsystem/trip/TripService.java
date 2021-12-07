@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.kl.carfleetmanagementsystem.validator.DateValidator;
-import pl.kl.carfleetmanagementsystem.validator.ReturnMeterStatusValidator;
+import pl.kl.carfleetmanagementsystem.validator.ReturnOdometerStatusValidator;
 import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
@@ -27,7 +27,7 @@ public class TripService {
     @Transactional
     public void saveNewTrip(TripRequest tripRequest) {
         DateValidator.validateTripDateOnTripCreate(tripRequest.getDepartureDate(), tripRequest.getReturnDate(), SYSTEM_START_DATE);
-        ReturnMeterStatusValidator.validateMeterStatusOnTripCreate(tripRequest.getDepartureMeterStatus(), tripRequest.getReturnMeterStatus(), VEHICLE_START_MILEAGE);
+        ReturnOdometerStatusValidator.validateOdometerStatusOnTripCreate(tripRequest.getDepartureOdometerStatus(), tripRequest.getReturnOdometerStatus(), VEHICLE_START_MILEAGE);
         final Trip trip = tripMapper.mapTripRequestToTrip(tripRequest);
         addVehicleToTrip(trip, tripRequest.getVehicleId());
         tripRepository.save(trip);
@@ -67,7 +67,7 @@ public class TripService {
     @Transactional
     public void saveEditedTrip(TripRequest tripRequest) {
         DateValidator.validateTripDateOnTripEdit(tripRequest.getDepartureDate(), tripRequest.getReturnDate());
-        ReturnMeterStatusValidator.validateMeterStatusOnTripEdit(tripRequest.getDepartureMeterStatus(), tripRequest.getReturnMeterStatus());
+        ReturnOdometerStatusValidator.validateOdometerStatusOnTripEdit(tripRequest.getDepartureOdometerStatus(), tripRequest.getReturnOdometerStatus());
         final Trip trip = tripMapper.mapTripRequestToTrip(tripRequest);
         addVehicleToTrip(trip, tripRequest.getVehicleId());
         tripRepository.save(trip);
@@ -79,16 +79,16 @@ public class TripService {
 
     public LastTripDataResponse fetchLastTripDataOfVehicle(Long vehicleId) {
         final Vehicle vehicle = vehicleService.fetchVehicleById(vehicleId);
-        final Trip trip = tripRepository.findTopByVehicleOrderByReturnMeterStatusDesc(vehicle);
+        final Trip trip = tripRepository.findTopByVehicleOrderByReturnOdometerStatus(vehicle);
         if (trip != null) {
             return LastTripDataResponse.builder()
                     .returnDate(trip.getReturnDate())
-                    .returnMeterStatus(trip.getReturnMeterStatus())
+                    .returnOdometerStatus(trip.getReturnOdometerStatus())
                     .build();
         } else {
             return LastTripDataResponse.builder()
                     .returnDate(SYSTEM_START_DATE)
-                    .returnMeterStatus(VEHICLE_START_MILEAGE)
+                    .returnOdometerStatus(VEHICLE_START_MILEAGE)
                     .build();
         }
     }

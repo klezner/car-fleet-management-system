@@ -15,8 +15,8 @@ public class TripMapper {
                 .id(tripRequest.getId())
                 .departureDate(tripRequest.getDepartureDate())
                 .returnDate(tripRequest.getReturnDate())
-                .departureMeterStatus(tripRequest.getDepartureMeterStatus())
-                .returnMeterStatus(tripRequest.getReturnMeterStatus())
+                .departureOdometerStatus(tripRequest.getDepartureOdometerStatus())
+                .returnOdometerStatus(tripRequest.getReturnOdometerStatus())
                 .comments(tripRequest.getComments())
                 .build();
     }
@@ -26,8 +26,8 @@ public class TripMapper {
                 .id(trip.getId())
                 .departureDate(trip.getDepartureDate())
                 .returnDate(trip.getReturnDate())
-                .departureMeterStatus(trip.getDepartureMeterStatus())
-                .returnMeterStatus(trip.getReturnMeterStatus())
+                .departureOdometerStatus(trip.getDepartureOdometerStatus())
+                .returnOdometerStatus(trip.getReturnOdometerStatus())
                 .distance(trip.getDistance())
                 .comments(trip.getComments())
                 .vehicle(vehicleMapper.mapVehicleToVehicleResponse(trip.getVehicle()))
@@ -39,8 +39,8 @@ public class TripMapper {
                 .id(trip.getId())
                 .departureDate(trip.getDepartureDate())
                 .returnDate(trip.getReturnDate())
-                .departureMeterStatus(trip.getDepartureMeterStatus())
-                .returnMeterStatus(trip.getReturnMeterStatus())
+                .departureOdometerStatus(trip.getDepartureOdometerStatus())
+                .returnOdometerStatus(trip.getReturnOdometerStatus())
                 .comments(trip.getComments())
                 .build();
     }
