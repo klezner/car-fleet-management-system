@@ -52,4 +52,8 @@ public class RefuelingService {
         final Refueling refueling = refuelingMapper.mapRefuelingRequestToRefueling(refuelingRequest);
         refuelingRepository.save(refueling);
     }
+
+    public void deleteRefueling(Long id) {
+        refuelingRepository.deleteById(id);
+    }
 }

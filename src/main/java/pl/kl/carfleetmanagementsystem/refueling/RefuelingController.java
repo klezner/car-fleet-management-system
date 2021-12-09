@@ -61,4 +61,10 @@ public class RefuelingController {
         refuelingService.saveEditedRefueling(refuelingRequest);
         return "redirect:/refueling/list";
     }
+
+    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String deleteRefueling(@PathVariable(name = "id") Long id) {
+        refuelingService.deleteRefueling(id);
+        return "redirect:/refueling/list";
+    }
 }
