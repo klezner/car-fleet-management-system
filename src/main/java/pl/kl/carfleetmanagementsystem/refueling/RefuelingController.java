@@ -36,4 +36,11 @@ public class RefuelingController {
         refuelingService.saveNewRefueling(refuelingRequest);
         return "redirect:/refueling/list";
     }
+
+    @GetMapping("/list")
+    public String getRefuelingList(Model model) {
+        final List<RefuelingResponse> refuelings = refuelingService.getchAllRefuelingsResponses();
+        model.addAttribute("refuelings", refuelings);
+        return "/refueling/list";
+    }
 }

@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class RefuelingService {
@@ -15,5 +18,16 @@ public class RefuelingService {
     public void saveNewRefueling(RefuelingRequest refuelingRequest) {
         final Refueling refueling = refuelingMapper.mapRefuelingRequestToRefueling(refuelingRequest);
         refuelingRepository.save(refueling);
+    }
+
+    public List<RefuelingResponse> getchAllRefuelingsResponses() {
+        final List<Refueling> refuelingEntities = fetchAllRefuelings();
+        return refuelingEntities.stream()
+                .map(refuelingMapper::mapRefuelingToRefuelingResponse)
+                .collect(Collectors.toList());
+    }
+
+    private List<Refueling> fetchAllRefuelings() {
+        return refuelingRepository.findAll();
     }
 }
