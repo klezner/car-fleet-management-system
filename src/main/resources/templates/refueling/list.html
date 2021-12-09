@@ -74,8 +74,8 @@
                             <tr th:each="refueling : ${refuelings}">
                                 <td class="col col-2" th:text="${refueling.date}"></td>
                                 <td class="col col-2" th:text="${refueling.odometerStatus}"></td>
-                                <td class="col col-1" th:text="${refueling.fuelAmount}"></td>
-                                <td class="col col-1" th:text="${refueling.refuelingCost}"></td>
+                                <td class="col col-1" th:text="${refueling.fuelAmount} + ' l'"></td>
+                                <td class="col col-1" th:text="${refueling.refuelingCost} + ' zł'"></td>
                                 <td class="col col-1">
                                     <div class="d-flex justify-content-center" role="group">
                                         <a th:href="@{/refueling/{id}(id=${refueling.id})}">

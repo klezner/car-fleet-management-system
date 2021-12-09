@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,5 +30,15 @@ public class RefuelingService {
 
     private List<Refueling> fetchAllRefuelings() {
         return refuelingRepository.findAll();
+    }
+
+    public RefuelingResponse fetchRefuelingResponse(Long id) {
+        final Refueling refueling = fetchRefuelingById(id);
+        return refuelingMapper.mapRefuelingToRefuelingResponse(refueling);
+    }
+
+    private Refueling fetchRefuelingById(Long id) {
+        return refuelingRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Refueling with id: " + id + " not found!"));
     }
 }

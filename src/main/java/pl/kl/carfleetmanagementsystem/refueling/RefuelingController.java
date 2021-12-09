@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
@@ -42,5 +43,12 @@ public class RefuelingController {
         final List<RefuelingResponse> refuelings = refuelingService.getchAllRefuelingsResponses();
         model.addAttribute("refuelings", refuelings);
         return "/refueling/list";
+    }
+
+    @GetMapping("/{id}")
+    public String getRefuelingDetails(Model model, @PathVariable(name = "id") Long id) {
+        final RefuelingResponse refueling = refuelingService.fetchRefuelingResponse(id);
+        model.addAttribute("refueling", refueling);
+        return "refueling/details";
     }
 }
