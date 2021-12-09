@@ -24,4 +24,14 @@ public class RefuelingMapper {
                 .refuelingCost(refueling.getRefuelingCost())
                 .build();
     }
+
+    public RefuelingRequest mapRefuelingToRefuelingRequest(Refueling refueling) {
+        return RefuelingRequest.builder()
+                .id(refueling.getId())
+                .date(refueling.getDate())
+                .odometerStatus(refueling.getOdometerStatus())
+                .fuelAmount(refueling.getFuelAmount())
+                .refuelingCost(refueling.getRefuelingCost())
+                .build();
+    }
 }

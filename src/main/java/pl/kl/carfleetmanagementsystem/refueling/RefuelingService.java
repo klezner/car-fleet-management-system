@@ -41,4 +41,15 @@ public class RefuelingService {
         return refuelingRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Refueling with id: " + id + " not found!"));
     }
+
+    public RefuelingRequest fetchRefuelingRequest(Long id) {
+        final Refueling refueling = fetchRefuelingById(id);
+        return refuelingMapper.mapRefuelingToRefuelingRequest(refueling);
+    }
+
+    @Transactional
+    public void saveEditedRefueling(RefuelingRequest refuelingRequest) {
+        final Refueling refueling = refuelingMapper.mapRefuelingRequestToRefueling(refuelingRequest);
+        refuelingRepository.save(refueling);
+    }
 }

@@ -3,10 +3,7 @@ package pl.kl.carfleetmanagementsystem.refueling;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
@@ -33,7 +30,7 @@ public class RefuelingController {
     }
 
     @PostMapping("/save")
-    public String submitRefuelingForm(RefuelingRequest refuelingRequest) {
+    public String submitRefuelingAddForm(RefuelingRequest refuelingRequest) {
         refuelingService.saveNewRefueling(refuelingRequest);
         return "redirect:/refueling/list";
     }
@@ -50,5 +47,18 @@ public class RefuelingController {
         final RefuelingResponse refueling = refuelingService.fetchRefuelingResponse(id);
         model.addAttribute("refueling", refueling);
         return "refueling/details";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getRefuelingEditForm(Model model, @PathVariable(name = "id") Long id) {
+        final RefuelingRequest refueling = refuelingService.fetchRefuelingRequest(id);
+        model.addAttribute("refueling", refueling);
+        return "refueling/edit-form";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String submitRefuelingEditForm(RefuelingRequest refuelingRequest) {
+        refuelingService.saveEditedRefueling(refuelingRequest);
+        return "redirect:/refueling/list";
     }
 }
