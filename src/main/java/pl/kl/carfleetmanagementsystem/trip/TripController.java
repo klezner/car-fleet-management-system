@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class TripController {
     }
 
     @PostMapping("/save")
-    public String submitTripAddForm(@Valid TripRequest tripRequest) {
+    public String submitTripAddForm(TripRequest tripRequest) {
         tripService.saveNewTrip(tripRequest);
         return "redirect:/trip/list";
     }
@@ -57,7 +56,7 @@ public class TripController {
     }
 
     @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String submitTripEditForm(@Valid TripRequest tripRequest) {
+    public String submitTripEditForm(TripRequest tripRequest) {
         tripService.saveEditedTrip(tripRequest);
         return "redirect:/trip/list";
     }
@@ -77,7 +76,7 @@ public class TripController {
 
     @GetMapping("/last-trip-data/vehicle/{id}")
     @ResponseBody
-    public LastTripDataResponse getLastTripDataOfVehicle(@PathVariable(name = "id") Long vehicleId) {
+    public LastTripDataResponse getVehicleLastTripData(@PathVariable(name = "id") Long vehicleId) {
         return tripService.fetchLastTripDataOfVehicle(vehicleId);
     }
 }
