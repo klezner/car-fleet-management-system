@@ -26,4 +26,5 @@ public class RefuelingRequest {
     @NotNull(message = "Refueling cost cannot be blank")
     @Min(0)
     private BigDecimal refuelingCost;
+    private Long vehicleId;
 }

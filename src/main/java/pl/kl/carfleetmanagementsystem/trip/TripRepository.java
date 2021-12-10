@@ -6,5 +6,5 @@ import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
-    Trip findTopByVehicleOrderByReturnOdometerStatus(Vehicle vehicle);
+    Trip findTopByVehicleOrderByReturnOdometerStatusDesc(Vehicle vehicle);
 }

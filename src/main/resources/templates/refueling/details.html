@@ -84,6 +84,11 @@
                                 <th class="col col-3" scope="row">Koszt tankowania</th>
                                 <td class="col col-9" th:text="${refueling.refuelingCost} + ' zł'"></td>
                             </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Pojazd</th>
+                                <td class="col col-9"
+                                    th:text="${refueling.vehicle != null} ? '[' + ${refueling.vehicle.registrationNumber} + '] ' + ${refueling.vehicle.brand} + ' ' + ${refueling.vehicle.model} : 'Brak'"></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

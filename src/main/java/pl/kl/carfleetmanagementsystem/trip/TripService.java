@@ -79,7 +79,7 @@ public class TripService {
 
     public LastTripDataResponse fetchLastTripDataOfVehicle(Long vehicleId) {
         final Vehicle vehicle = vehicleService.fetchVehicleById(vehicleId);
-        final Trip trip = tripRepository.findTopByVehicleOrderByReturnOdometerStatus(vehicle);
+        final Trip trip = tripRepository.findTopByVehicleOrderByReturnOdometerStatusDesc(vehicle);
         if (trip != null) {
             return LastTripDataResponse.builder()
                     .returnDate(trip.getReturnDate())

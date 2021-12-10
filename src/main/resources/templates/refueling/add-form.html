@@ -39,7 +39,7 @@
                             <div class="mb-3">
                                 <label for="date">Data tankowania</label>
                                 <input class="form-control" id="date" type="date" placeholder="2021-01-01"
-                                       min="2020-01-01" max="2050-01-01" required
+                                       min="2020-01-01" th:max="${today}" required
                                        th:field="*{date}">
                             </div>
                             <div class="mb-3">
@@ -60,6 +60,14 @@
                                        min="0" step="0.01" required
                                        th:field="*{refuelingCost}">
                             </div>
+                            <div class="mb-3">
+                                <label for="vehicleId">Pojazd</label>
+                                <select class="form-control" id="vehicleId" required th:field="*{vehicleId}">
+                                    <option th:value="${null}" disabled>-- Brak Pojazdu --</option>
+                                    <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}"
+                                            th:text="'[' + ${vehicle.registrationNumber} + '] ' + ${vehicle.brand} + ' ' +  ${vehicle.model}"></option>
+                                </select>
+                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Wyślij</button>
                                 <button type="reset" class="btn btn-secondary">Reset</button>
@@ -71,5 +79,24 @@
         </div>
     </div>
 </div>
+
+<th:block layout:fragment="script">
+    <script>
+        $('document').ready(function () {
+            $('#vehicleId').prop('selectedIndex', 0);
+            $('#vehicleId').change(function () {
+                var vehicleId = $(this).val();
+                var href = "http://localhost:8080/refueling/last-refueling-data/vehicle/" + vehicleId;
+                $.get(href, function (lastRefuelingData, status) {
+                    var date = lastRefuelingData.date;
+                    var odometerStatus = lastRefuelingData.odometerStatus;
+                    $('#date').val(date).attr("min", date);
+                    $('#odometerStatus').val(odometerStatus).attr("min", odometerStatus);
+                });
+            });
+        });
+    </script>
+</th:block>
+
 </body>
 </html>

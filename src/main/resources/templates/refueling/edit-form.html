@@ -41,8 +41,8 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="date">Data tankowania</label>
-                                <input class="form-control" id="date" type="date" placeholder="2020-01-01"
-                                       min="2020-01-01" max="2050-01-01" required
+                                <input class="form-control" id="date" type="date" th:placeholder="${today}"
+                                       min="2020-01-01" th:max="${today}" required
                                        th:value="*{date}" th:field="*{date}">
                             </div>
                             <div class="mb-3">
@@ -62,6 +62,14 @@
                                 <input class="form-control" id="refuelingCost" type="number" placeholder="0.01"
                                        min="0" step="0.01" required
                                        th:field="*{refuelingCost}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="vehicleId">Pojazd</label>
+                                <select class="form-control" id="vehicleId" required th:field="*{vehicleId}">
+                                    <option th:value="${null}" disabled>-- Brak Pojazdu --</option>
+                                    <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}"
+                                            th:text="'[' + ${vehicle.registrationNumber} + '] ' + ${vehicle.brand} + ' ' +  ${vehicle.model}"></option>
+                                </select>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Wyślij</button>

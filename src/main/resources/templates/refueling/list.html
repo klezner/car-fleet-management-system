@@ -55,27 +55,31 @@
                             <thead>
                             <tr>
                                 <th class="col col-2">Data tankowania</th>
-                                <th class="col col-2">Stan licznika</th>
-                                <th class="col col-1">Ilość paliwa</th>
-                                <th class="col col-1">Koszt tankowania</th>
+                                <th class="col col-3">Stan licznika</th>
+                                <th class="col col-2">Ilość paliwa</th>
+                                <th class="col col-2">Koszt tankowania</th>
+                                <th class="col col-2">Pojazd</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th class="col col-2">Data tankowania</th>
-                                <th class="col col-2">Stan licznika</th>
-                                <th class="col col-1">Ilość paliwa</th>
-                                <th class="col col-1">Koszt tankowania</th>
+                                <th class="col col-3">Stan licznika</th>
+                                <th class="col col-2">Ilość paliwa</th>
+                                <th class="col col-2">Koszt tankowania</th>
+                                <th class="col col-2">Pojazd</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <tr th:each="refueling : ${refuelings}">
                                 <td class="col col-2" th:text="${refueling.date}"></td>
-                                <td class="col col-2" th:text="${refueling.odometerStatus}"></td>
-                                <td class="col col-1" th:text="${refueling.fuelAmount} + ' l'"></td>
-                                <td class="col col-1" th:text="${refueling.refuelingCost} + ' zł'"></td>
+                                <td class="col col-3" th:text="${refueling.odometerStatus}"></td>
+                                <td class="col col-2" th:text="${refueling.fuelAmount} + ' l'"></td>
+                                <td class="col col-2" th:text="${refueling.refuelingCost} + ' zł'"></td>
+                                <td class="col col-2" th:text="${refueling.vehicle != null} ? '[' + ${refueling.vehicle.registrationNumber}
+                                + '] ' + ${refueling.vehicle.brand} + ' ' + ${refueling.vehicle.model} : 'Brak'"></td>
                                 <td class="col col-1">
                                     <div class="d-flex justify-content-center" role="group">
                                         <a th:href="@{/refueling/{id}(id=${refueling.id})}">

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -25,6 +26,8 @@ public class RefuelingController {
     @GetMapping("/form")
     public String getRefuelingAddForm(Model model) {
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
+        model.addAttribute("today", LocalDate.now());
+        model.addAttribute("vehicles", vehicles);
         model.addAttribute("refueling", new RefuelingRequest());
         return "refueling/add-form";
     }
@@ -37,7 +40,7 @@ public class RefuelingController {
 
     @GetMapping("/list")
     public String getRefuelingList(Model model) {
-        final List<RefuelingResponse> refuelings = refuelingService.getchAllRefuelingsResponses();
+        final List<RefuelingResponse> refuelings = refuelingService.fetchAllRefuelingsResponses();
         model.addAttribute("refuelings", refuelings);
         return "/refueling/list";
     }
@@ -52,6 +55,9 @@ public class RefuelingController {
     @GetMapping("/edit/{id}")
     public String getRefuelingEditForm(Model model, @PathVariable(name = "id") Long id) {
         final RefuelingRequest refueling = refuelingService.fetchRefuelingRequest(id);
+        final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
+        model.addAttribute("today", LocalDate.now());
+        model.addAttribute("vehicles", vehicles);
         model.addAttribute("refueling", refueling);
         return "refueling/edit-form";
     }
@@ -66,5 +72,11 @@ public class RefuelingController {
     public String deleteRefueling(@PathVariable(name = "id") Long id) {
         refuelingService.deleteRefueling(id);
         return "redirect:/refueling/list";
+    }
+
+    @GetMapping("/last-refueling-data/vehicle/{id}")
+    @ResponseBody
+    public LastRefuelingDataResponse getVehiclesLastRefuelingData(@PathVariable(name = "id") Long vehicleId) {
+        return refuelingService.fetchLastRefuelingDataOfVehicle(vehicleId);
     }
 }

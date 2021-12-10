@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -39,11 +40,18 @@ public class Refueling {
     @NotNull(message = "Refueling cost cannot be blank")
     @Min(0)
     private BigDecimal refuelingCost;
-
+    @JoinColumn(nullable = false)
+    @NotNull(message = "Vehicle cannot be blank")
+    @ManyToOne(optional = false)
+    private Vehicle vehicle;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     public LocalDateTime created;
     @Column(nullable = false)
     @UpdateTimestamp
     public LocalDateTime modified;
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
 }

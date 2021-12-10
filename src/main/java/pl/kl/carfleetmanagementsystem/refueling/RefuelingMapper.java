@@ -1,9 +1,14 @@
 package pl.kl.carfleetmanagementsystem.refueling;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import pl.kl.carfleetmanagementsystem.vehicle.VehicleMapper;
 
 @Component
+@RequiredArgsConstructor
 public class RefuelingMapper {
+
+    private final VehicleMapper vehicleMapper;
 
     public Refueling mapRefuelingRequestToRefueling(RefuelingRequest refuelingRequest) {
         return Refueling.builder()
@@ -22,6 +27,7 @@ public class RefuelingMapper {
                 .odometerStatus(refueling.getOdometerStatus())
                 .fuelAmount(refueling.getFuelAmount())
                 .refuelingCost(refueling.getRefuelingCost())
+                .vehicle(vehicleMapper.mapVehicleToVehicleResponse(refueling.getVehicle()))
                 .build();
     }
 

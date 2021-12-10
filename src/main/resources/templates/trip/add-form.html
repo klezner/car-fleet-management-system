@@ -88,12 +88,11 @@
 <th:block layout:fragment="script">
     <script>
         $('document').ready(function () {
-            $("#vehicleId").prop("selectedIndex", 0);
+            $('#vehicleId').prop('selectedIndex', 0);
             $('#vehicleId').change(function () {
                 var vehicleId = $(this).val();
                 var href = "http://localhost:8080/trip/last-trip-data/vehicle/" + vehicleId;
                 $.get(href, function (lastTripData, status) {
-                    console.log(status);
                     var returnDate = lastTripData.returnDate;
                     var returnOdometerStatus = lastTripData.returnOdometerStatus;
                     $('#departureDate').val(returnDate).attr("min", returnDate);
