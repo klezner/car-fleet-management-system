@@ -24,4 +24,16 @@ public class CarWorkshopMapper {
             return Status.ACTIVE;
         }
     }
+
+    public CarWorkshopResponse mapCarWorkshopToCarWorkshopResponse(CarWorkshop carWorkshop) {
+        return CarWorkshopResponse.builder()
+                .id(carWorkshop.getId())
+                .name(carWorkshop.getName())
+                .zipCode(carWorkshop.getZipCode())
+                .city(carWorkshop.getCity())
+                .street(carWorkshop.getStreet())
+                .number(carWorkshop.getNumber())
+                .status(carWorkshop.getStatus())
+                .build();
+    }
 }
