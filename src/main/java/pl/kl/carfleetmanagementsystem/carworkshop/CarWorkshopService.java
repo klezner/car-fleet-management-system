@@ -41,4 +41,14 @@ public class CarWorkshopService {
         return carWorkshopRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Car workshop with id: " + id + " not found!"));
     }
+
+    public CarWorkshopRequest fetchCarWorkshopRequest(Long id) {
+        final CarWorkshop carWorkshop = fetchCarWorkshopById(id);
+        return carWorkshopMapper.mapCarWorkshopToCarWorkshopRequest(carWorkshop);
+    }
+
+    public void saveEditedCarWorkshop(CarWorkshopRequest carWorkshopRequest) {
+        final CarWorkshop carWorkshop = carWorkshopMapper.mapCarWorkshopRequestToCarWorkshop(carWorkshopRequest);
+        carWorkshopRepository.save(carWorkshop);
+    }
 }

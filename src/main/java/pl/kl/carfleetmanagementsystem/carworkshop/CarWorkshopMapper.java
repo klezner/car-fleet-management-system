@@ -8,6 +8,7 @@ public class CarWorkshopMapper {
 
     public CarWorkshop mapCarWorkshopRequestToCarWorkshop(CarWorkshopRequest carWorkshopRequest) {
         return CarWorkshop.builder()
+                .id(carWorkshopRequest.getId())
                 .name(carWorkshopRequest.getName())
                 .zipCode(carWorkshopRequest.getZipCode())
                 .city(carWorkshopRequest.getCity())
@@ -27,6 +28,18 @@ public class CarWorkshopMapper {
 
     public CarWorkshopResponse mapCarWorkshopToCarWorkshopResponse(CarWorkshop carWorkshop) {
         return CarWorkshopResponse.builder()
+                .id(carWorkshop.getId())
+                .name(carWorkshop.getName())
+                .zipCode(carWorkshop.getZipCode())
+                .city(carWorkshop.getCity())
+                .street(carWorkshop.getStreet())
+                .number(carWorkshop.getNumber())
+                .status(carWorkshop.getStatus())
+                .build();
+    }
+
+    public CarWorkshopRequest mapCarWorkshopToCarWorkshopRequest(CarWorkshop carWorkshop) {
+        return CarWorkshopRequest.builder()
                 .id(carWorkshop.getId())
                 .name(carWorkshop.getName())
                 .zipCode(carWorkshop.getZipCode())

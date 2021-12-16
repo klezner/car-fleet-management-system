@@ -3,10 +3,7 @@ package pl.kl.carfleetmanagementsystem.carworkshop;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,5 +43,18 @@ public class CarWorkshopController {
         final CarWorkshopResponse carWorkshop = carWorkshopService.fetchCarWorkshopResponse(id);
         model.addAttribute("carWorkshop", carWorkshop);
         return "carworkshop/details";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getCarWorkshopEditForm(Model model, @PathVariable(name = "id") Long id) {
+        final CarWorkshopRequest carWorkshop = carWorkshopService.fetchCarWorkshopRequest(id);
+        model.addAttribute("carWorkshop", carWorkshop);
+        return "carworkshop/edit-form";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String submitCarWorkshopEditForm(CarWorkshopRequest carWorkshop) {
+        carWorkshopService.saveEditedCarWorkshop(carWorkshop);
+        return "redirect:/car-workshop/list";
     }
 }
