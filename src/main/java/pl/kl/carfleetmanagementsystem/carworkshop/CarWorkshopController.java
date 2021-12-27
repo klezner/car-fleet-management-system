@@ -57,4 +57,10 @@ public class CarWorkshopController {
         carWorkshopService.saveEditedCarWorkshop(carWorkshop);
         return "redirect:/car-workshop/list";
     }
+
+    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String deleteCarWorkshop(@PathVariable(name = "id") Long id) {
+        carWorkshopService.deleteCarWorkshop(id);
+        return "redirect:/car-workshop/list";
+    }
 }

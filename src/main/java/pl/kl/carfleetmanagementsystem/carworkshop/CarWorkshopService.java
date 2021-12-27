@@ -51,4 +51,8 @@ public class CarWorkshopService {
         final CarWorkshop carWorkshop = carWorkshopMapper.mapCarWorkshopRequestToCarWorkshop(carWorkshopRequest);
         carWorkshopRepository.save(carWorkshop);
     }
+
+    public void deleteCarWorkshop(Long id) {
+        carWorkshopRepository.deleteById(id);
+    }
 }
