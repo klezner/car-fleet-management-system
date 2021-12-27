@@ -47,6 +47,7 @@ public class CarWorkshopService {
         return carWorkshopMapper.mapCarWorkshopToCarWorkshopRequest(carWorkshop);
     }
 
+    @Transactional
     public void saveEditedCarWorkshop(CarWorkshopRequest carWorkshopRequest) {
         final CarWorkshop carWorkshop = carWorkshopMapper.mapCarWorkshopRequestToCarWorkshop(carWorkshopRequest);
         carWorkshopRepository.save(carWorkshop);
@@ -54,5 +55,19 @@ public class CarWorkshopService {
 
     public void deleteCarWorkshop(Long id) {
         carWorkshopRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void setActive(Long id) {
+        final CarWorkshop carWorkshop = fetchCarWorkshopById(id);
+        carWorkshop.setActive();
+        carWorkshopRepository.save(carWorkshop);
+    }
+
+    @Transactional
+    public void setInactive(Long id) {
+        final CarWorkshop carWorkshop = fetchCarWorkshopById(id);
+        carWorkshop.setInactive();
+        carWorkshopRepository.save(carWorkshop);
     }
 }

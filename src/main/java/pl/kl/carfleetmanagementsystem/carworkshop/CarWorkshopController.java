@@ -63,4 +63,16 @@ public class CarWorkshopController {
         carWorkshopService.deleteCarWorkshop(id);
         return "redirect:/car-workshop/list";
     }
+
+    @GetMapping("/active/{id}")
+    public String setActive(@PathVariable(name = "id") Long id) {
+        carWorkshopService.setActive(id);
+        return "redirect:/car-workshop/{id}";
+    }
+
+    @GetMapping("/inactive/{id}")
+    public String setInactive(@PathVariable(name = "id") Long id) {
+        carWorkshopService.setInactive(id);
+        return "redirect:/car-workshop/{id}";
+    }
 }
