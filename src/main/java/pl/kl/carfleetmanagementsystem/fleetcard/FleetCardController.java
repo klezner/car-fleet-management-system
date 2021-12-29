@@ -32,7 +32,7 @@ public class FleetCardController implements SetStatus {
     }
 
     @PostMapping("/save")
-    public String submitAddFleetCardForm(FleetCardRequest fleetCardRequest) {
+    public String submitFleetCardAddForm(FleetCardRequest fleetCardRequest) {
         fleetCardService.saveNewFleetCard(fleetCardRequest);
         return "redirect:/fleet-card/list";
     }

@@ -3,10 +3,7 @@ package pl.kl.carfleetmanagementsystem.company;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.kl.carfleetmanagementsystem.status.SetStatus;
 
 import java.util.List;
@@ -29,9 +26,9 @@ public class CompanyController implements SetStatus {
         return "company/add-form";
     }
 
-    @PostMapping
-    public String submitAddOrEditCompanyForm(CompanyRequest companyRequest) {
-        companyService.saveCompany(companyRequest);
+    @PostMapping("/save")
+    public String submitCompanyAddForm(CompanyRequest companyRequest) {
+        companyService.saveNewCompany(companyRequest);
         return "redirect:/company/list";
     }
 
@@ -49,6 +46,12 @@ public class CompanyController implements SetStatus {
         return "company/edit-form";
     }
 
+    @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String submitCompanyEditForm(CompanyRequest companyRequest) {
+        companyService.saveEditedCompany(companyRequest);
+        return "redirect:/company/list";
+    }
+
     @GetMapping("{id}")
     public String getCompanyDetails(Model model, @PathVariable(name = "id") Long id) {
         final CompanyResponse company = companyService.fetchCompanyResponse(id);
@@ -56,7 +59,7 @@ public class CompanyController implements SetStatus {
         return "company/details";
     }
 
-    @GetMapping("/delete/{id}")
+    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteCompany(@PathVariable(name = "id") Long id) {
         companyService.deleteCompany(id);
         return "redirect:/company/list";
