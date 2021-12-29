@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Menu Departamentów</title>
+    <title>Menu Tankowań</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -17,32 +17,36 @@
                 </a>
             </div>
         </div>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
-            <li class="breadcrumb-item active">Departamenty</li>
-        </ol>
         <div class="row">
-            <div class="col-xl-4 mb-4">
-                <a class="card lift h-100 text-decoration-none" href="/department/list">
+            <div class="col col-12">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+                    <li class="breadcrumb-item active">Tankowania</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-xl-4 mb-4">
+                <a class="card lift h-100 text-decoration-none" href="/refueling/list">
                     <div class="card-body d-flex justify-content-center flex-column">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="me-3">
                                 <i class="fas fa-table me-1" style="font-size: xx-large; color: grey"></i>
-                                <h5>Lista Departamentów</h5>
-                                <div class="text-muted small">Wyświetl listę dostępnych Departamentów</div>
+                                <h5>Lista Tankowań</h5>
+                                <div class="text-muted small">Wyświetl listę Tankowań</div>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-xl-4 mb-4">
-                <a class="card lift h-100 text-decoration-none" href="/department/form">
+                <a class="card lift h-100 text-decoration-none" href="/refueling/form">
                     <div class="card-body d-flex justify-content-center flex-column">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="me-3">
                                 <i class="fas fa-plus me-1" style="font-size: xx-large; color: grey"></i>
-                                <h5>Dodaj Departament</h5>
-                                <div class="text-muted small">Dodaj nowy Departament</div>
+                                <h5>Dodaj Tankowanie</h5>
+                                <div class="text-muted small">Dodaj nowe Tankowanie</div>
                             </div>
                         </div>
                     </div>

@@ -51,16 +51,17 @@
                                        th:value="*{returnDate}" th:field="*{returnDate}">
                             </div>
                             <div class="mb-3">
-                                <label for="departureMeterStatus">Stan licznika przed</label>
-                                <input class="form-control" id="departureMeterStatus" type="number" placeholder="0"
+                                <label for="departureOdometerStatus">Stan licznika przed</label>
+                                <input class="form-control" id="departureOdometerStatus" type="number" placeholder="0"
                                        min="0" required
-                                       th:value="*{departureMeterStatus}" th:field="*{departureMeterStatus}">
+                                       th:value="*{departureOdometerStatus}"
+                                       th:field="*{departureOdometerStatus}">
                             </div>
                             <div class="mb-3">
-                                <label for="returnMeterStatus">Stan licznika po</label>
-                                <input class="form-control" id="returnMeterStatus" type="number" placeholder="0"
-                                       th:min="*{departureMeterStatus + 1}" required
-                                       th:value="*{returnMeterStatus}" th:field="*{returnMeterStatus}">
+                                <label for="returnOdometerStatus">Stan licznika po</label>
+                                <input class="form-control" id="returnOdometerStatus" type="number" placeholder="0"
+                                       th:min="*{returnOdometerStatus}" required
+                                       th:value="*{returnOdometerStatus}" th:field="*{returnOdometerStatus}">
                             </div>
                             <div class="mb-3">
                                 <label for="comments">Opis</label>

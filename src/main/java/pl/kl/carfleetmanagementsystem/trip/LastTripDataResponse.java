@@ -9,5 +9,5 @@ import java.time.LocalDate;
 @Builder
 public class LastTripDataResponse {
     private LocalDate returnDate;
-    private Integer returnMeterStatus;
+    private Integer returnOdometerStatus;
 }

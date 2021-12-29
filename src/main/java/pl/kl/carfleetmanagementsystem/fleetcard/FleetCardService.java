@@ -23,7 +23,7 @@ public class FleetCardService {
     private final LocalDate SYSTEM_START_DATE = LocalDate.of(2020, 1, 1);
 
     @Transactional
-    public void saveFleetCard(FleetCardRequest fleetCardRequest) {
+    public void saveNewFleetCard(FleetCardRequest fleetCardRequest) {
         DateValidator.validateFleetCardExpirationDate(fleetCardRequest.getExpirationDate(), SYSTEM_START_DATE);
         final FleetCard fleetCard = fleetCardMapper.mapFleetCardRequestToFleetCard(fleetCardRequest);
         addVehicleToFleetCard(fleetCard, fleetCardRequest.getVehicleId());
@@ -61,6 +61,12 @@ public class FleetCardService {
     public FleetCardResponse fetchFleetCardResponse(Long id) {
         final FleetCard fleetCardEntity = fetchFleetCardById(id);
         return fleetCardMapper.mapFleetCardToFleetCardResponse(fleetCardEntity);
+    }
+
+    @Transactional
+    public void saveEditedFleetCard(FleetCardRequest fleetCardRequest) {
+        final FleetCard fleetCard = fleetCardMapper.mapFleetCardRequestToFleetCard(fleetCardRequest);
+        fleetCardRepository.save(fleetCard);
     }
 
     public void deleteFleetCard(Long id) {

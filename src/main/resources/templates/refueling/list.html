@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Lista Wyjazdów</title>
+    <title>Lista Tankowań</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -12,8 +12,8 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col col-12 d-flex flex-row-reverse">
-                <a href="/trip">
-                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Wyjazdów
+                <a href="/refueling">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Tankowań
                     </button>
                 </a>
             </div>
@@ -22,8 +22,8 @@
             <div class="col col-12">
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
-                    <li class="breadcrumb-item"><a href="/trip">Wyjazdy</a></li>
-                    <li class="breadcrumb-item active">Lista Wyjazdów</li>
+                    <li class="breadcrumb-item"><a href="/trip">Tankowania</a></li>
+                    <li class="breadcrumb-item active">Lista Tankowań</li>
                 </ol>
             </div>
         </div>
@@ -32,10 +32,10 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-center btn-group-lg" role="group">
-                            <a href="/trip/form">
+                            <a href="/refueling/form">
                                 <button class="btn btn-outline-primary m-1">
                                     <i class="fas fa-plus" style="font-size: x-large"></i><br>
-                                    Dodaj Wyjazd
+                                    Dodaj Tankowanie
                                 </button>
                             </a>
                         </div>
@@ -48,50 +48,43 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Lista Wyjazdów
+                        Lista Tankowań
                     </div>
                     <div class="card-body">
                         <table class="table" id="datatablesSimple">
                             <thead>
                             <tr>
-                                <th class="col col-2">Data wyjazdu</th>
-                                <th class="col col-2">Data powrotu</th>
-                                <th class="col col-1">Stan licznika przed</th>
-                                <th class="col col-1">Stan licznika po</th>
-                                <th class="col col-1">Przebyta droga</th>
-                                <th class="col col-2">Opis</th>
+                                <th class="col col-2">Data tankowania</th>
+                                <th class="col col-3">Stan licznika</th>
+                                <th class="col col-2">Ilość paliwa</th>
+                                <th class="col col-2">Koszt tankowania</th>
                                 <th class="col col-2">Pojazd</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th class="col col-2">Data wyjazdu</th>
-                                <th class="col col-2">Data powrotu</th>
-                                <th class="col col-1">Stan licznika przed</th>
-                                <th class="col col-1">Stan licznika po</th>
-                                <th class="col col-1">Przebyta droga</th>
-                                <th class="col col-2">Opis</th>
+                                <th class="col col-2">Data tankowania</th>
+                                <th class="col col-3">Stan licznika</th>
+                                <th class="col col-2">Ilość paliwa</th>
+                                <th class="col col-2">Koszt tankowania</th>
                                 <th class="col col-2">Pojazd</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr th:each="trip : ${trips}">
-                                <td class="col col-2" th:text="${trip.departureDate}"></td>
-                                <td class="col col-2" th:text="${trip.returnDate}"></td>
-                                <td class="col col-1" th:text="${trip.departureOdometerStatus}"></td>
-                                <td class="col col-1" th:text="${trip.returnOdometerStatus}"></td>
-                                <td class="col col-1" th:text="${trip.distance} + ' km'"></td>
-                                <td class="col col-2"
-                                    th:text="${trip.comments != null} ? ${trip.comments} : 'Brak'"></td>
-                                <td class="col col-2" th:text="${trip.vehicle != null} ? '[' + ${trip.vehicle.registrationNumber}
-                                + '] ' + ${trip.vehicle.brand} + ' ' + ${trip.vehicle.model} : 'Brak'"></td>
+                            <tr th:each="refueling : ${refuelings}">
+                                <td class="col col-2" th:text="${refueling.date}"></td>
+                                <td class="col col-3" th:text="${refueling.odometerStatus}"></td>
+                                <td class="col col-2" th:text="${refueling.fuelAmount} + ' l'"></td>
+                                <td class="col col-2" th:text="${refueling.refuelingCost} + ' zł'"></td>
+                                <td class="col col-2" th:text="${refueling.vehicle != null} ? '[' + ${refueling.vehicle.registrationNumber}
+                                + '] ' + ${refueling.vehicle.brand} + ' ' + ${refueling.vehicle.model} : 'Brak'"></td>
                                 <td class="col col-1">
                                     <div class="d-flex justify-content-center" role="group">
-                                        <a th:href="@{/trip/{id}(id=${trip.id})}">
+                                        <a th:href="@{/refueling/{id}(id=${refueling.id})}">
                                             <button class="btn btn-sm btn-outline-info m-1" data-toggle="tooltip"
-                                                    data-placement="top" title="Szczegóły Wyjazdu">
+                                                    data-placement="top" title="Szczegóły Tankowania">
                                                 <i class="fas fa-info-circle"></i> Info
                                             </button>
                                         </a>
