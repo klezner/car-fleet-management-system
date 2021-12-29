@@ -19,7 +19,7 @@ public class DepartmentService {
     private final DepartmentRepository departmentRepository;
 
 
-    public void saveDepartment(DepartmentRequest departmentRequest) {
+    public void saveNewDepartment(DepartmentRequest departmentRequest) {
         final Department department = departmentMapper.mapDepartmentRequestToDepartment(departmentRequest);
         addCompanyToDepartment(department, departmentRequest.getCompanyId());
         departmentRepository.save(department);
@@ -54,6 +54,13 @@ public class DepartmentService {
     public DepartmentResponse fetchDepartmentResponse(Long id) {
         final Department department = fetchDepartmentById(id);
         return departmentMapper.mapDepartmentToDepartmentResponse(department);
+    }
+
+    @Transactional
+    public void saveEditedDepartment(DepartmentRequest departmentRequest) {
+        final Department department = departmentMapper.mapDepartmentRequestToDepartment(departmentRequest);
+        addCompanyToDepartment(department, departmentRequest.getCompanyId());
+        departmentRepository.save(department);
     }
 
     public void deleteDepartment(Long id) {
