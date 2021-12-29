@@ -23,13 +23,13 @@
             <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
             <li class="breadcrumb-item"><a href="/department">Departamenty</a></li>
             <li class="breadcrumb-item"><a href="/department/list">Lista Departamentów</a></li>
-            <li class="breadcrumb-item"><a th:href="@{/department/{id}(id=${department.id})}">Departament -
+            <li class="breadcrumb-item"><a th:href="@{'/department/' +  ${department.id}}">Departament -
                 szczegóły</a></li>
             <li class="breadcrumb-item active">Edytuj Departament</li>
         </ol>
         <div class="row">
             <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
-                <form th:action="@{/department}" method="post" th:object="${department}">
+                <form th:action="@{'/department/update/' + ${department.id}}" method="put" th:object="${department}">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-align-justify me-1"></i>

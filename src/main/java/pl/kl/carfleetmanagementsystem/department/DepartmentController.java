@@ -3,10 +3,7 @@ package pl.kl.carfleetmanagementsystem.department;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.kl.carfleetmanagementsystem.company.CompanyResponse;
 import pl.kl.carfleetmanagementsystem.company.CompanyService;
 
@@ -33,9 +30,9 @@ public class DepartmentController {
         return "department/add-form";
     }
 
-    @PostMapping
-    public String submitAddOrEditDepartmentForm(DepartmentRequest departmentRequest) {
-        departmentService.saveDepartment(departmentRequest);
+    @PostMapping("/save")
+    public String submitDepartmentAddForm(DepartmentRequest departmentRequest) {
+        departmentService.saveNewDepartment(departmentRequest);
         return "redirect:/department/list";
     }
 
@@ -55,6 +52,12 @@ public class DepartmentController {
         return "department/edit-form";
     }
 
+    @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String submitDepartmentEditForm(DepartmentRequest departmentRequest) {
+        departmentService.saveEditedDepartment(departmentRequest);
+        return "redirect:/department/list";
+    }
+
     @GetMapping("/{id}")
     public String getDepartmentDetails(Model model, @PathVariable(name = "id") Long id) {
         final DepartmentResponse department = departmentService.fetchDepartmentResponse(id);
@@ -62,7 +65,7 @@ public class DepartmentController {
         return "department/details";
     }
 
-    @GetMapping("/delete/{id}")
+    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteDepartment(@PathVariable(name = "id") Long id) {
         departmentService.deleteDepartment(id);
         return "redirect:/department/list";
