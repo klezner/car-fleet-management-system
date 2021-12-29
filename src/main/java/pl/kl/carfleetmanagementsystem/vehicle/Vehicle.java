@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import pl.kl.carfleetmanagementsystem.department.Department;
 import pl.kl.carfleetmanagementsystem.fleetcard.FleetCard;
 import pl.kl.carfleetmanagementsystem.refueling.Refueling;
+import pl.kl.carfleetmanagementsystem.repair.Repair;
 import pl.kl.carfleetmanagementsystem.status.Status;
 import pl.kl.carfleetmanagementsystem.trip.Trip;
 
@@ -60,6 +61,8 @@ public class Vehicle {
     private Set<Trip> trips;
     @OneToMany(mappedBy = "vehicle")
     private Set<Refueling> refuelings;
+    @OneToMany(mappedBy = "vehicle")
+    private Set<Repair> repairs;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Vehicle status cannot be blank")
