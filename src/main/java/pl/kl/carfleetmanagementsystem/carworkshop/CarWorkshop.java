@@ -41,7 +41,7 @@ public class CarWorkshop {
     private String number;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Car workshop card status cannot be blank")
+    @NotNull(message = "Car workshop status cannot be blank")
     private Status status;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

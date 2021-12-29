@@ -69,14 +69,6 @@
                                        required
                                        th:value="*{number}" th:field="*{number}">
                             </div>
-                            <!--                            <div class="mb-3">-->
-                            <!--                                <label for="vehicleId">Pojazd</label>-->
-                            <!--                                <select class="form-control" id="vehicleId" th:field="*{vehicleId}">-->
-                            <!--                                    <option th:value="${null}">&#45;&#45; Brak Pojazdu &#45;&#45;</option>-->
-                            <!--                                    <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}"-->
-                            <!--                                            th:text="'[' + ${vehicle.registrationNumber} + '] ' + ${vehicle.brand} + ' ' +  ${vehicle.model}"></option>-->
-                            <!--                                </select>-->
-                            <!--                            </div>-->
                             <div>
                                 <input type="hidden" th:field="*{status}" th:value="*{status}">
                             </div>

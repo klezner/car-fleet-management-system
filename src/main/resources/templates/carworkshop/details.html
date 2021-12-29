@@ -96,11 +96,6 @@
                                 <th class="col col-3" scope="row">Numer</th>
                                 <td class="col col-9" th:text="${carWorkshop.number}"></td>
                             </tr>
-                            <!--                            <tr>-->
-                            <!--                                <th class="col col-3" scope="row">Pojazd</th>-->
-                            <!--                                <td class="col col-9"-->
-                            <!--                                    th:text="${carWorkshop.vehicle != null} ? '[' + ${carWorkshop.vehicle.registrationNumber} + '] ' + ${carWorkshop.vehicle.brand} + ' ' + ${carWorkshop.vehicle.model} : 'Brak'"></td>-->
-                            <!--                            </tr>-->
                             <tr th:class="${carWorkshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
                                 <th class="col col-3" scope="row">Status</th>
                                 <td class="col col-9">
