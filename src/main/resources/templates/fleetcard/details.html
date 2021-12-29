@@ -12,7 +12,7 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col col-12 d-flex flex-row-reverse">
-                <a href="/fleetcard/list">
+                <a href="/fleet-card/list">
                     <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy Kart
                         floty
                     </button>
@@ -21,22 +21,22 @@
         </div>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
-            <li class="breadcrumb-item"><a href="/fleetcard">Karty floty</a></li>
-            <li class="breadcrumb-item"><a href="/fleetcard/list">Lista Kart floty</a></li>
+            <li class="breadcrumb-item"><a href="/fleet-card">Karty floty</a></li>
+            <li class="breadcrumb-item"><a href="/fleet-card/list">Lista Kart floty</a></li>
             <li class="breadcrumb-item active">Karta floty - szczegóły</li>
         </ol>
         <!--Buttons-->
         <div class="row">
             <div class="col col-12">
                 <div class="d-flex justify-content-center btn-group-lg border-bottom p-2 mb-4" role="group">
-                    <a th:href="@{/fleetcard/edit/{id}(id=${fleetCard.id})}">
+                    <a th:href="@{/fleet-card/edit/{id}(id=${fleetCard.id})}">
                         <button class="btn btn-outline-warning m-1" data-toggle="tooltip"
                                 data-placement="top" title="Edytuj Kartę floty">
                             <i class="fas fa-edit" style="font-size: x-large"></i><br>
                             Edytuj Kartę floty
                         </button>
                     </a>
-                    <a th:href="@{/fleetcard/delete/{id}(id=${fleetCard.id})}">
+                    <a th:href="@{/fleet-card/delete/{id}(id=${fleetCard.id})}">
                         <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
                                 data-placement="top" title="Usuń Kartę floty">
                             <i class="fas fa-trash" style="font-size: x-large"></i><br>
@@ -44,7 +44,7 @@
                         </button>
                     </a>
                     <a th:if="${fleetCard.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}"
-                       th:href="@{/fleetcard/active/{id}(id=${fleetCard.id})}">
+                       th:href="@{/fleet-card/active/{id}(id=${fleetCard.id})}">
                         <button class="btn btn-outline-success m-1" data-toggle="tooltip"
                                 data-placement="top" title="Ustaw status: Aktywna">
                             <i class="fas fa-check-circle" style="font-size: x-large"></i><br>
@@ -52,7 +52,7 @@
                         </button>
                     </a>
                     <a th:if="${fleetCard.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}"
-                       th:href="@{/fleetcard/inactive/{id}(id=${fleetCard.id})}">
+                       th:href="@{/fleet-card/inactive/{id}(id=${fleetCard.id})}">
                         <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
                                 data-placement="top" title="Ustaw status: Nieaktywna">
                             <i class="fas fa-times-circle" style="font-size: x-large"></i><br>
