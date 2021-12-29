@@ -19,7 +19,7 @@ public class VehicleService {
     private final VehicleRepository vehicleRepository;
 
     @Transactional
-    public void saveVehicle(VehicleRequest vehicleRequest) {
+    public void saveNewVehicle(VehicleRequest vehicleRequest) {
         final Vehicle vehicle = vehicleMapper.mapVehicleRequestToVehicle(vehicleRequest);
         addDepartmentToVehicle(vehicle, vehicleRequest.getDepartmentId());
         vehicleRepository.save(vehicle);
@@ -56,6 +56,13 @@ public class VehicleService {
     public VehicleResponse fetchVehicleResponse(Long id) {
         final Vehicle vehicle = fetchVehicleById(id);
         return vehicleMapper.mapVehicleToVehicleResponse(vehicle);
+    }
+
+    @Transactional
+    public void saveEditedVehicle(VehicleRequest vehicleRequest) {
+        final Vehicle vehicle = vehicleMapper.mapVehicleRequestToVehicle(vehicleRequest);
+        addDepartmentToVehicle(vehicle, vehicleRequest.getDepartmentId());
+        vehicleRepository.save(vehicle);
     }
 
     public void deleteVehicle(Long id) {

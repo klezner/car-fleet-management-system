@@ -54,7 +54,7 @@ public class Vehicle {
     private VehicleType type;
     @OneToOne(mappedBy = "vehicle")
     private FleetCard fleetCard;
-    @OneToOne
+    @ManyToOne
     private Department department;
     @OneToMany(mappedBy = "vehicle")
     private Set<Trip> trips;

@@ -3,15 +3,11 @@ package pl.kl.carfleetmanagementsystem.vehicle;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.kl.carfleetmanagementsystem.department.DepartmentResponse;
 import pl.kl.carfleetmanagementsystem.department.DepartmentService;
 import pl.kl.carfleetmanagementsystem.status.SetStatus;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -36,9 +32,9 @@ public class VehicleController implements SetStatus {
         return "vehicle/add-form";
     }
 
-    @PostMapping
-    public String submitAddOrEditVehicleForm(@Valid VehicleRequest vehicleRequest) {
-        vehicleService.saveVehicle(vehicleRequest);
+    @PostMapping("/save")
+    public String submitVehicleAddForm(VehicleRequest vehicleRequest) {
+        vehicleService.saveNewVehicle(vehicleRequest);
         return "redirect:/vehicle/list";
     }
 
@@ -59,6 +55,12 @@ public class VehicleController implements SetStatus {
         return "vehicle/edit-form";
     }
 
+    @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String submitVehicleEditForm(VehicleRequest vehicleRequest) {
+        vehicleService.saveEditedVehicle(vehicleRequest);
+        return "redirect:/vehicle/list";
+    }
+
     @GetMapping("{id}")
     public String getVehicleDetails(Model model, @PathVariable(name = "id") Long id) {
         final VehicleResponse vehicle = vehicleService.fetchVehicleResponse(id);
@@ -66,7 +68,7 @@ public class VehicleController implements SetStatus {
         return "vehicle/details";
     }
 
-    @GetMapping("/delete/{id}")
+    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteVehicle(@PathVariable(name = "id") Long id) {
         vehicleService.deleteVehicle(id);
         return "redirect:/vehicle/list";

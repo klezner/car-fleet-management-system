@@ -14,6 +14,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -35,8 +36,8 @@ public class Department {
     @NotNull(message = "Company cannot be blank")
     @ManyToOne(optional = false)
     private Company company;
-    @OneToOne(mappedBy = "department")
-    private Vehicle vehicle;
+    @OneToMany(mappedBy = "department")
+    private Set<Vehicle> vehicle;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Department status cannot be blank")
