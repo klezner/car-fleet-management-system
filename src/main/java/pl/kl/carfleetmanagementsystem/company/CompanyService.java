@@ -16,7 +16,7 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
 
     @Transactional
-    public void saveCompany(CompanyRequest companyRequest) {
+    public void saveNewCompany(CompanyRequest companyRequest) {
         final Company company = companyMapper.mapCompanyRequestToCompany(companyRequest);
         companyRepository.save(company);
     }
@@ -45,6 +45,12 @@ public class CompanyService {
     public CompanyResponse fetchCompanyResponse(Long id) {
         final Company company = fetchCompanyById(id);
         return companyMapper.mapCompanyToCompanyResponse(company);
+    }
+
+    @Transactional
+    public void saveEditedCompany(CompanyRequest companyRequest) {
+        final Company company = companyMapper.mapCompanyRequestToCompany(companyRequest);
+        companyRepository.save(company);
     }
 
     public void deleteCompany(Long id) {
