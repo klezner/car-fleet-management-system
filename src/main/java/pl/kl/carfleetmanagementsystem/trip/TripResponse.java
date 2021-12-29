@@ -12,8 +12,8 @@ public class TripResponse {
     private Long id;
     private LocalDate departureDate;
     private LocalDate returnDate;
-    private Integer departureMeterStatus;
-    private Integer returnMeterStatus;
+    private Integer departureOdometerStatus;
+    private Integer returnOdometerStatus;
     private Integer distance;
     private String comments;
     private VehicleResponse vehicle;

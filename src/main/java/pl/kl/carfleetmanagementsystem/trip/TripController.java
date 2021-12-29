@@ -76,7 +76,7 @@ public class TripController {
 
     @GetMapping("/last-trip-data/vehicle/{id}")
     @ResponseBody
-    public LastTripDataResponse getLastTripDataOfVehicle(@PathVariable(name = "id") Long vehicleId) {
+    public LastTripDataResponse getVehicleLastTripData(@PathVariable(name = "id") Long vehicleId) {
         return tripService.fetchLastTripDataOfVehicle(vehicleId);
     }
 }

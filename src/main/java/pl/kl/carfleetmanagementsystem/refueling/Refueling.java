@@ -1,11 +1,10 @@
-package pl.kl.carfleetmanagementsystem.trip;
+package pl.kl.carfleetmanagementsystem.refueling;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
@@ -13,6 +12,7 @@ import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -21,29 +21,25 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Builder
-public class Trip {
+public class Refueling {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    @NotNull(message = "Departure date cannot be blank")
+    @NotNull(message = "Refueling date cannot be blank")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate departureDate;
+    private LocalDate date;
     @Column(nullable = false)
-    @NotNull(message = "Departure date cannot be blank")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate returnDate;
+    @NotNull(message = "Meter status during refueling cannot be blank")
+    private Integer odometerStatus;
     @Column(nullable = false)
-    @NotNull(message = "Odometer status cannot be blank")
+    @NotNull(message = "Amount of fuel refueled cannot be blank")
     @Min(0)
-    private Integer departureOdometerStatus;
+    private Double fuelAmount;
     @Column(nullable = false)
-    @NotNull(message = "Odometer status cannot be blank")
+    @NotNull(message = "Refueling cost cannot be blank")
     @Min(0)
-    private Integer returnOdometerStatus;
-    @Formula("return_odometer_status - departure_odometer_status")
-    private Integer distance;
-    private String comments;
+    private BigDecimal refuelingCost;
     @JoinColumn(nullable = false)
     @NotNull(message = "Vehicle cannot be blank")
     @ManyToOne(optional = false)

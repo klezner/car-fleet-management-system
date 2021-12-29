@@ -3,10 +3,7 @@ package pl.kl.carfleetmanagementsystem.fleetcard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.kl.carfleetmanagementsystem.status.SetStatus;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
@@ -15,7 +12,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/fleetcard")
+@RequestMapping("/fleet-card")
 public class FleetCardController implements SetStatus {
 
     private final VehicleService vehicleService;
@@ -34,10 +31,10 @@ public class FleetCardController implements SetStatus {
         return "fleetcard/add-form";
     }
 
-    @PostMapping
-    public String submitAddOrEditFleetCardForm(FleetCardRequest fleetCardRequest) {
-        fleetCardService.saveFleetCard(fleetCardRequest);
-        return "redirect:/fleetcard/list";
+    @PostMapping("/save")
+    public String submitAddFleetCardForm(FleetCardRequest fleetCardRequest) {
+        fleetCardService.saveNewFleetCard(fleetCardRequest);
+        return "redirect:/fleet-card/list";
     }
 
     @GetMapping("/list")
@@ -59,6 +56,12 @@ public class FleetCardController implements SetStatus {
         return "fleetcard/edit-form";
     }
 
+    @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String submitFleetCardEditForm(FleetCardRequest fleetCard) {
+        fleetCardService.saveEditedFleetCard(fleetCard);
+        return "redirect:/fleet-card/list";
+    }
+
     @GetMapping("/{id}")
     public String getFleetCardDetails(Model model, @PathVariable(name = "id") Long id) {
         final FleetCardResponse fleetCard = fleetCardService.fetchFleetCardResponse(id);
@@ -66,23 +69,23 @@ public class FleetCardController implements SetStatus {
         return "fleetcard/details";
     }
 
-    @GetMapping("/delete/{id}")
+    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteFleetCard(@PathVariable(name = "id") Long id) {
         fleetCardService.deleteFleetCard(id);
-        return "redirect:/fleetcard/list";
+        return "redirect:/fleet-card/list";
     }
 
     @GetMapping("/active/{id}")
     @Override
     public String setActive(@PathVariable(name = "id") Long id) {
         fleetCardService.setActive(id);
-        return "redirect:/fleetcard/{id}";
+        return "redirect:/fleet-card/{id}";
     }
 
     @GetMapping("/inactive/{id}")
     @Override
     public String setInactive(@PathVariable(name = "id") Long id) {
         fleetCardService.setInactive(id);
-        return "redirect:/fleetcard/{id}";
+        return "redirect:/fleet-card/{id}";
     }
 }

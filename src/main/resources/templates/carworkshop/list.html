@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Lista Departamentów</title>
+    <title>Lista Warsztatów</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -12,9 +12,8 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col col-12 d-flex flex-row-reverse">
-                <a href="/department">
-                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu
-                        Departamentów
+                <a href="/car-workshop">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Warsztatów
                     </button>
                 </a>
             </div>
@@ -23,8 +22,8 @@
             <div class="col col-12">
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
-                    <li class="breadcrumb-item"><a href="/department">Departamenty</a></li>
-                    <li class="breadcrumb-item active">Lista Departamentów</li>
+                    <li class="breadcrumb-item"><a href="/car-workshop">Warsztaty</a></li>
+                    <li class="breadcrumb-item active">Lista Warsztatów</li>
                 </ol>
             </div>
         </div>
@@ -33,10 +32,10 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-center btn-group-lg" role="group">
-                            <a href="/department/form">
+                            <a href="/car-workshop/form">
                                 <button class="btn btn-outline-primary m-1">
                                     <i class="fas fa-plus" style="font-size: x-large"></i><br>
-                                    Dodaj Departament
+                                    Dodaj Warsztat
                                 </button>
                             </a>
                         </div>
@@ -49,52 +48,55 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Lista Departamentów
+                        Lista Warsztatów
                     </div>
                     <div class="card-body">
                         <table class="table" id="datatablesSimple">
                             <thead>
                             <tr>
-                                <th class="col col-3">Nazwa</th>
-                                <th class="col col-2">Skrót</th>
-                                <th class="col col-3">Opis</th>
-                                <th class="col col-2">Firma</th>
+                                <th class="col col-4">Nazwa</th>
+                                <th class="col col-1">Kod pocztowy</th>
+                                <th class="col col-2">Miasto</th>
+                                <th class="col col-2">Ulica</th>
+                                <th class="col col-1">Numer</th>
                                 <th class="col col-1">Status</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th class="col col-3">Nazwa</th>
-                                <th class="col col-2">Skrót</th>
-                                <th class="col col-3">Opis</th>
-                                <th class="col col-2">Firma</th>
+                                <th class="col col-4">Nazwa</th>
+                                <th class="col col-1">Kod pocztowy</th>
+                                <th class="col col-2">Miasto</th>
+                                <th class="col col-2">Ulica</th>
+                                <th class="col col-1">Numer</th>
                                 <th class="col col-1">Status</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr th:each="department : ${departments}"
-                                th:class="${department.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
-                                <td class="col col-3" th:text="${department.name}"></td>
-                                <td class="col col-2" th:text="${department.abbreviation}"></td>
-                                <td class="col col-3" th:text="${department.comment}"></td>
-                                <td class="col col-2" th:text="${department.company.name}"></td>
+                            <tr th:each="carWorkshop : ${carWorkshops}"
+                                th:class="${carWorkshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
+                                <td class="col col-4" th:text="${carWorkshop.name}"></td>
+                                <td class="col col-1" th:text="${carWorkshop.zipCode}"></td>
+                                <td class="col col-2" th:text="${carWorkshop.city}"></td>
+                                <td class="col col-2" th:text="${carWorkshop.street}"></td>
+                                <td class="col col-1" th:text="${carWorkshop.number}"></td>
                                 <td class="col col-1">
-                                    <span th:if="${department.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}">
+                                    <span th:if="${carWorkshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}">
                                         <i class="fas fa-check me-1"></i><span
-                                            th:text="${department.status.getCommonName()}"></span>
+                                            th:text="${carWorkshop.status.getCommonName()}"></span>
                                     </span>
-                                    <span th:if="${department.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}">
+                                    <span th:if="${carWorkshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}">
                                         <i class="fas fa-times me-1"></i><span
-                                            th:text="${department.status.getCommonName()}"></span>
+                                            th:text="${carWorkshop.status.getCommonName()}"></span>
                                     </span>
                                 </td>
                                 <td class="col col-1">
                                     <div class="d-flex justify-content-center btn-group-sm" role="group">
-                                        <a th:href="@{/department/{id}(id=${department.id})}">
+                                        <a th:href="@{/car-workshop/{id}(id=${carWorkshop.id})}">
                                             <button class="btn btn-sm btn-outline-info m-1" data-toggle="tooltip"
-                                                    data-placement="top" title="Szczegóły Departamentu">
+                                                    data-placement="top" title="Szczegóły Warsztatu">
                                                 <i class="fas fa-info-circle"></i> Szczegóły
                                             </button>
                                         </a>
