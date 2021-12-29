@@ -12,7 +12,7 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col col-12 d-flex flex-row-reverse">
-                <a href="/fleetcard/list">
+                <a href="/fleet-card/list">
                     <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy Kart
                         floty
                     </button>
@@ -21,15 +21,15 @@
         </div>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
-            <li class="breadcrumb-item"><a href="/fleetcard">Karty floty</a></li>
-            <li class="breadcrumb-item"><a href="/fleetcard/list">Lista Kart floty</a></li>
-            <li class="breadcrumb-item"><a th:href="@{/fleetcard/{id}(id=${fleetCard.id})}">Karta floty - szczegóły</a>
+            <li class="breadcrumb-item"><a href="/fleet-card">Karty floty</a></li>
+            <li class="breadcrumb-item"><a href="/fleet-card/list">Lista Kart floty</a></li>
+            <li class="breadcrumb-item"><a th:href="@{'/fleet-card/' + ${fleetCard.id}}">Karta floty - szczegóły</a>
             </li>
             <li class="breadcrumb-item active">Edytuj Kartę floty</li>
         </ol>
         <div class="row">
             <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
-                <form th:action="@{/fleetcard}" method="post" th:object="${fleetCard}">
+                <form th:action="@{'/fleet-card/update/' + ${fleetCard.id}}" method="put" th:object="${fleetCard}">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-align-justify me-1"></i>
