@@ -24,6 +24,7 @@ public class RepairRequest {
     @NotBlank(message = "Repair invoice number cannot be blank")
     private String invoiceNumber;
     @NotNull(message = "Repair invoice date cannot be blank")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate invoiceDate;
     @NotNull(message = "Repair cost cannot be blank")
     @Min(0)

@@ -43,6 +43,13 @@ public class RepairController {
         return "redirect:/repair/list";
     }
 
+    @GetMapping("/list")
+    public String getRepairList(Model model) {
+        final List<RepairResponse> repairs = repairService.fetchAllRepairsResponses();
+        model.addAttribute("repairs", repairs);
+        return "/repair/list";
+    }
+
     @GetMapping("/last-repair-data/vehicle/{id}")
     @ResponseBody
     public LastRepairDataResponse getVehiclesLastRepairData(@PathVariable(name = "id") Long vehicleId) {

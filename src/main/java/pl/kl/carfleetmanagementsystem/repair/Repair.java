@@ -39,6 +39,7 @@ public class Repair {
     private String invoiceNumber;
     @Column(nullable = false)
     @NotNull(message = "Repair invoice date cannot be blank")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate invoiceDate;
     @Column(nullable = false)
     @NotNull(message = "Repair cost cannot be blank")

@@ -9,6 +9,8 @@ import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +40,17 @@ public class RepairService {
     private void addVehicleToRepair(Repair repair, Long vehicleId) {
         final Vehicle vehicle = vehicleService.fetchVehicleById(vehicleId);
         repair.setVehicle(vehicle);
+    }
+
+    public List<RepairResponse> fetchAllRepairsResponses() {
+        final List<Repair> repairEntities = fetchAllRepairs();
+        return repairEntities.stream()
+                .map(repairMapper::mapRepairToRepairResponse)
+                .collect(Collectors.toList());
+    }
+
+    private List<Repair> fetchAllRepairs() {
+        return repairRepository.findAll();
     }
 
     public LastRepairDataResponse fetchLastRepairDataOfVehicle(Long vehicleId) {

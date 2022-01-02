@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Lista Tankowań</title>
+    <title>Lista Napraw</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -12,8 +12,8 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col col-12 d-flex flex-row-reverse">
-                <a href="/refueling">
-                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Tankowań
+                <a href="/repair">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Napraw
                     </button>
                 </a>
             </div>
@@ -22,8 +22,8 @@
             <div class="col col-12">
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
-                    <li class="breadcrumb-item"><a href="/refueling">Tankowania</a></li>
-                    <li class="breadcrumb-item active">Lista Tankowań</li>
+                    <li class="breadcrumb-item"><a href="/repair">Naprawy</a></li>
+                    <li class="breadcrumb-item active">Lista Napraw</li>
                 </ol>
             </div>
         </div>
@@ -32,10 +32,10 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-center btn-group-lg" role="group">
-                            <a href="/refueling/form">
+                            <a href="/repair/form">
                                 <button class="btn btn-outline-primary m-1">
                                     <i class="fas fa-plus" style="font-size: x-large"></i><br>
-                                    Dodaj Tankowanie
+                                    Dodaj Naprawę
                                 </button>
                             </a>
                         </div>
@@ -48,43 +48,56 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Lista Tankowań
+                        Lista Napraw
                     </div>
                     <div class="card-body">
                         <table class="table" id="datatablesSimple">
                             <thead>
                             <tr>
-                                <th class="col col-2">Data tankowania</th>
-                                <th class="col col-3">Stan licznika</th>
-                                <th class="col col-2">Ilość paliwa</th>
-                                <th class="col col-2">Koszt tankowania</th>
+                                <th class="col col-1">Data pozostawienia</th>
+                                <th class="col col-1">Stan licznika</th>
+                                <th class="col col-1">Numer faktury</th>
+                                <th class="col col-1">Data faktury</th>
+                                <th class="col col-1">Koszt naprawy</th>
+                                <th class="col col-1">Data odbioru</th>
+                                <th class="col col-2">Opis</th>
+                                <th class="col col-1">Warsztat</th>
                                 <th class="col col-2">Pojazd</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th class="col col-2">Data tankowania</th>
-                                <th class="col col-3">Stan licznika</th>
-                                <th class="col col-2">Ilość paliwa</th>
-                                <th class="col col-2">Koszt tankowania</th>
+                                <th class="col col-1">Data pozostawienia</th>
+                                <th class="col col-1">Stan licznika</th>
+                                <th class="col col-1">Numer faktury</th>
+                                <th class="col col-1">Data faktury</th>
+                                <th class="col col-1">Koszt naprawy</th>
+                                <th class="col col-1">Data odbioru</th>
+                                <th class="col col-2">Opis</th>
+                                <th class="col col-1">Warsztat</th>
                                 <th class="col col-2">Pojazd</th>
                                 <th class="col col-1">Akcje</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr th:each="refueling : ${refuelings}">
-                                <td class="col col-2" th:text="${refueling.date}"></td>
-                                <td class="col col-3" th:text="${refueling.odometerStatus}"></td>
-                                <td class="col col-2" th:text="${refueling.fuelAmount} + ' l'"></td>
-                                <td class="col col-2" th:text="${refueling.refuelingCost} + ' zł'"></td>
-                                <td class="col col-2" th:text="${refueling.vehicle != null} ? '[' + ${refueling.vehicle.registrationNumber}
-                                + '] ' + ${refueling.vehicle.brand} + ' ' + ${refueling.vehicle.model} : 'Brak'"></td>
+                            <tr th:each="repair : ${repairs}">
+                                <td class="col col-1" th:text="${repair.leftDate}"></td>
+                                <td class="col col-1" th:text="${repair.leftOdometerStatus}"></td>
+                                <td class="col col-1" th:text="${repair.invoiceNumber}"></td>
+                                <td class="col col-1" th:text="${repair.invoiceDate}"></td>
+                                <td class="col col-1" th:text="${repair.repairCost} + ' zł'"></td>
+                                <td class="col col-1" th:text="${repair.pickupDate}"></td>
+                                <td class="col col-2" th:text="${repair.comments}"></td>
+                                <td class="col col-1"
+                                    th:text="${repair.carWorkshop != null} ? ${repair.carWorkshop.name} : 'Brak'"></td>
+                                <td class="col col-2" th:text="${repair.vehicle != null} ? '[' + ${repair.vehicle.registrationNumber}
+                                + '] ' + ${repair.vehicle.brand} + ' ' + ${repair.vehicle.model} : 'Brak'"></td>
                                 <td class="col col-1">
                                     <div class="d-flex justify-content-center" role="group">
-                                        <a th:href="@{/refueling/{id}(id=${refueling.id})}">
+                                        <a th:href="@{/repair/{id}(id=${repair.id})}">
                                             <button class="btn btn-sm btn-outline-info m-1" data-toggle="tooltip"
-                                                    data-placement="top" title="Szczegóły Tankowania">
+                                                    data-placement="top" title="Szczegóły Naprawy">
                                                 <i class="fas fa-info-circle"></i> Info
                                             </button>
                                         </a>
