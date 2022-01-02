@@ -85,11 +85,11 @@
         $('document').ready(function () {
             $('#vehicleId').prop('selectedIndex', 0);
             $('#vehicleId').change(function () {
-                var vehicleId = $(this).val();
-                var href = "http://localhost:8080/refueling/last-refueling-data/vehicle/" + vehicleId;
+                let vehicleId = $(this).val();
+                let href = "http://localhost:8080/refueling/last-refueling-data/vehicle/" + vehicleId;
                 $.get(href, function (lastRefuelingData, status) {
-                    var date = lastRefuelingData.date;
-                    var odometerStatus = lastRefuelingData.odometerStatus;
+                    let date = lastRefuelingData.date;
+                    let odometerStatus = lastRefuelingData.odometerStatus;
                     $('#date').val(date).attr("min", date);
                     $('#odometerStatus').val(odometerStatus).attr("min", odometerStatus);
                 });

@@ -32,6 +32,7 @@ public class RepairMapper {
                 .leftOdometerStatus(repair.getLeftOdometerStatus())
                 .invoiceNumber(repair.getInvoiceNumber())
                 .invoiceDate(repair.getInvoiceDate())
+                .repairCost(repair.getRepairCost())
                 .pickupDate(repair.getPickupDate())
                 .comments(repair.getComments())
                 .carWorkshop(carWorkshopMapper.mapCarWorkshopToCarWorkshopResponse(repair.getCarWorkshop()))

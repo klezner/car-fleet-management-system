@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="leftDate">Data pozostawienia</label>
-                                <input class="form-control" id="leftDate" type="date" placeholder="2021-01-01"
+                                <input class="form-control" id="leftDate" type="date" th:placeholder="${today}"
                                        min="2020-01-01" th:max="${today}" required
                                        th:field="*{leftDate}">
                             </div>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="invoiceDate">Data faktury</label>
-                                <input class="form-control" id="invoiceDate" type="date" placeholder="2021-01-01"
+                                <input class="form-control" id="invoiceDate" type="date" th:placeholder="${today}"
                                        min="2020-01-01" th:max="${today}" required
                                        th:field="*{invoiceDate}">
                             </div>
@@ -68,7 +68,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="pickupDate">Data odbioru</label>
-                                <input class="form-control" id="pickupDate" type="date" placeholder="2021-01-01"
+                                <input class="form-control" id="pickupDate" type="date" th:placeholder="${today}"
                                        min="2020-01-01" th:max="${today}" required
                                        th:field="*{pickupDate}">
                             </div>
@@ -111,11 +111,13 @@
             $('#carWorkshopId').prop('selectedIndex', 0);
             $('#vehicleId').prop('selectedIndex', 0);
             $('#vehicleId').change(function () {
-                var vehicleId = $(this).val();
-                var href = "http://localhost:8080/repair/last-repair-data/vehicle/" + vehicleId;
+                let vehicleId = $(this).val();
+                let href = "http://localhost:8080/repair/last-repair-data/vehicle/" + vehicleId;
                 $.get(href, function (lastRepairData, status) {
-                    var pickupDate = lastRepairData.pickupDate;
-                    var leftOdometerStatus = lastRefuelingData.leftOdometerStatus;
+                    let pickupDate = lastRepairData.pickupDate;
+                    let leftOdometerStatus = lastRepairData.leftOdometerStatus;
+                    $('#leftDate').val(pickupDate).attr("min", pickupDate);
+                    $('#invoiceDate').val(pickupDate).attr("min", pickupDate);
                     $('#pickupDate').val(pickupDate).attr("min", pickupDate);
                     $('#leftOdometerStatus').val(leftOdometerStatus).attr("min", leftOdometerStatus);
                 });
