@@ -9,6 +9,7 @@ import pl.kl.carfleetmanagementsystem.validator.DateValidator;
 import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,6 +54,16 @@ public class RepairService {
 
     private List<Repair> fetchAllRepairs() {
         return repairRepository.findAll();
+    }
+
+    public RepairResponse fetchRepairResponse(Long id) {
+        final Repair repair = fetchRepairById(id);
+        return repairMapper.mapRepairToRepairResponse(repair);
+    }
+
+    private Repair fetchRepairById(Long id) {
+        return repairRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Repair with id: " + id + " not found!"));
     }
 
     public LastRepairDataResponse fetchLastRepairDataOfVehicle(Long vehicleId) {

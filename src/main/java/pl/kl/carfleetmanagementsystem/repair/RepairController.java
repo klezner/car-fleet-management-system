@@ -50,6 +50,13 @@ public class RepairController {
         return "/repair/list";
     }
 
+    @GetMapping("/{id}")
+    public String getRepairDetails(Model model, @PathVariable(name = "id") Long id) {
+        final RepairResponse repair = repairService.fetchRepairResponse(id);
+        model.addAttribute("repair", repair);
+        return "repair/details";
+    }
+
     @GetMapping("/last-repair-data/vehicle/{id}")
     @ResponseBody
     public LastRepairDataResponse getVehiclesLastRepairData(@PathVariable(name = "id") Long vehicleId) {

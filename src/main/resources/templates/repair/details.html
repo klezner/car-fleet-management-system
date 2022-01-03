@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Naprawa - szczegóły</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/repair/list">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy Napraw
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+                    <li class="breadcrumb-item"><a href="/repair">Naprawy</a></li>
+                    <li class="breadcrumb-item"><a href="/repair/list">Lista Napraw</a></li>
+                    <li class="breadcrumb-item active">Naprawa - szczegóły</li>
+                </ol>
+            </div>
+        </div>
+        <!--Buttons-->
+        <div class="row">
+            <div class="col col-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center btn-group-lg" role="group">
+                            <a th:href="@{/repair/edit/{id}(id=${repair.id})}">
+                                <button class="btn btn-outline-warning m-1" data-toggle="tooltip"
+                                        data-placement="top" title="Edytuj Naprawę">
+                                    <i class="fas fa-edit" style="font-size: x-large"></i><br>
+                                    Edytuj Naprawę
+                                </button>
+                            </a>
+                            <a th:href="@{/repair/delete/{id}(id=${repair.id})}"
+                               onclick="return confirm('Czy jesteś pewny, że chcesz usunąć tę naprawę?');">
+                                <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
+                                        data-placement="top" title="Usuń Naprawę">
+                                    <i class="fas fa-trash" style="font-size: x-large"></i><br>
+                                    Usuń Naprawę
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-10 col-sm-8 col-md-6 col-lg-6 col-xxl-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-info me-1"></i>
+                        Naprawa - szczegóły
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th class="col col-3" scope="row">#</th>
+                                <td class="col col-9" th:text="${repair.id}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Data pozostawienia</th>
+                                <td class="col col-9" th:text="${repair.leftDate}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Stan licznika</th>
+                                <td class="col col-9" th:text="${repair.leftOdometerStatus}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Numer faktury</th>
+                                <td class="col col-9" th:text="${repair.invoiceNumber}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Data faktury</th>
+                                <td class="col col-9" th:text="${repair.invoiceDate}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Stan licznika</th>
+                                <td class="col col-9" th:text="${repair.leftOdometerStatus}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Koszt naprawy</th>
+                                <td class="col col-9" th:text="${repair.repairCost} + ' zł'"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Data odbioru</th>
+                                <td class="col col-9" th:text="${repair.pickupDate}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Opis</th>
+                                <td class="col col-9" th:text="${repair.comments}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Warsztat</th>
+                                <td class="col col-9"
+                                    th:text="${repair.carWorkshop != null} ? ${repair.carWorkshop.name} : 'Brak'"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Pojazd</th>
+                                <td class="col col-9"
+                                    th:text="${repair.vehicle != null} ? '[' + ${repair.vehicle.registrationNumber} + '] ' + ${repair.vehicle.brand} + ' ' + ${repair.vehicle.model} : 'Brak'"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
