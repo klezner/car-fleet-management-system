@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.kl.carfleetmanagementsystem.carworkshop.CarWorkshop;
 import pl.kl.carfleetmanagementsystem.carworkshop.CarWorkshopService;
+import pl.kl.carfleetmanagementsystem.validator.DateValidator;
 import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
 
@@ -26,6 +27,7 @@ public class RepairService {
 
     @Transactional
     public void saveNewRepair(RepairRequest repairRequest) {
+        DateValidator.validateRepairDatesOnRepairCreate(repairRequest.getLeftDate(), repairRequest.getPickupDate(), repairRequest.getInvoiceDate(), SYSTEM_START_DATE);
         final Repair repair = repairMapper.mapRepairRequestToRepair(repairRequest);
         addVehicleToRepair(repair, repairRequest.getVehicleId());
         addCarWorkshopToRepair(repair, repairRequest.getCarWorkshopId());
