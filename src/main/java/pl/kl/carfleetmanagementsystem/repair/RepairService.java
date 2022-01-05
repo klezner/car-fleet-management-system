@@ -66,6 +66,10 @@ public class RepairService {
                 .orElseThrow(() -> new EntityNotFoundException("Repair with id: " + id + " not found!"));
     }
 
+    public void deleteRepair(Long id) {
+        repairRepository.deleteById(id);
+    }
+
     public LastRepairDataResponse fetchLastRepairDataOfVehicle(Long vehicleId) {
         final Vehicle vehicle = vehicleService.fetchVehicleById(vehicleId);
         final Repair repair = repairRepository.findTopByVehicleOrderByLeftOdometerStatusDesc(vehicle);

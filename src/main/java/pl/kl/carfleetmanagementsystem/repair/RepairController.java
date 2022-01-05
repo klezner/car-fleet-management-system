@@ -57,6 +57,12 @@ public class RepairController {
         return "repair/details";
     }
 
+    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String deleteRepair(@PathVariable(name = "id") Long id) {
+        repairService.deleteRepair(id);
+        return "redirect:/repair/list";
+    }
+
     @GetMapping("/last-repair-data/vehicle/{id}")
     @ResponseBody
     public LastRepairDataResponse getVehiclesLastRepairData(@PathVariable(name = "id") Long vehicleId) {
