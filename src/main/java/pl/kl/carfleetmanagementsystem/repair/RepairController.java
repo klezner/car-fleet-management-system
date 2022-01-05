@@ -57,6 +57,24 @@ public class RepairController {
         return "repair/details";
     }
 
+    @GetMapping("/edit/{id}")
+    public String getRepairEditForm(Model model, @PathVariable(name = "id") Long id) {
+        final RepairRequest repair = repairService.fetchRepairRequest(id);
+        final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
+        final List<CarWorkshopResponse> carWorkshops = carWorkshopService.fetchAllCarWorkshopsResponses();
+        model.addAttribute("today", LocalDate.now());
+        model.addAttribute("vehicles", vehicles);
+        model.addAttribute("carWorkshops", carWorkshops);
+        model.addAttribute("repair", repair);
+        return "repair/edit-form";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String submitRepairEditForm(RepairRequest repairRequest) {
+        repairService.saveEditedRepair(repairRequest);
+        return "redirect:/repair/list";
+    }
+
     @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteRepair(@PathVariable(name = "id") Long id) {
         repairService.deleteRepair(id);

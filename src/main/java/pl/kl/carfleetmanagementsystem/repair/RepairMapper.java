@@ -39,4 +39,19 @@ public class RepairMapper {
                 .vehicle(vehicleMapper.mapVehicleToVehicleResponse(repair.getVehicle()))
                 .build();
     }
+
+    public RepairRequest mapRepairToRepairRequest(Repair repair) {
+        return RepairRequest.builder()
+                .id(repair.getId())
+                .leftDate(repair.getLeftDate())
+                .leftOdometerStatus(repair.getLeftOdometerStatus())
+                .invoiceNumber(repair.getInvoiceNumber())
+                .invoiceDate(repair.getInvoiceDate())
+                .repairCost(repair.getRepairCost())
+                .pickupDate(repair.getPickupDate())
+                .comments(repair.getComments())
+                .carWorkshopId(repair.getCarWorkshop().getId())
+                .vehicleId(repair.getVehicle().getId())
+                .build();
+    }
 }

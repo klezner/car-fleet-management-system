@@ -49,24 +49,23 @@
                                 <label for="odometerStatus">Stan licznika</label>
                                 <input class="form-control" id="odometerStatus" type="number" placeholder="1"
                                        min="1" required
-                                       th:field="*{odometerStatus}">
+                                       th:value="*{odometerStatus}" th:field="*{odometerStatus}">
                             </div>
                             <div class="mb-3">
                                 <label for="fuelAmount">Ilość zatankowanego paliwa</label>
                                 <input class="form-control" id="fuelAmount" type="number" placeholder="0.01"
                                        min="0" step="0.01" required
-                                       th:field="*{fuelAmount}">
+                                       th:value="*{fuelAmount}" th:field="*{fuelAmount}">
                             </div>
                             <div class="mb-3">
                                 <label for="refuelingCost">Koszt tankowania</label>
                                 <input class="form-control" id="refuelingCost" type="number" placeholder="0.01"
                                        min="0" step="0.01" required
-                                       th:field="*{refuelingCost}">
+                                       th:value="*{refuelingCost}" th:field="*{refuelingCost}">
                             </div>
                             <div class="mb-3">
                                 <label for="vehicleId">Pojazd</label>
                                 <select class="form-control" id="vehicleId" required th:field="*{vehicleId}">
-                                    <option th:value="${null}" disabled>-- Brak Pojazdu --</option>
                                     <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}"
                                             th:text="'[' + ${vehicle.registrationNumber} + '] ' + ${vehicle.brand} + ' ' +  ${vehicle.model}"></option>
                                 </select>

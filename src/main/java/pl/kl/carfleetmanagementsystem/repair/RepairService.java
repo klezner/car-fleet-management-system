@@ -66,6 +66,19 @@ public class RepairService {
                 .orElseThrow(() -> new EntityNotFoundException("Repair with id: " + id + " not found!"));
     }
 
+    public RepairRequest fetchRepairRequest(Long id) {
+        final Repair repair = fetchRepairById(id);
+        return repairMapper.mapRepairToRepairRequest(repair);
+    }
+
+    @Transactional
+    public void saveEditedRepair(RepairRequest repairRequest) {
+        final Repair repair = repairMapper.mapRepairRequestToRepair(repairRequest);
+        addCarWorkshopToRepair(repair, repairRequest.getCarWorkshopId());
+        addVehicleToRepair(repair, repairRequest.getVehicleId());
+        repairRepository.save(repair);
+    }
+
     public void deleteRepair(Long id) {
         repairRepository.deleteById(id);
     }
