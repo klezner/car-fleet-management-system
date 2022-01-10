@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Tankowanie - szczegóły</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/refueling/list">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy Tankowań
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+                    <li class="breadcrumb-item"><a href="/refueling">Tankowania</a></li>
+                    <li class="breadcrumb-item"><a href="/refueling/list">Lista Tankowań</a></li>
+                    <li class="breadcrumb-item active">Tankowanie - szczegóły</li>
+                </ol>
+            </div>
+        </div>
+        <!--Buttons-->
+        <div class="row">
+            <div class="col col-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center btn-group-lg" role="group">
+                            <a th:href="@{/refueling/edit/{id}(id=${refueling.id})}">
+                                <button class="btn btn-outline-warning m-1" data-toggle="tooltip"
+                                        data-placement="top" title="Edytuj Tankowanie">
+                                    <i class="fas fa-edit" style="font-size: x-large"></i><br>
+                                    Edytuj Tankowanie
+                                </button>
+                            </a>
+                            <a th:href="@{/refueling/delete/{id}(id=${refueling.id})}"
+                               onclick="return confirm('Czy jesteś pewny, że chcesz usunąć to tankowanie?');">
+                                <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
+                                        data-placement="top" title="Usuń Tankowanie">
+                                    <i class="fas fa-trash" style="font-size: x-large"></i><br>
+                                    Usuń Tankowanie
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-10 col-sm-8 col-md-6 col-lg-6 col-xxl-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-info me-1"></i>
+                        Tankowanie - szczegóły
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th class="col col-3" scope="row">#</th>
+                                <td class="col col-9" th:text="${refueling.id}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Data tankowania</th>
+                                <td class="col col-9" th:text="${refueling.date}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Stan licznika</th>
+                                <td class="col col-9" th:text="${refueling.odometerStatus}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Ilość paliwa</th>
+                                <td class="col col-9" th:text="${refueling.fuelAmount} + ' l'"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Koszt tankowania</th>
+                                <td class="col col-9" th:text="${refueling.refuelingCost} + ' zł'"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Pojazd</th>
+                                <td class="col col-9"
+                                    th:text="${refueling.vehicle != null} ? '[' + ${refueling.vehicle.registrationNumber} + '] ' + ${refueling.vehicle.brand} + ' ' + ${refueling.vehicle.model} : 'Brak'"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

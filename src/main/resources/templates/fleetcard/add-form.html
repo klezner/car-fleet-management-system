@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Dodaj Kartę floty</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/fleet-card">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Kart floty
+                    </button>
+                </a>
+            </div>
+        </div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+            <li class="breadcrumb-item"><a href="/fleet-card">Karty floty</a></li>
+            <li class="breadcrumb-item active">Dodaj Kartę floty</li>
+        </ol>
+        <div class="row">
+            <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
+                <form th:action="@{/fleet-card/save}" method="post" th:object="${fleetCard}">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-align-justify me-1"></i>
+                            Formularz dodawania Karty floty
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" th:field="*{id}" th:value="*{id}">
+                            <div class="mb-3">
+                                <label for="number">Numer karty</label>
+                                <input class="form-control" id="number" type="text" placeholder="123456789012345"
+                                       required
+                                       th:value="*{number}" th:field="*{number}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="expirationDate">Data ważności</label>
+                                <input class="form-control" id="expirationDate" type="date" placeholder="2021-01-01"
+                                       min="2020-01-01" max="2050-12-31" required
+                                       th:value="*{expirationDate}" th:field="*{expirationDate}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="type">Typ</label>
+                                <input class="form-control" id="type" type="text" placeholder="Typ" required
+                                       th:value="*{type}" th:field="*{type}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="vehicleId">Pojazd</label>
+                                <select class="form-control" id="vehicleId" th:field="*{vehicleId}">
+                                    <option th:value="${null}">-- Brak Pojazdu --</option>
+                                    <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}"
+                                            th:text="'[' + ${vehicle.registrationNumber} + '] ' + ${vehicle.brand} + ' ' +  ${vehicle.model}"></option>
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Wyślij</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

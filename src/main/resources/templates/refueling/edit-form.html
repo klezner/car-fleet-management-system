@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Edytuj Tankowanie</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/refueling/list">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy Tankowań
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+                    <li class="breadcrumb-item"><a href="/trip">Tankowania</a></li>
+                    <li class="breadcrumb-item"><a href="/trip/list">Lista Tankowań</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{'/refueling/' + ${refueling.id}}">Tankowanie -
+                        szczegóły</a></li>
+                    <li class="breadcrumb-item active">Edytuj Tankowanie</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
+                <form th:action="@{'/refueling/update/' +  ${refueling.id}}" method="put" th:object="${refueling}">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-align-justify me-1"></i>
+                            Formularz edycji Tankowania
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="date">Data tankowania</label>
+                                <input class="form-control" id="date" type="date" th:placeholder="${today}"
+                                       min="2020-01-01" th:max="${today}" required
+                                       th:value="*{date}" th:field="*{date}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="odometerStatus">Stan licznika</label>
+                                <input class="form-control" id="odometerStatus" type="number" placeholder="1"
+                                       min="1" required
+                                       th:value="*{odometerStatus}" th:field="*{odometerStatus}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="fuelAmount">Ilość zatankowanego paliwa</label>
+                                <input class="form-control" id="fuelAmount" type="number" placeholder="0.01"
+                                       min="0" step="0.01" required
+                                       th:value="*{fuelAmount}" th:field="*{fuelAmount}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="refuelingCost">Koszt tankowania</label>
+                                <input class="form-control" id="refuelingCost" type="number" placeholder="0.01"
+                                       min="0" step="0.01" required
+                                       th:value="*{refuelingCost}" th:field="*{refuelingCost}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="vehicleId">Pojazd</label>
+                                <select class="form-control" id="vehicleId" required th:field="*{vehicleId}">
+                                    <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}"
+                                            th:text="'[' + ${vehicle.registrationNumber} + '] ' + ${vehicle.brand} + ' ' +  ${vehicle.model}"></option>
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Wyślij</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

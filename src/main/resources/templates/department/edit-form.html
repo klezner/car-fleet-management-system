@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Edytuj Departament</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/department/list">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy
+                        Departamentów
+                    </button>
+                </a>
+            </div>
+        </div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+            <li class="breadcrumb-item"><a href="/department">Departamenty</a></li>
+            <li class="breadcrumb-item"><a href="/department/list">Lista Departamentów</a></li>
+            <li class="breadcrumb-item"><a th:href="@{'/department/' +  ${department.id}}">Departament -
+                szczegóły</a></li>
+            <li class="breadcrumb-item active">Edytuj Departament</li>
+        </ol>
+        <div class="row">
+            <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
+                <form th:action="@{'/department/update/' + ${department.id}}" method="put" th:object="${department}">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-align-justify me-1"></i>
+                            Formularz edycji Departamentu
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <input type="hidden" th:field="*{id}" th:value="*{id}">
+                                <label for="name">Nazwa</label>
+                                <input class="form-control" id="name" type="text" placeholder="Nazwa"
+                                       required
+                                       th:value="*{name}" th:field="*{name}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="abbreviation">Skrót</label>
+                                <input class="form-control" id="abbreviation" type="text" placeholder="Skrót"
+                                       required
+                                       th:value="*{abbreviation}" th:field="*{abbreviation}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="comment">Opis</label>
+                                <input class="form-control" id="comment" type="text" placeholder="Opis"
+                                       th:value="*{comment}" th:field="*{comment}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="companyId">Firma</label>
+                                <select class="form-control" id="companyId" th:field="*{companyId}">
+                                    <option th:each="company : ${companies}" th:value="${company.id}"
+                                            th:text="${company.name}"></option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="hidden" th:field="*{status}" th:value="*{status}">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Wyślij</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

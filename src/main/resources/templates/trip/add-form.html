@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Dodaj Wyjazd</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/trip">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Wyjazdów
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+                    <li class="breadcrumb-item"><a href="/trip">Wyjazdy</a></li>
+                    <li class="breadcrumb-item active">Dodaj Wyjazd</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
+                <form th:action="@{/trip/save}" method="post" th:object="${trip}">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-align-justify me-1"></i>
+                            Formularz dodawania Wyjazdu
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="departureDate">Data wyjazdu</label>
+                                <input class="form-control" id="departureDate" type="date" th:placeholder="${today}"
+                                       min="2020-01-01" th:max="${today}" required
+                                       th:field="*{departureDate}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="returnDate">Data powrotu</label>
+                                <input class="form-control" id="returnDate" type="date" th:placeholder="${today}"
+                                       min="2020-01-01" th:max="${today}" required
+                                       th:field="*{returnDate}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="departureOdometerStatus">Stan licznika przed</label>
+                                <input class="form-control" id="departureOdometerStatus" type="number" placeholder="1"
+                                       min="1" required
+                                       th:field="*{departureOdometerStatus}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="returnOdometerStatus">Stan licznika po</label>
+                                <input class="form-control" id="returnOdometerStatus" type="number" placeholder="1"
+                                       min="1" required
+                                       th:field="*{returnOdometerStatus}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="comments">Opis</label>
+                                <input class="form-control" id="comments" type="text" placeholder="Opis Wyjazdu"
+                                       th:field="*{comments}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="vehicleId">Pojazd</label>
+                                <select class="form-control" id="vehicleId" required th:field="*{vehicleId}">
+                                    <option th:value="${null}" disabled>-- Brak Pojazdu --</option>
+                                    <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}"
+                                            th:text="'[' + ${vehicle.registrationNumber} + '] ' + ${vehicle.brand} + ' ' +  ${vehicle.model}"></option>
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Wyślij</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script>
+        $('document').ready(function () {
+            $('#vehicleId').prop('selectedIndex', 0);
+            $('#vehicleId').change(function () {
+                let vehicleId = $(this).val();
+                let href = "http://localhost:8080/trip/last-trip-data/vehicle/" + vehicleId;
+                $.get(href, function (lastTripData, status) {
+                    let returnDate = lastTripData.returnDate;
+                    let returnOdometerStatus = lastTripData.returnOdometerStatus;
+                    $('#departureDate').val(returnDate).attr("min", returnDate);
+                    $('#returnDate').val(returnDate).attr("min", returnDate);
+                    $('#departureOdometerStatus').val(returnOdometerStatus).attr("min", returnOdometerStatus);
+                    $('#returnOdometerStatus').val(returnOdometerStatus).attr("min", returnOdometerStatus);
+                });
+            });
+        });
+    </script>
+</th:block>
+
+</body>
+</html>

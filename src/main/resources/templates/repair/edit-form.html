@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Edytuj Naprawę</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/repair/lisst">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy Napraw
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+                    <li class="breadcrumb-item"><a href="/repair">Naprawy</a></li>
+                    <li class="breadcrumb-item"><a href="/repair/list">Lista Napraw</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{'/repair/' + ${repair.id}}">Napraw - szczegóły</a></li>
+                    <li class="breadcrumb-item active">Edytuj Naprawę</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
+                <form th:action="@{'/repair/update/' + ${repair.id}}" method="put" th:object="${repair}">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-align-justify me-1"></i>
+                            Formularz edycji Naprawy
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="leftDate">Data pozostawienia</label>
+                                <input class="form-control" id="leftDate" type="date" th:placeholder="${today}"
+                                       min="2020-01-01" th:max="${today}" required
+                                       th:value="*{leftDate}" th:field="*{leftDate}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="leftOdometerStatus">Stan licznika</label>
+                                <input class="form-control" id="leftOdometerStatus" type="number" placeholder="1"
+                                       min="1" required
+                                       th:value="*{leftOdometerStatus}" th:field="*{leftOdometerStatus}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="invoiceNumber">Numer faktury</label>
+                                <input class="form-control" id="invoiceNumber" type="text" placeholder="Numer faktury"
+                                       minlength="1" required
+                                       th:value="*{invoiceNumber}" th:field="*{invoiceNumber}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="invoiceDate">Data faktury</label>
+                                <input class="form-control" id="invoiceDate" type="date" th:placeholder="${today}"
+                                       min="2020-01-01" th:max="${today}" required
+                                       th:value="*{invoiceDate}" th:field="*{invoiceDate}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="repairCost">Koszt naprawy</label>
+                                <input class="form-control" id="repairCost" type="number" placeholder="0.01"
+                                       min="0" step="0.01" required
+                                       th:value="*{repairCost}" th:field="*{repairCost}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="pickupDate">Data odbioru</label>
+                                <input class="form-control" id="pickupDate" type="date" th:placeholder="${today}"
+                                       min="2020-01-01" th:max="${today}" required
+                                       th:value="*{pickupDate}" th:field="*{pickupDate}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="comments">Opis</label>
+                                <input class="form-control" id="comments" type="text" placeholder="Opis Wyjazdu"
+                                       th:value="*{comments}" th:field="*{comments}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="carWorkshopId">Warsztat</label>
+                                <select class="form-control" id="carWorkshopId" required th:field="*{carWorkshopId}">
+                                    <option th:each="carWorkshop : ${carWorkshops}" th:value="${carWorkshop.id}"
+                                            th:text="${carWorkshop.name}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="vehicleId">Pojazd</label>
+                                <select class="form-control" id="vehicleId" required th:field="*{vehicleId}">
+                                    <option th:each="vehicle : ${vehicles}" th:value="${vehicle.id}"
+                                            th:text="'[' + ${vehicle.registrationNumber} + '] ' + ${vehicle.brand} + ' ' +  ${vehicle.model}"></option>
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Wyślij</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
