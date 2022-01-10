@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import pl.kl.carfleetmanagementsystem.repair.Repair;
 import pl.kl.carfleetmanagementsystem.status.Status;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -39,6 +41,8 @@ public class CarWorkshop {
     @Column(nullable = false)
     @NotBlank(message = "Number of building cannot be blank")
     private String number;
+    @OneToMany(mappedBy = "carWorkshop")
+    private Set<Repair> repairs;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Car workshop status cannot be blank")

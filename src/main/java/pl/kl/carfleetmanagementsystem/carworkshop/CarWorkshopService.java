@@ -37,7 +37,7 @@ public class CarWorkshopService {
         return carWorkshopMapper.mapCarWorkshopToCarWorkshopResponse(carWorkshopEntity);
     }
 
-    private CarWorkshop fetchCarWorkshopById(Long id) {
+    public CarWorkshop fetchCarWorkshopById(Long id) {
         return carWorkshopRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Car workshop with id: " + id + " not found!"));
     }
