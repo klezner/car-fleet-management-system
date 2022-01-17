@@ -32,8 +32,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
+        http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/css/**", "/js/**", "/assets/**").permitAll()
                 .anyRequest()
@@ -47,7 +46,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .tokenValiditySeconds(((int) TimeUnit.DAYS.toSeconds(21)))
-                .key("CarFleetManagementSystem")
+                .key("SecuredCarFleetManagementSystem")
                 .rememberMeParameter("remember-me")
                 .and()
                 .logout()

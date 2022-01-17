@@ -26,8 +26,22 @@ public class FakeApplicationUserRepositoryImpl implements FakeApplicationUserRep
 
     private List<ApplicationUser> getApplicationUsers() {
         List<ApplicationUser> applicationUsers = Lists.newArrayList(
-                new ApplicationUser("admin", passwordEncoder.encode("admin1"), ADMIN.getGrantedAuthorities(), true, true, true, true),
-                new ApplicationUser("user", passwordEncoder.encode("user1"), USER.getGrantedAuthorities(), true, true, true, true));
+                new ApplicationUser(
+                        "admin",
+                        passwordEncoder.encode("admin1"),
+                        ADMIN.getGrantedAuthorities(),
+                        true,
+                        true,
+                        true,
+                        true),
+                new ApplicationUser("user",
+                        passwordEncoder.encode("user1"),
+                        USER.getGrantedAuthorities(),
+                        true,
+                        true,
+                        true,
+                        true)
+        );
 
         return applicationUsers;
     }
