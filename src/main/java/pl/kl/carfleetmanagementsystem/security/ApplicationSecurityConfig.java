@@ -10,11 +10,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import java.util.concurrent.TimeUnit;
+import pl.kl.carfleetmanagementsystem.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -33,29 +32,33 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/css/**", "/js/**", "/assets/**").permitAll()
                 .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/", true)
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .and()
-                .rememberMe()
-                .tokenValiditySeconds(((int) TimeUnit.DAYS.toSeconds(21)))
-                .key("SecuredCarFleetManagementSystem")
-                .rememberMeParameter("remember-me")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "remember-me")
-                .logoutSuccessUrl("/");
+                .authenticated();
+//                .and()
+//                .formLogin()
+//                .loginPage("/login").permitAll()
+//                .defaultSuccessUrl("/", true)
+//                .usernameParameter("username")
+//                .passwordParameter("password")
+//                .and()
+//                .rememberMe()
+//                .tokenValiditySeconds(((int) TimeUnit.DAYS.toSeconds(21)))
+//                .key("SecuredCarFleetManagementSystem")
+//                .rememberMeParameter("remember-me")
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+//                .clearAuthentication(true)
+//                .invalidateHttpSession(true)
+//                .deleteCookies("JSESSIONID", "remember-me")
+//                .logoutSuccessUrl("/");
     }
 
     @Override
