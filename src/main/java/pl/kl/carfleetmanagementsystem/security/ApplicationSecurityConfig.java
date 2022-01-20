@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.kl.carfleetmanagementsystem.jwt.JwtTokenVerifier;
 import pl.kl.carfleetmanagementsystem.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 
 @EnableWebSecurity
@@ -36,6 +37,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
+                .addFilterAfter(new JwtTokenVerifier(), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/css/**", "/js/**", "/assets/**").permitAll()
                 .anyRequest()
