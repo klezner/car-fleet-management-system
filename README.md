@@ -1,4 +1,4 @@
-# Car Fleet Management System - Backend and Frontend
+# Car Fleet Management System - Full App
 
 System for managing a fleet of cars in the company.
 
