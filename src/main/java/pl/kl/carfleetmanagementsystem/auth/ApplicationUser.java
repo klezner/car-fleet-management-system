@@ -23,7 +23,7 @@ public class ApplicationUser implements UserDetails {
     @Column(nullable = false)
     @NotBlank(message = "Password cannot be blank")
     private String password;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 765)
     @NotBlank(message = "Authorities cannot be blank")
     private String authorities;
     @Column(nullable = false)
