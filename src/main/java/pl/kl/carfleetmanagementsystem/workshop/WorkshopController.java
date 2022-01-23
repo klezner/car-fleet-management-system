@@ -22,7 +22,7 @@ public class WorkshopController {
     }
 
     @PreAuthorize("hasAuthority('workshop:create')")
-    @GetMapping("/form")
+    @GetMapping("/add")
     public String getWorkshopAddForm(Model model) {
         model.addAttribute("workshop", new WorkshopRequest());
         return "workshop/add-form";

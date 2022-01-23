@@ -23,7 +23,7 @@ public class CompanyController implements SetStatus {
     }
 
     @PreAuthorize("hasAuthority('company:create')")
-    @GetMapping("/form")
+    @GetMapping("/add")
     public String getCompanyAddForm(Model model) {
         model.addAttribute("company", new CompanyRequest());
         return "company/add-form";

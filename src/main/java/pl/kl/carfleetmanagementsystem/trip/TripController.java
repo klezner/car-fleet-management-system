@@ -26,7 +26,7 @@ public class TripController {
     }
 
     @PreAuthorize("hasAnyAuthority('trip:create')")
-    @GetMapping("/form")
+    @GetMapping("/add")
     public String getTripAddForm(Model model) {
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
         model.addAttribute("today", LocalDate.now());

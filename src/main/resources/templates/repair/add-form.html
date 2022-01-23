@@ -79,7 +79,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="workshopId">Warsztat</label>
-                                <select class="form-control" id="workshopId" required th:field="*{getWorkshopId}">
+                                <select class="form-control" id="workshopId" required th:field="*{workshopId}">
                                     <option th:value="${null}" disabled>-- Brak Warsztatu --</option>
                                     <option th:each="workshop : ${workshops}" th:value="${workshop.id}"
                                             th:text="${workshop.name}"></option>

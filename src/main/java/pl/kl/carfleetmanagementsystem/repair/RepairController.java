@@ -29,7 +29,7 @@ public class RepairController {
     }
 
     @PreAuthorize("hasAnyAuthority('repair:create')")
-    @GetMapping("/form")
+    @GetMapping("/add")
     public String getRepairAddForm(Model model) {
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
         final List<WorkshopResponse> workshops = workshopService.fetchAllWorkshopsResponses();

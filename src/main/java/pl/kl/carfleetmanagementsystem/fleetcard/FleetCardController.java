@@ -26,7 +26,7 @@ public class FleetCardController implements SetStatus {
     }
 
     @PreAuthorize("hasAnyAuthority('fleetcard:create')")
-    @GetMapping("/form")
+    @GetMapping("/add")
     public String getFleetCardAddForm(Model model) {
         List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponsesWithoutFleetCard();
         model.addAttribute("vehicles", vehicles);
