@@ -3,11 +3,11 @@ package pl.kl.carfleetmanagementsystem.repair;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.kl.carfleetmanagementsystem.carworkshop.CarWorkshop;
-import pl.kl.carfleetmanagementsystem.carworkshop.CarWorkshopService;
 import pl.kl.carfleetmanagementsystem.validator.DateValidator;
 import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
+import pl.kl.carfleetmanagementsystem.workshop.Workshop;
+import pl.kl.carfleetmanagementsystem.workshop.WorkshopService;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RepairService {
 
-    private final CarWorkshopService carWorkshopService;
+    private final WorkshopService workshopService;
     private final VehicleService vehicleService;
     private final RepairMapper repairMapper;
     private final RepairRepository repairRepository;
@@ -31,13 +31,13 @@ public class RepairService {
         DateValidator.validateRepairDatesOnRepairCreate(repairRequest.getLeftDate(), repairRequest.getPickupDate(), repairRequest.getInvoiceDate(), SYSTEM_START_DATE);
         final Repair repair = repairMapper.mapRepairRequestToRepair(repairRequest);
         addVehicleToRepair(repair, repairRequest.getVehicleId());
-        addCarWorkshopToRepair(repair, repairRequest.getCarWorkshopId());
+        addWorkshopToRepair(repair, repairRequest.getWorkshopId());
         repairRepository.save(repair);
     }
 
-    private void addCarWorkshopToRepair(Repair repair, Long carWorkshopId) {
-        final CarWorkshop carWorkshop = carWorkshopService.fetchCarWorkshopById(carWorkshopId);
-        repair.setCarWorkshop(carWorkshop);
+    private void addWorkshopToRepair(Repair repair, Long carWorkshopId) {
+        final Workshop workshop = workshopService.fetchWorkshopById(carWorkshopId);
+        repair.setWorkshop(workshop);
     }
 
     private void addVehicleToRepair(Repair repair, Long vehicleId) {
@@ -74,7 +74,7 @@ public class RepairService {
     @Transactional
     public void saveEditedRepair(RepairRequest repairRequest) {
         final Repair repair = repairMapper.mapRepairRequestToRepair(repairRequest);
-        addCarWorkshopToRepair(repair, repairRequest.getCarWorkshopId());
+        addWorkshopToRepair(repair, repairRequest.getWorkshopId());
         addVehicleToRepair(repair, repairRequest.getVehicleId());
         repairRepository.save(repair);
     }

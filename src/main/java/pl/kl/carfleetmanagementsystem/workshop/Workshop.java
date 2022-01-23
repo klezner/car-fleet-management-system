@@ -1,4 +1,4 @@
-package pl.kl.carfleetmanagementsystem.carworkshop;
+package pl.kl.carfleetmanagementsystem.workshop;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,12 +21,12 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Builder
-public class CarWorkshop {
+public class Workshop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    @NotBlank(message = "Car workshop name cannot be blank")
+    @NotBlank(message = "Workshop name cannot be blank")
     private String name;
     @Column(nullable = false)
     @NotBlank(message = "Zip code cannot be blank")
@@ -41,11 +41,11 @@ public class CarWorkshop {
     @Column(nullable = false)
     @NotBlank(message = "Number of building cannot be blank")
     private String number;
-    @OneToMany(mappedBy = "carWorkshop")
+    @OneToMany(mappedBy = "workshop")
     private Set<Repair> repairs;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Car workshop status cannot be blank")
+    @NotNull(message = "Workshop status cannot be blank")
     private Status status;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

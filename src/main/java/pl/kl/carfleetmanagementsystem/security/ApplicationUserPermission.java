@@ -1,11 +1,11 @@
 package pl.kl.carfleetmanagementsystem.security;
 
 public enum ApplicationUserPermission {
-    CAR_WORKSHOP_CREATE("carworkshop:create"),
-    CAR_WORKSHOP_READ("carworkshop:read"),
-    CAR_WORKSHOP_UPDATE("carworkshop:update"),
-    CAR_WORKSHOP_DELETE("carworkshop:delete"),
-    CAR_WORKSHOP_SET_STATUS("carworkshop:set_status"),
+    WORKSHOP_CREATE("workshop:create"),
+    WORKSHOP_READ("workshop:read"),
+    WORKSHOP_UPDATE("workshop:update"),
+    WORKSHOP_DELETE("workshop:delete"),
+    WORKSHOP_SET_STATUS("workshop:set_status"),
     COMPANY_CREATE("company:create"),
     COMPANY_READ("company:read"),
     COMPANY_UPDATE("company:update"),
@@ -33,11 +33,11 @@ public enum ApplicationUserPermission {
     TRIP_READ("trip:read"),
     TRIP_UPDATE("trip:update"),
     TRIP_DELETE("trip:delete"),
-    VEHICLE_CREATE("trip:create"),
-    VEHICLE_READ("trip:read"),
-    VEHICLE_UPDATE("trip:update"),
-    VEHICLE_DELETE("trip:delete"),
-    VEHICLE_SET_STATUS("trip:set_status");
+    VEHICLE_CREATE("vehicle:create"),
+    VEHICLE_READ("vehicle:read"),
+    VEHICLE_UPDATE("vehicle:update"),
+    VEHICLE_DELETE("vehicle:delete"),
+    VEHICLE_SET_STATUS("vehicle:set_status");
 
     private final String permission;
 

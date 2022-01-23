@@ -90,7 +90,7 @@
                                 <td class="col col-1" th:text="${repair.pickupDate}"></td>
                                 <td class="col col-2" th:text="${repair.comments}"></td>
                                 <td class="col col-1"
-                                    th:text="${repair.carWorkshop != null} ? ${repair.carWorkshop.name} : 'Brak'"></td>
+                                    th:text="${repair.workshop != null} ? ${repair.workshop.name} : 'Brak'"></td>
                                 <td class="col col-2" th:text="${repair.vehicle != null} ? '[' + ${repair.vehicle.registrationNumber}
                                 + '] ' + ${repair.vehicle.brand} + ' ' + ${repair.vehicle.model} : 'Brak'"></td>
                                 <td class="col col-1">

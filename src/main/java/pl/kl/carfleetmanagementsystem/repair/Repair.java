@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.kl.carfleetmanagementsystem.carworkshop.CarWorkshop;
 import pl.kl.carfleetmanagementsystem.vehicle.Vehicle;
+import pl.kl.carfleetmanagementsystem.workshop.Workshop;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -50,9 +50,9 @@ public class Repair {
     private LocalDate pickupDate;
     private String comments;
     @JoinColumn(nullable = false)
-    @NotNull(message = "Car workshop is necessary")
+    @NotNull(message = "Workshop is necessary")
     @ManyToOne(optional = false)
-    private CarWorkshop carWorkshop;
+    private Workshop workshop;
     @JoinColumn(nullable = false)
     @NotNull(message = "Vehicle cannot is necessary")
     @ManyToOne(optional = false)
@@ -64,8 +64,8 @@ public class Repair {
     @UpdateTimestamp
     public LocalDateTime modified;
 
-    public void setCarWorkshop(CarWorkshop carWorkshop) {
-        this.carWorkshop = carWorkshop;
+    public void setWorkshop(Workshop workshop) {
+        this.workshop = workshop;
     }
 
     public void setVehicle(Vehicle vehicle) {

@@ -5,10 +5,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.kl.carfleetmanagementsystem.carworkshop.CarWorkshopResponse;
-import pl.kl.carfleetmanagementsystem.carworkshop.CarWorkshopService;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleService;
+import pl.kl.carfleetmanagementsystem.workshop.WorkshopResponse;
+import pl.kl.carfleetmanagementsystem.workshop.WorkshopService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/repair")
 public class RepairController {
 
-    private final CarWorkshopService carWorkshopService;
+    private final WorkshopService workshopService;
     private final VehicleService vehicleService;
     private final RepairService repairService;
 
@@ -32,10 +32,10 @@ public class RepairController {
     @GetMapping("/form")
     public String getRepairAddForm(Model model) {
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
-        final List<CarWorkshopResponse> carWorkshops = carWorkshopService.fetchAllCarWorkshopsResponses();
+        final List<WorkshopResponse> workshops = workshopService.fetchAllWorkshopsResponses();
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("vehicles", vehicles);
-        model.addAttribute("carWorkshops", carWorkshops);
+        model.addAttribute("workshops", workshops);
         model.addAttribute("repair", new RepairRequest());
         return "repair/add-form";
     }
@@ -68,10 +68,10 @@ public class RepairController {
     public String getRepairEditForm(Model model, @PathVariable(name = "id") Long id) {
         final RepairRequest repair = repairService.fetchRepairRequest(id);
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
-        final List<CarWorkshopResponse> carWorkshops = carWorkshopService.fetchAllCarWorkshopsResponses();
+        final List<WorkshopResponse> workshops = workshopService.fetchAllWorkshopsResponses();
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("vehicles", vehicles);
-        model.addAttribute("carWorkshops", carWorkshops);
+        model.addAttribute("workshops", workshops);
         model.addAttribute("repair", repair);
         return "repair/edit-form";
     }
