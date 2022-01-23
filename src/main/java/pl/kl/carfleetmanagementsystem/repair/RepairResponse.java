@@ -2,8 +2,8 @@ package pl.kl.carfleetmanagementsystem.repair;
 
 import lombok.Builder;
 import lombok.Getter;
-import pl.kl.carfleetmanagementsystem.carworkshop.CarWorkshopResponse;
 import pl.kl.carfleetmanagementsystem.vehicle.VehicleResponse;
+import pl.kl.carfleetmanagementsystem.workshop.WorkshopResponse;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,6 +19,6 @@ public class RepairResponse {
     private BigDecimal repairCost;
     private LocalDate pickupDate;
     private String comments;
-    private CarWorkshopResponse carWorkshop;
+    private WorkshopResponse workshop;
     private VehicleResponse vehicle;
 }

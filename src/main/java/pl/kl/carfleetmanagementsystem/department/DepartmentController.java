@@ -41,6 +41,7 @@ public class DepartmentController {
     }
 
     @PreAuthorize("hasAnyAuthority('department:read')")
+    @GetMapping("/list")
     public String getDepartmentList(Model model) {
         final List<DepartmentResponse> departments = departmentService.fetchAllDepartmentsResponses();
         model.addAttribute("departments", departments);

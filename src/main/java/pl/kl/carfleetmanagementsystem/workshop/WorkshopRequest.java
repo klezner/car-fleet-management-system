@@ -1,4 +1,4 @@
-package pl.kl.carfleetmanagementsystem.carworkshop;
+package pl.kl.carfleetmanagementsystem.workshop;
 
 import lombok.*;
 import pl.kl.carfleetmanagementsystem.status.Status;
@@ -12,9 +12,9 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 @Builder
-public class CarWorkshopRequest {
+public class WorkshopRequest {
     private Long id;
-    @NotBlank(message = "Car workshop name cannot be blank")
+    @NotBlank(message = "Workshop name cannot be blank")
     private String name;
     @NotBlank(message = "Zip code cannot be blank")
     @Pattern(regexp = "[0-9]{2}-[0-9]{3}", message = "Incorrect format of zip code. Correct format is: XX-XXX")
@@ -25,6 +25,6 @@ public class CarWorkshopRequest {
     private String street;
     @NotBlank(message = "Number of building cannot be blank")
     private String number;
-    @NotNull(message = "Car workshop status cannot be blank")
+    @NotNull(message = "Workshop status cannot be blank")
     private Status status;
 }

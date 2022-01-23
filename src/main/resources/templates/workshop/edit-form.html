@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Dodaj Warsztat</title>
+    <title>Edytuj Warsztat</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -12,27 +12,32 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col col-12 d-flex flex-row-reverse">
-                <a href="/car-workshop">
-                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Warsztatów
+                <a href="/workshop/list">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy
+                        Warsztatów
                     </button>
                 </a>
             </div>
         </div>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
-            <li class="breadcrumb-item"><a href="/car-workshop">Warsztaty</a></li>
-            <li class="breadcrumb-item active">Dodaj Warsztat</li>
+            <li class="breadcrumb-item"><a href="/workshop">Warsztaty</a></li>
+            <li class="breadcrumb-item"><a href="/workshop/list">Lista Warsztatów</a></li>
+            <li class="breadcrumb-item"><a th:href="@{'/workshop/' + ${workshop.id}}">Warsztat -
+                szczegóły</a>
+            </li>
+            <li class="breadcrumb-item active">Warsztat Kartę floty</li>
         </ol>
         <div class="row">
             <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xxl-4 offset-xxl-4">
-                <form th:action="@{/car-workshop/save}" method="post" th:object="${carWorkshop}">
+                <form th:action="@{'/workshop/update/' + ${workshop.id}}" method="put"
+                      th:object="${workshop}">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-align-justify me-1"></i>
-                            Formularz dodawania Warsztatu
+                            Formularz edycji Warsztatu
                         </div>
                         <div class="card-body">
-                            <input type="hidden" th:field="*{id}" th:value="*{id}">
                             <div class="mb-3">
                                 <label for="name">Nazwa</label>
                                 <input class="form-control" id="name" type="text" placeholder="Nazwa"
@@ -63,6 +68,9 @@
                                 <input class="form-control" id="number" type="text" placeholder="Numer"
                                        required
                                        th:value="*{number}" th:field="*{number}">
+                            </div>
+                            <div>
+                                <input type="hidden" th:field="*{status}" th:value="*{status}">
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Wyślij</button>
