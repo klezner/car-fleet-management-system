@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
@@ -29,21 +30,24 @@
         <div class="row">
             <div class="col col-12">
                 <div class="d-flex justify-content-center btn-group-lg border-bottom p-2 mb-4" role="group">
-                    <a th:href="@{/workshop/edit/{id}(id=${workshop.id})}">
+                    <a sec:authorize="hasAuthority('workshop:update')"
+                       th:href="@{/workshop/edit/{id}(id=${workshop.id})}">
                         <button class="btn btn-outline-warning m-1" data-toggle="tooltip"
                                 data-placement="top" title="Edytuj Warsztat">
                             <i class="fas fa-edit" style="font-size: x-large"></i><br>
                             Edytuj Warsztat
                         </button>
                     </a>
-                    <a th:href="@{/workshop/delete/{id}(id=${workshop.id})}">
+                    <a sec:authorize="hasAuthority('workshop:delete')"
+                       th:href="@{/workshop/delete/{id}(id=${workshop.id})}">
                         <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
                                 data-placement="top" title="Usuń Warsztat">
                             <i class="fas fa-trash" style="font-size: x-large"></i><br>
                             Usuń Warsztat
                         </button>
                     </a>
-                    <a th:if="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}"
+                    <a sec:authorize="hasAuthority('workshop:set_status')"
+                       th:if="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}"
                        th:href="@{/workshop/active/{id}(id=${workshop.id})}">
                         <button class="btn btn-outline-success m-1" data-toggle="tooltip"
                                 data-placement="top" title="Ustaw status: Aktywna">
@@ -51,7 +55,8 @@
                             Ustaw status: Aktywny
                         </button>
                     </a>
-                    <a th:if="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}"
+                    <a sec:authorize="hasAuthority('workshop:set_status')"
+                       th:if="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}"
                        th:href="@{/workshop/inactive/{id}(id=${workshop.id})}">
                         <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
                                 data-placement="top" title="Ustaw status: Nieaktywna">

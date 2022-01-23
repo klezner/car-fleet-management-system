@@ -25,7 +25,7 @@ public class RefuelingController {
         return "refueling/index";
     }
 
-    @PreAuthorize("hasAnyAuthority('refueling:create')")
+    @PreAuthorize("hasAuthority('refueling:create')")
     @GetMapping("/add")
     public String getRefuelingAddForm(Model model) {
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
@@ -35,14 +35,14 @@ public class RefuelingController {
         return "refueling/add-form";
     }
 
-    @PreAuthorize("hasAnyAuthority('refueling:create')")
+    @PreAuthorize("hasAuthority('refueling:create')")
     @PostMapping("/save")
     public String submitRefuelingAddForm(RefuelingRequest refuelingRequest) {
         refuelingService.saveNewRefueling(refuelingRequest);
         return "redirect:/refueling/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('refueling:read')")
+    @PreAuthorize("hasAuthority('refueling:read')")
     @GetMapping("/list")
     public String getRefuelingList(Model model) {
         final List<RefuelingResponse> refuelings = refuelingService.fetchAllRefuelingsResponses();
@@ -50,7 +50,7 @@ public class RefuelingController {
         return "/refueling/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('refueling:read')")
+    @PreAuthorize("hasAuthority('refueling:read')")
     @GetMapping("/{id}")
     public String getRefuelingDetails(Model model, @PathVariable(name = "id") Long id) {
         final RefuelingResponse refueling = refuelingService.fetchRefuelingResponse(id);
@@ -58,7 +58,7 @@ public class RefuelingController {
         return "refueling/details";
     }
 
-    @PreAuthorize("hasAnyAuthority('refueling:update')")
+    @PreAuthorize("hasAuthority('refueling:update')")
     @GetMapping("/edit/{id}")
     public String getRefuelingEditForm(Model model, @PathVariable(name = "id") Long id) {
         final RefuelingRequest refueling = refuelingService.fetchRefuelingRequest(id);
@@ -69,21 +69,21 @@ public class RefuelingController {
         return "refueling/edit-form";
     }
 
-    @PreAuthorize("hasAnyAuthority('refueling:update')")
+    @PreAuthorize("hasAuthority('refueling:update')")
     @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String submitRefuelingEditForm(RefuelingRequest refuelingRequest) {
         refuelingService.saveEditedRefueling(refuelingRequest);
         return "redirect:/refueling/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('refueling:delete')")
+    @PreAuthorize("hasAuthority('refueling:delete')")
     @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteRefueling(@PathVariable(name = "id") Long id) {
         refuelingService.deleteRefueling(id);
         return "redirect:/refueling/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('vehicle:read')")
+    @PreAuthorize("hasAuthority('vehicle:read')")
     @GetMapping("/last-refueling-data/vehicle/{id}")
     @ResponseBody
     public LastRefuelingDataResponse getVehiclesLastRefuelingData(@PathVariable(name = "id") Long vehicleId) {

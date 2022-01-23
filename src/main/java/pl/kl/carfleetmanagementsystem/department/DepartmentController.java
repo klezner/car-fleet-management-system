@@ -18,7 +18,7 @@ public class DepartmentController {
     private final CompanyService companyService;
     private final DepartmentService departmentService;
 
-    @PreAuthorize("hasAnyAuthority('department:read')")
+    @PreAuthorize("hasAuthority('department:read')")
     @GetMapping
     public String getDepartmentHomePage() {
         return "department/index";
@@ -40,7 +40,7 @@ public class DepartmentController {
         return "redirect:/department/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('department:read')")
+    @PreAuthorize("hasAuthority('department:read')")
     @GetMapping("/list")
     public String getDepartmentList(Model model) {
         final List<DepartmentResponse> departments = departmentService.fetchAllDepartmentsResponses();
@@ -48,7 +48,7 @@ public class DepartmentController {
         return "department/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('department:update')")
+    @PreAuthorize("hasAuthority('department:update')")
     @GetMapping("/edit/{id}")
     public String getDepartmentEditForm(Model model, @PathVariable(name = "id") Long id) {
         final DepartmentRequest department = departmentService.fetchDepartmentRequest(id);
@@ -58,14 +58,14 @@ public class DepartmentController {
         return "department/edit-form";
     }
 
-    @PreAuthorize("hasAnyAuthority('department:update')")
+    @PreAuthorize("hasAuthority('department:update')")
     @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String submitDepartmentEditForm(DepartmentRequest departmentRequest) {
         departmentService.saveEditedDepartment(departmentRequest);
         return "redirect:/department/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('department:read')")
+    @PreAuthorize("hasAuthority('department:read')")
     @GetMapping("/{id}")
     public String getDepartmentDetails(Model model, @PathVariable(name = "id") Long id) {
         final DepartmentResponse department = departmentService.fetchDepartmentResponse(id);
@@ -73,21 +73,21 @@ public class DepartmentController {
         return "department/details";
     }
 
-    @PreAuthorize("hasAnyAuthority('department:delete')")
+    @PreAuthorize("hasAuthority('department:delete')")
     @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteDepartment(@PathVariable(name = "id") Long id) {
         departmentService.deleteDepartment(id);
         return "redirect:/department/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('department:set_status')")
+    @PreAuthorize("hasAuthority('department:set_status')")
     @GetMapping("/active/{id}")
     public String setActive(@PathVariable(name = "id") Long id) {
         departmentService.setActive(id);
         return "redirect:/department/{id}";
     }
 
-    @PreAuthorize("hasAnyAuthority('department:set_status')")
+    @PreAuthorize("hasAuthority('department:set_status')")
     @GetMapping("/inactive/{id}")
     public String setInactive(@PathVariable(name = "id") Long id) {
         departmentService.setInactive(id);

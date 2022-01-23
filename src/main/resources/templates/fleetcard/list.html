@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
@@ -22,17 +23,17 @@
             <div class="col col-12">
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
-                    <li class="breadcrumb-item"><a href="/fleet-card">Karty floty</a></li>
+                    <li class="breadcrumb-item"><a href="/fleetcard">Karty floty</a></li>
                     <li class="breadcrumb-item active">Lista Kart floty</li>
                 </ol>
             </div>
         </div>
         <div class="row">
-            <div class="col col-12">
+            <div sec:authorize="hasAuthority('fleetcard:create')" class="col col-12">
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-center btn-group-lg" role="group">
-                            <a href="/fleet-card/add">
+                            <a href="/fleetcard/add">
                                 <button class="btn btn-outline-primary m-1">
                                     <i class="fas fa-plus" style="font-size: x-large"></i><br>
                                     Dodaj Kartę floty
@@ -92,8 +93,9 @@
                                     th:text="${fleetCard.vehicle != null} ? '[' + ${fleetCard.vehicle.registrationNumber}
                                      + '] ' + ${fleetCard.vehicle.brand} + ' ' + ${fleetCard.vehicle.model} : 'Brak'"></td>
                                 <td class="col col-1">
-                                    <div class="d-flex justify-content-center btn-group-sm" role="group">
-                                        <a th:href="@{/fleet-card/{id}(id=${fleetCard.id})}">
+                                    <div sec:authorize="hasAuthority('fleetcard:read')"
+                                         class="d-flex justify-content-center btn-group-sm" role="group">
+                                        <a th:href="@{/fleetcard/{id}(id=${fleetCard.id})}">
                                             <button class="btn btn-sm btn-outline-info m-1" data-toggle="tooltip"
                                                     data-placement="top" title="Szczegóły Karty floty">
                                                 <i class="fas fa-info-circle"></i> Szczegóły
