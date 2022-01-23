@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
@@ -29,7 +30,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col col-12">
+            <div sec:authorize="hasAuthority('department:create')" class="col col-12">
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-center btn-group-lg" role="group">
@@ -91,7 +92,8 @@
                                     </span>
                                 </td>
                                 <td class="col col-1">
-                                    <div class="d-flex justify-content-center btn-group-sm" role="group">
+                                    <div sec:authorize="hasAuthority('department:read')"
+                                         class="d-flex justify-content-center btn-group-sm" role="group">
                                         <a th:href="@{/department/{id}(id=${department.id})}">
                                             <button class="btn btn-sm btn-outline-info m-1" data-toggle="tooltip"
                                                     data-placement="top" title="Szczegóły Departamentu">

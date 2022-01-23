@@ -16,7 +16,7 @@ public class CompanyController implements SetStatus {
 
     private final CompanyService companyService;
 
-    @PreAuthorize("hasAnyAuthority('company:read')")
+    @PreAuthorize("hasAuthority('company:read')")
     @GetMapping
     public String getCompanyHomePage() {
         return "company/index";
@@ -36,7 +36,7 @@ public class CompanyController implements SetStatus {
         return "redirect:/company/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('company:read')")
+    @PreAuthorize("hasAuthority('company:read')")
     @GetMapping("/list")
     public String getCompanyList(Model model) {
         final List<CompanyResponse> companies = companyService.fetchAllCompaniesResponses();
@@ -44,7 +44,7 @@ public class CompanyController implements SetStatus {
         return "company/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('company:update')")
+    @PreAuthorize("hasAuthority('company:update')")
     @GetMapping("/edit/{id}")
     public String getCompanyEditForm(Model model, @PathVariable(name = "id") Long id) {
         final CompanyRequest company = companyService.fetchCompanyRequest(id);
@@ -52,14 +52,14 @@ public class CompanyController implements SetStatus {
         return "company/edit-form";
     }
 
-    @PreAuthorize("hasAnyAuthority('company:update')")
+    @PreAuthorize("hasAuthority('company:update')")
     @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String submitCompanyEditForm(CompanyRequest companyRequest) {
         companyService.saveEditedCompany(companyRequest);
         return "redirect:/company/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('company:read')")
+    @PreAuthorize("hasAuthority('company:read')")
     @GetMapping("{id}")
     public String getCompanyDetails(Model model, @PathVariable(name = "id") Long id) {
         final CompanyResponse company = companyService.fetchCompanyResponse(id);
@@ -67,14 +67,14 @@ public class CompanyController implements SetStatus {
         return "company/details";
     }
 
-    @PreAuthorize("hasAnyAuthority('company:delete')")
+    @PreAuthorize("hasAuthority('company:delete')")
     @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteCompany(@PathVariable(name = "id") Long id) {
         companyService.deleteCompany(id);
         return "redirect:/company/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('company:set_status')")
+    @PreAuthorize("hasAuthority('company:set_status')")
     @GetMapping("/active/{id}")
     @Override
     public String setActive(@PathVariable(name = "id") Long id) {
@@ -82,7 +82,7 @@ public class CompanyController implements SetStatus {
         return "redirect:/company/{id}";
     }
 
-    @PreAuthorize("hasAnyAuthority('company:set_status')")
+    @PreAuthorize("hasAuthority('company:set_status')")
     @GetMapping("/inactive/{id}")
     @Override
     public String setInactive(@PathVariable(name = "id") Long id) {

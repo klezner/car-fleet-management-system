@@ -15,7 +15,7 @@ public class WorkshopController {
 
     private final WorkshopService workshopService;
 
-    @PreAuthorize("hasAnyAuthority('workshop:read')")
+    @PreAuthorize("hasAuthority('workshop:read')")
     @GetMapping
     public String getWorkshopHomePage() {
         return "workshop/index";
@@ -35,7 +35,7 @@ public class WorkshopController {
         return "redirect:/workshop/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('workshop:read')")
+    @PreAuthorize("hasAuthority('workshop:read')")
     @GetMapping("/list")
     public String getWorkshopList(Model model) {
         final List<WorkshopResponse> workshops = workshopService.fetchAllWorkshopsResponses();
@@ -43,7 +43,7 @@ public class WorkshopController {
         return "workshop/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('workshop:read')")
+    @PreAuthorize("hasAuthority('workshop:read')")
     @GetMapping("/{id}")
     public String getWorkshopDetails(Model model, @PathVariable(name = "id") Long id) {
         final WorkshopResponse workshop = workshopService.fetchWorkshopResponse(id);
@@ -51,7 +51,7 @@ public class WorkshopController {
         return "workshop/details";
     }
 
-    @PreAuthorize("hasAnyAuthority('workshop:update')")
+    @PreAuthorize("hasAuthority('workshop:update')")
     @GetMapping("/edit/{id}")
     public String getWorkshopEditForm(Model model, @PathVariable(name = "id") Long id) {
         final WorkshopRequest workshop = workshopService.fetchWorkshopRequest(id);
@@ -59,28 +59,28 @@ public class WorkshopController {
         return "workshop/edit-form";
     }
 
-    @PreAuthorize("hasAnyAuthority('workshop:update')")
+    @PreAuthorize("hasAuthority('workshop:update')")
     @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String submitWorkshopEditForm(WorkshopRequest workshop) {
         workshopService.saveEditedWorkshop(workshop);
         return "redirect:/workshop/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('workshop:delete')")
+    @PreAuthorize("hasAuthority('workshop:delete')")
     @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteWorkshop(@PathVariable(name = "id") Long id) {
         workshopService.deleteWorkshop(id);
         return "redirect:/workshop/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('workshop:set_status')")
+    @PreAuthorize("hasAuthority('workshop:set_status')")
     @GetMapping("/active/{id}")
     public String setActive(@PathVariable(name = "id") Long id) {
         workshopService.setActive(id);
         return "redirect:/workshop/{id}";
     }
 
-    @PreAuthorize("hasAnyAuthority('workshop:set_status')")
+    @PreAuthorize("hasAuthority('workshop:set_status')")
     @GetMapping("/inactive/{id}")
     public String setInactive(@PathVariable(name = "id") Long id) {
         workshopService.setInactive(id);

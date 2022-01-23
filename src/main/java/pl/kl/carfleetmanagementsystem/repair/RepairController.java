@@ -22,13 +22,13 @@ public class RepairController {
     private final VehicleService vehicleService;
     private final RepairService repairService;
 
-    @PreAuthorize("hasAnyAuthority('repair:read')")
+    @PreAuthorize("hasAuthority('repair:read')")
     @GetMapping
     public String getRepairHomePage() {
         return "repair/index";
     }
 
-    @PreAuthorize("hasAnyAuthority('repair:create')")
+    @PreAuthorize("hasAuthority('repair:create')")
     @GetMapping("/add")
     public String getRepairAddForm(Model model) {
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
@@ -40,14 +40,14 @@ public class RepairController {
         return "repair/add-form";
     }
 
-    @PreAuthorize("hasAnyAuthority('repair:create')")
+    @PreAuthorize("hasAuthority('repair:create')")
     @PostMapping("/save")
     public String submitRepairAddForm(RepairRequest repairRequest) {
         repairService.saveNewRepair(repairRequest);
         return "redirect:/repair/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('repair:read')")
+    @PreAuthorize("hasAuthority('repair:read')")
     @GetMapping("/list")
     public String getRepairList(Model model) {
         final List<RepairResponse> repairs = repairService.fetchAllRepairsResponses();
@@ -55,7 +55,7 @@ public class RepairController {
         return "/repair/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('repair:read')")
+    @PreAuthorize("hasAuthority('repair:read')")
     @GetMapping("/{id}")
     public String getRepairDetails(Model model, @PathVariable(name = "id") Long id) {
         final RepairResponse repair = repairService.fetchRepairResponse(id);
@@ -63,7 +63,7 @@ public class RepairController {
         return "repair/details";
     }
 
-    @PreAuthorize("hasAnyAuthority('repair:update')")
+    @PreAuthorize("hasAuthority('repair:update')")
     @GetMapping("/edit/{id}")
     public String getRepairEditForm(Model model, @PathVariable(name = "id") Long id) {
         final RepairRequest repair = repairService.fetchRepairRequest(id);
@@ -76,21 +76,21 @@ public class RepairController {
         return "repair/edit-form";
     }
 
-    @PreAuthorize("hasAnyAuthority('repair:update')")
+    @PreAuthorize("hasAuthority('repair:update')")
     @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String submitRepairEditForm(RepairRequest repairRequest) {
         repairService.saveEditedRepair(repairRequest);
         return "redirect:/repair/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('repair:read')")
+    @PreAuthorize("hasAuthority('repair:read')")
     @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteRepair(@PathVariable(name = "id") Long id) {
         repairService.deleteRepair(id);
         return "redirect:/repair/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('vehicle:read')")
+    @PreAuthorize("hasAuthority('vehicle:read')")
     @GetMapping("/last-repair-data/vehicle/{id}")
     @ResponseBody
     public LastRepairDataResponse getVehiclesLastRepairData(@PathVariable(name = "id") Long vehicleId) {

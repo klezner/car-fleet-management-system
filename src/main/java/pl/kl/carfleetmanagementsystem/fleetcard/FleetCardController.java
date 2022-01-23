@@ -13,19 +13,19 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/fleet-card")
+@RequestMapping("/fleetcard")
 public class FleetCardController implements SetStatus {
 
     private final VehicleService vehicleService;
     private final FleetCardService fleetCardService;
 
-    @PreAuthorize("hasAnyAuthority('fleetcard:read')")
+    @PreAuthorize("hasAuthority('fleetcard:read')")
     @GetMapping
     public String getFleetCardHomePage() {
         return "fleetcard/index";
     }
 
-    @PreAuthorize("hasAnyAuthority('fleetcard:create')")
+    @PreAuthorize("hasAuthority('fleetcard:create')")
     @GetMapping("/add")
     public String getFleetCardAddForm(Model model) {
         List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponsesWithoutFleetCard();
@@ -34,14 +34,14 @@ public class FleetCardController implements SetStatus {
         return "fleetcard/add-form";
     }
 
-    @PreAuthorize("hasAnyAuthority('fleetcard:create')")
+    @PreAuthorize("hasAuthority('fleetcard:create')")
     @PostMapping("/save")
     public String submitFleetCardAddForm(FleetCardRequest fleetCardRequest) {
         fleetCardService.saveNewFleetCard(fleetCardRequest);
-        return "redirect:/fleet-card/list";
+        return "redirect:/fleetcard/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('fleetcard:read')")
+    @PreAuthorize("hasAuthority('fleetcard:read')")
     @GetMapping("/list")
     public String getFleetCardList(Model model) {
         final List<FleetCardResponse> fleetCards = fleetCardService.fetchAllFleetCardsResponses();
@@ -49,7 +49,7 @@ public class FleetCardController implements SetStatus {
         return "fleetcard/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('fleetcard:update')")
+    @PreAuthorize("hasAuthority('fleetcard:update')")
     @GetMapping("/edit/{id}")
     public String getFleetCardEditForm(Model model, @PathVariable(name = "id") Long id) {
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponsesWithoutFleetCard();
@@ -62,14 +62,14 @@ public class FleetCardController implements SetStatus {
         return "fleetcard/edit-form";
     }
 
-    @PreAuthorize("hasAnyAuthority('fleetcard:update')")
+    @PreAuthorize("hasAuthority('fleetcard:update')")
     @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String submitFleetCardEditForm(FleetCardRequest fleetCard) {
         fleetCardService.saveEditedFleetCard(fleetCard);
-        return "redirect:/fleet-card/list";
+        return "redirect:/fleetcard/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('fleetcard:read')")
+    @PreAuthorize("hasAuthority('fleetcard:read')")
     @GetMapping("/{id}")
     public String getFleetCardDetails(Model model, @PathVariable(name = "id") Long id) {
         final FleetCardResponse fleetCard = fleetCardService.fetchFleetCardResponse(id);
@@ -77,26 +77,26 @@ public class FleetCardController implements SetStatus {
         return "fleetcard/details";
     }
 
-    @PreAuthorize("hasAnyAuthority('fleetcard:delete')")
+    @PreAuthorize("hasAuthority('fleetcard:delete')")
     @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteFleetCard(@PathVariable(name = "id") Long id) {
         fleetCardService.deleteFleetCard(id);
-        return "redirect:/fleet-card/list";
+        return "redirect:/fleetcard/list";
     }
 
-    @PreAuthorize("hasAnyAuthority('fleetcard:set_status')")
+    @PreAuthorize("hasAuthority('fleetcard:set_status')")
     @GetMapping("/active/{id}")
     @Override
     public String setActive(@PathVariable(name = "id") Long id) {
         fleetCardService.setActive(id);
-        return "redirect:/fleet-card/{id}";
+        return "redirect:/fleetcard/{id}";
     }
 
-    @PreAuthorize("hasAnyAuthority('fleetcard:set_status')")
+    @PreAuthorize("hasAuthority('fleetcard:set_status')")
     @GetMapping("/inactive/{id}")
     @Override
     public String setInactive(@PathVariable(name = "id") Long id) {
         fleetCardService.setInactive(id);
-        return "redirect:/fleet-card/{id}";
+        return "redirect:/fleetcard/{id}";
     }
 }
