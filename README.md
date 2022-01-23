@@ -80,7 +80,7 @@ All app paths are available on local server running on base url:
 
 Available paths:
 
-`/car`, `/fleet-card`, `/company`, `/department`, `/employee`, `/trip`, `/refueling`, `/repair`, `/car-workshop`
+`/car`, `/fleet-card`, `/company`, `/department`, `/employee`, `/trip`, `/refueling`, `/repair`, `/workshop`
 , `/login`
 
 [comment]: <> (with basic auth credentials:)

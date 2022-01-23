@@ -26,7 +26,7 @@ public class RefuelingController {
     }
 
     @PreAuthorize("hasAnyAuthority('refueling:create')")
-    @GetMapping("/form")
+    @GetMapping("/add")
     public String getRefuelingAddForm(Model model) {
         final List<VehicleResponse> vehicles = vehicleService.fetchAllVehiclesResponses();
         model.addAttribute("today", LocalDate.now());

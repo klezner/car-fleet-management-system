@@ -26,7 +26,7 @@ public class VehicleController implements SetStatus {
     }
 
     @PreAuthorize("hasAnyAuthority('vehicle:create')")
-    @GetMapping("/form")
+    @GetMapping("/add")
     public String getVehicleAddForm(Model model) {
         final List<DepartmentResponse> departments = departmentService.fetchAllDepartmentsResponses();
         model.addAttribute("departments", departments);

@@ -25,7 +25,7 @@ public class DepartmentController {
     }
 
     @PreAuthorize("hasAuthority('department:create')")
-    @GetMapping("/form")
+    @GetMapping("/add")
     public String getDepartmentAddForm(Model model) {
         final List<CompanyResponse> companies = companyService.fetchAllCompaniesResponses();
         model.addAttribute("companies", companies);
