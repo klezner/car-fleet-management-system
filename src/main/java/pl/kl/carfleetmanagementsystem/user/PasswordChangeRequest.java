@@ -14,6 +14,6 @@ public class PasswordChangeRequest {
     private String oldPassword;
     @NotBlank(message = "New password cannot be blank")
     private String newPassword;
-    @NotBlank(message = "Repeated new password cannot be blank")
-    private String repeatedNewPassword;
+    @NotBlank(message = "Confirmed password cannot be blank")
+    private String newPasswordConfirm;
 }

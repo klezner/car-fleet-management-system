@@ -91,4 +91,8 @@ public class ApplicationUser implements UserDetails {
     public boolean isEnabled() {
         return isEnabled;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

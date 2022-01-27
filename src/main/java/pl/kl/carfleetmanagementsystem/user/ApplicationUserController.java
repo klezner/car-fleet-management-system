@@ -1,11 +1,12 @@
 package pl.kl.carfleetmanagementsystem.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kl.carfleetmanagementsystem.auth.ApplicationUser;
 import pl.kl.carfleetmanagementsystem.auth.LoggedInApplicationUserService;
@@ -14,15 +15,16 @@ import pl.kl.carfleetmanagementsystem.auth.LoggedInApplicationUserService;
 @RequestMapping("/user")
 public class ApplicationUserController {
 
+    private final ApplicationUserService applicationUserService;
     private final ApplicationUserMapper applicationUserMapper;
-    private final UserDetailsService userDetailsService;
     private final LoggedInApplicationUserService loggedInApplicationUserService;
 
-    public ApplicationUserController(ApplicationUserMapper applicationUserMapper,
-                                     @Qualifier("db") UserDetailsService userDetailsService,
-                                     LoggedInApplicationUserService loggedInApplicationUserService) {
+    @Autowired
+    public ApplicationUserController(ApplicationUserService applicationUserService,
+                                     ApplicationUserMapper applicationUserMapper,
+                                     @Qualifier("db") LoggedInApplicationUserService loggedInApplicationUserService) {
+        this.applicationUserService = applicationUserService;
         this.applicationUserMapper = applicationUserMapper;
-        this.userDetailsService = userDetailsService;
         this.loggedInApplicationUserService = loggedInApplicationUserService;
     }
 
@@ -37,11 +39,18 @@ public class ApplicationUserController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("/change-password")
-    public String getUserPasswordChangePage(Model model) {
+    public String getUserPasswordChangeForm(Model model) {
         final ApplicationUser applicationUser = loggedInApplicationUserService.getLoggedInApplicationUser();
         final PasswordChangeRequest passwordChangeRequest = new PasswordChangeRequest();
         passwordChangeRequest.setUsername(applicationUser.getUsername());
         model.addAttribute("passwordChange", passwordChangeRequest);
         return "user/password-change-form";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping("/update-password")
+    public String submitUserPasswordChangeForm(PasswordChangeRequest passwordChangeRequest) {
+        applicationUserService.updateUserPassword(passwordChangeRequest);
+        return "redirect:/user/profile";
     }
 }
