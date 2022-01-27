@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Użytkownik - profil</title>
+    <title>Użytkownik - Profil</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -18,16 +18,38 @@
                 </a>
             </div>
         </div>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
-            <li class="breadcrumb-item active">Profil Użytkownika</li>
-        </ol>
+        <div class="row">
+            <div class="col col-12">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+                    <li class="breadcrumb-item active">Użytkownik - Profil</li>
+                </ol>
+            </div>
+        </div>
+        <!--Buttons-->
+        <div class="row">
+            <div class="col col-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center btn-group-lg" role="group">
+                            <a th:href="@{/}">
+                                <button class="btn btn-outline-warning m-1" data-toggle="tooltip"
+                                        data-placement="top" title="Zmień hasło">
+                                    <i class="fas fa-edit" style="font-size: x-large"></i><br>
+                                    Zmień hasło
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-10 col-sm-8 col-md-6 col-lg-6 col-xxl-4">
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-info me-1"></i>
-                        Użytkownik - profil
+                        Informacje o Użytkowniku
                     </div>
                     <div class="card-body">
                         <table class="table">
@@ -72,7 +94,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-info me-1"></i>
-                        Użytkownik - uprawnienia
+                        Uprawnienia Użytkownika
                     </div>
                     <div class="card-body">
                         <table class="table">

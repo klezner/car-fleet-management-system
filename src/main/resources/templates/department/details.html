@@ -5,7 +5,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Departament - szczegóły</title>
+    <title>Departament - Szczegóły</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -24,7 +24,7 @@
             <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
             <li class="breadcrumb-item"><a href="/department">Departamenty</a></li>
             <li class="breadcrumb-item"><a href="/department/list">Lista Departamentów</a></li>
-            <li class="breadcrumb-item active">Departament - szczegóły</li>
+            <li class="breadcrumb-item active">Departament - Szczegóły</li>
         </ol>
         <!--Buttons-->
         <div class="row">
@@ -35,7 +35,7 @@
                         <button class="btn btn-outline-warning m-1" data-toggle="tooltip"
                                 data-placement="top" title="Edytuj Departament">
                             <i class="fas fa-edit" style="font-size: x-large"></i><br>
-                            Edytuj Departament
+                            Informacje o Departamencie
                         </button>
                     </a>
                     <a sec:authorize="hasAuthority('department:delete')"
