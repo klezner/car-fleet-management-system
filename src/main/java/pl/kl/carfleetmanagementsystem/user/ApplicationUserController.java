@@ -1,6 +1,7 @@
 package pl.kl.carfleetmanagementsystem.user;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +26,22 @@ public class ApplicationUserController {
         this.loggedInApplicationUserService = loggedInApplicationUserService;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("/profile")
     public String getUserProfilePage(Model model) {
         final ApplicationUser applicationUser = loggedInApplicationUserService.getLoggedInApplicationUser();
         final ApplicationUserResponse applicationUserResponse = applicationUserMapper.applicationUserToApplicationUserResponse(applicationUser);
         model.addAttribute("applicationUser", applicationUserResponse);
         return "user/profile";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @GetMapping("/change-password")
+    public String getUserPasswordChangePage(Model model) {
+        final ApplicationUser applicationUser = loggedInApplicationUserService.getLoggedInApplicationUser();
+        final PasswordChangeRequest passwordChangeRequest = new PasswordChangeRequest();
+        passwordChangeRequest.setUsername(applicationUser.getUsername());
+        model.addAttribute("passwordChange", passwordChangeRequest);
+        return "user/password-change-form";
     }
 }
