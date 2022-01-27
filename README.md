@@ -21,10 +21,11 @@ System for managing a fleet of cars in the company.
 
 - App as a backend and frontend.
 - App can help to manage a fleet of cars in the company.
-- App also allows to manage information about company, departments and employees, trips with refuelings and repairs,
+- App also allows managing information about company, departments and employees, trips with refuelings and repairs,
   fleet (refueling) cards and car workshops.
 - Data are received via forms.
 - Date are presented in different ways on websites.
+- App supports users security by logging.
 
 ## Technologies Used
 
@@ -37,6 +38,7 @@ System for managing a fleet of cars in the company.
 - Spring Validation
 - Spring Security
 - Thymeleaf
+- Thymeleaf Extras for Spring Security
 - Bootstrap
 - Font Awesome
 
@@ -81,7 +83,7 @@ All app paths are available on local server running on base url:
 Available paths:
 
 `/car`, `/fleet-card`, `/company`, `/department`, `/employee`, `/trip`, `/refueling`, `/repair`, `/workshop`
-, `/login`
+, `/login`, `/user/profile`
 
 [comment]: <> (with basic auth credentials:)
 

@@ -58,6 +58,10 @@ public class ApplicationUser implements UserDetails {
                 .collect(Collectors.joining(";"));
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public String getPassword() {
         return password;

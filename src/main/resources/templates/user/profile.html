@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Użytkownik - profil</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Strony głównej
+                    </button>
+                </a>
+            </div>
+        </div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+            <li class="breadcrumb-item active">Profil Użytkownika</li>
+        </ol>
+        <div class="row">
+            <div class="col-10 col-sm-8 col-md-6 col-lg-6 col-xxl-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-info me-1"></i>
+                        Użytkownik - profil
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th class="col col-3" scope="row">#</th>
+                                <td class="col col-9" th:text="${applicationUser.id}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Nazwa Użytkownika</th>
+                                <td class="col col-9" th:text="${applicationUser.username}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Rola</th>
+                                <td class="col col-9" th:text="${applicationUser.role}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Konto aktywne</th>
+                                <td class="col col-9" th:text="${applicationUser.isEnabled} ? 'Tak' : 'Nie'"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Konto nie wygasa</th>
+                                <td class="col col-9"
+                                    th:text="${applicationUser.isAccountNonExpired} ? 'Tak' : 'Nie'"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Konto nie zablokowane</th>
+                                <td class="col col-9"
+                                    th:text="${applicationUser.isAccountNonLocked} ? 'Tak' : 'Nie'"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Hasło nie wygasa</th>
+                                <td class="col col-9"
+                                    th:text="${applicationUser.isCredentialsNonExpired} ? 'Tak' : 'Nie'"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="offset-md-1 col-10 col-sm-8 col-md-5 col-lg-5 col-xxl-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-info me-1"></i>
+                        Użytkownik - uprawnienia
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>#</th>
+                                <th>Uprawnienia</th>
+                            </tr>
+                            <tr th:each="permission : ${applicationUser.permissions}">
+                                <td th:text="${permissionStat.index}"></td>
+                                <td th:text="${permission}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
