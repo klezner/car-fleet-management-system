@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class ApplicationUserResponse {
+public class ApplicationUserFullResponse {
     private Long id;
     private String username;
     private String role;

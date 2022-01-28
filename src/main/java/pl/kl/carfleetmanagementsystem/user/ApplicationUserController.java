@@ -7,12 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kl.carfleetmanagementsystem.auth.ApplicationUser;
 import pl.kl.carfleetmanagementsystem.auth.LoggedInApplicationUserService;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/user")
 public class ApplicationUserController {
 
     private final ApplicationUserService applicationUserService;
@@ -29,16 +29,16 @@ public class ApplicationUserController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @GetMapping("/profile")
+    @GetMapping("/user/profile")
     public String getUserProfilePage(Model model) {
         final ApplicationUser applicationUser = loggedInApplicationUserService.getLoggedInApplicationUser();
-        final ApplicationUserResponse applicationUserResponse = applicationUserMapper.applicationUserToApplicationUserResponse(applicationUser);
-        model.addAttribute("applicationUser", applicationUserResponse);
+        final ApplicationUserFullResponse applicationUserFullResponse = applicationUserMapper.applicationUserToApplicationUserFullResponse(applicationUser);
+        model.addAttribute("applicationUser", applicationUserFullResponse);
         return "user/profile";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @GetMapping("/change-password")
+    @GetMapping("/user/change-password")
     public String getUserPasswordChangeForm(Model model) {
         final ApplicationUser applicationUser = loggedInApplicationUserService.getLoggedInApplicationUser();
         final PasswordChangeRequest passwordChangeRequest = new PasswordChangeRequest();
@@ -48,9 +48,17 @@ public class ApplicationUserController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PostMapping("/update-password")
+    @PostMapping("/user/update-password")
     public String submitUserPasswordChangeForm(PasswordChangeRequest passwordChangeRequest) {
         applicationUserService.updateUserPassword(passwordChangeRequest);
         return "redirect:/user/profile";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/admin")
+    public String getApplicationUserList(Model model) {
+        final List<ApplicationUserSimpleResponse> applicationUsers = applicationUserService.fetchAllApplicationUserResponses();
+        model.addAttribute("applicationUsers", applicationUsers);
+        return "user/list";
     }
 }

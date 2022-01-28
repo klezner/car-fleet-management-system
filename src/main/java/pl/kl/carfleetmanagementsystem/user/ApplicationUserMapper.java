@@ -11,8 +11,20 @@ import java.util.stream.Collectors;
 @Component
 public class ApplicationUserMapper {
 
-    public ApplicationUserResponse applicationUserToApplicationUserResponse(ApplicationUser applicationUser) {
-        return ApplicationUserResponse.builder()
+    public ApplicationUserSimpleResponse applicationUserToApplicationUserSimpleResponse(ApplicationUser applicationUser) {
+        return ApplicationUserSimpleResponse.builder()
+                .id(applicationUser.getId())
+                .username(applicationUser.getUsername())
+                .role(getApplicationUserRole(applicationUser.getAuthorities()))
+                .isAccountNonExpired(applicationUser.isAccountNonExpired())
+                .isAccountNonLocked(applicationUser.isAccountNonLocked())
+                .isCredentialsNonExpired(applicationUser.isCredentialsNonExpired())
+                .isEnabled(applicationUser.isEnabled())
+                .build();
+    }
+
+    public ApplicationUserFullResponse applicationUserToApplicationUserFullResponse(ApplicationUser applicationUser) {
+        return ApplicationUserFullResponse.builder()
                 .id(applicationUser.getId())
                 .username(applicationUser.getUsername())
                 .role(getApplicationUserRole(applicationUser.getAuthorities()))
