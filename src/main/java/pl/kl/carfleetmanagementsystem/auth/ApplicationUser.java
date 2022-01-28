@@ -95,4 +95,12 @@ public class ApplicationUser implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void setEnable() {
+        isEnabled = true;
+    }
+
+    public void setDisable() {
+        isEnabled = false;
+    }
 }

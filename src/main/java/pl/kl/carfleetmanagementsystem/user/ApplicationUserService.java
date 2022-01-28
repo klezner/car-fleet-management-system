@@ -3,6 +3,7 @@ package pl.kl.carfleetmanagementsystem.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,5 +54,24 @@ public class ApplicationUserService {
 
     private List<ApplicationUser> fetchAllApplicationUsers() {
         return applicationUserRepository.findAll();
+    }
+
+    @Transactional
+    public void setUserEnabled(Long id) {
+        final ApplicationUser applicationUser = fetchApplicationUserById(id);
+        applicationUser.setEnable();
+        applicationUserRepository.save(applicationUser);
+    }
+
+    @Transactional
+    public void setUserDisabled(Long id) {
+        final ApplicationUser applicationUser = fetchApplicationUserById(id);
+        applicationUser.setDisable();
+        applicationUserRepository.save(applicationUser);
+    }
+
+    private ApplicationUser fetchApplicationUserById(Long id) {
+        return applicationUserRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("Application User with id: " + id + " not found"));
     }
 }
