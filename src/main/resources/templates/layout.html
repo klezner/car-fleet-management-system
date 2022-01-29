@@ -38,14 +38,18 @@
                aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li sec:authorize="!isAuthenticated()"><a class="dropdown-item" href="/login">Zaloguj się</a></li>
+                <!--                <li>-->
+                <!--                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>-->
+                <!--                </li>-->
+                <li sec:authorize="isAuthenticated()"><a class="dropdown-item" sec:authentication="name"></a></li>
                 <li>
-                    <hr class="dropdown-divider"/>
+                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>
                 </li>
                 <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="/user/profile">Profil</a></li>
                 <li sec:authorize="isAuthenticated() && hasRole('ADMIN')"><a class="dropdown-item"
                                                                              href="/admin">Admin</a></li>
                 <li sec:authorize="isAuthenticated()">
-                    <hr class="dropdown-divider"/>
+                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>
                 </li>
                 <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="/logout">Wyloguj się</a></li>
             </ul>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.kl.carfleetmanagementsystem.auth.ApplicationUser;
 import pl.kl.carfleetmanagementsystem.auth.LoggedInApplicationUserService;
+import pl.kl.carfleetmanagementsystem.security.ApplicationUserRole;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ApplicationUserController {
     @GetMapping("/user/profile")
     public String getUserProfilePage(Model model) {
         final ApplicationUser applicationUser = loggedInApplicationUserService.getLoggedInApplicationUser();
-        final ApplicationUserFullResponse applicationUserFullResponse = applicationUserMapper.applicationUserToApplicationUserFullResponse(applicationUser);
+        final ApplicationUserFullResponse applicationUserFullResponse = applicationUserMapper.mapApplicationUserToApplicationUserFullResponse(applicationUser);
         model.addAttribute("applicationUser", applicationUserFullResponse);
         return "user/profile";
     }
@@ -74,6 +75,22 @@ public class ApplicationUserController {
     @GetMapping("/admin/disable-user/{id}")
     public String setUserDisabled(@PathVariable(name = "id") Long id) {
         applicationUserService.setUserDisabled(id);
+        return "redirect:/admin";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/admin/add-user")
+    public String getUserAddForm(Model model) {
+        final ApplicationUserRole[] userRoles = ApplicationUserRole.values();
+        model.addAttribute("userRoles", userRoles);
+        model.addAttribute("applicationUser", new ApplicationUserRequest());
+        return "user/add-form";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/admin/user-save")
+    public String submitUserAddForm(ApplicationUserRequest applicationUserRequest) {
+        applicationUserService.saveNewUser(applicationUserRequest);
         return "redirect:/admin";
     }
 }

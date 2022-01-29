@@ -1,6 +1,8 @@
 package pl.kl.carfleetmanagementsystem.user;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.kl.carfleetmanagementsystem.auth.ApplicationUser;
 
@@ -9,9 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class ApplicationUserMapper {
 
-    public ApplicationUserSimpleResponse applicationUserToApplicationUserSimpleResponse(ApplicationUser applicationUser) {
+    private final PasswordEncoder passwordEncoder;
+
+    public ApplicationUserSimpleResponse mapApplicationUserToApplicationUserSimpleResponse(ApplicationUser applicationUser) {
         return ApplicationUserSimpleResponse.builder()
                 .id(applicationUser.getId())
                 .username(applicationUser.getUsername())
@@ -23,7 +28,7 @@ public class ApplicationUserMapper {
                 .build();
     }
 
-    public ApplicationUserFullResponse applicationUserToApplicationUserFullResponse(ApplicationUser applicationUser) {
+    public ApplicationUserFullResponse mapApplicationUserToApplicationUserFullResponse(ApplicationUser applicationUser) {
         return ApplicationUserFullResponse.builder()
                 .id(applicationUser.getId())
                 .username(applicationUser.getUsername())
@@ -52,4 +57,18 @@ public class ApplicationUserMapper {
     }
 
 
+    public ApplicationUser mapApplicationUserRequestToApplicationUser(ApplicationUserRequest applicationUserRequest) {
+        final ApplicationUser applicationUser = ApplicationUser.builder()
+                .username(applicationUserRequest.getUsername())
+                .password(passwordEncoder.encode(applicationUserRequest.getPassword()))
+                .isEnabled(applicationUserRequest.isEnabled())
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isCredentialsNonExpired(true)
+                .build();
+
+        applicationUser.setAuthorities(applicationUserRequest.getRole().getGrantedAuthorities());
+
+        return applicationUser;
+    }
 }

@@ -48,7 +48,7 @@ public class ApplicationUserService {
     public List<ApplicationUserSimpleResponse> fetchAllApplicationUserResponses() {
         final List<ApplicationUser> applicationUserEntities = fetchAllApplicationUsers();
         return applicationUserEntities.stream()
-                .map(applicationUserMapper::applicationUserToApplicationUserSimpleResponse)
+                .map(applicationUserMapper::mapApplicationUserToApplicationUserSimpleResponse)
                 .collect(Collectors.toList());
     }
 
@@ -73,5 +73,11 @@ public class ApplicationUserService {
     private ApplicationUser fetchApplicationUserById(Long id) {
         return applicationUserRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("Application User with id: " + id + " not found"));
+    }
+
+    @Transactional
+    public void saveNewUser(ApplicationUserRequest applicationUserRequest) {
+        final ApplicationUser applicationUser = applicationUserMapper.mapApplicationUserRequestToApplicationUser(applicationUserRequest);
+        applicationUserRepository.save(applicationUser);
     }
 }

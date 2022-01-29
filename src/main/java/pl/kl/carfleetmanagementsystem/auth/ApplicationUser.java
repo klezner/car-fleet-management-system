@@ -1,5 +1,7 @@
 package pl.kl.carfleetmanagementsystem.auth;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +15,8 @@ import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ApplicationUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
