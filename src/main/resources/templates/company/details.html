@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Firma - szczegóły</title>
+    <title>Firma - Szczegóły</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -22,27 +23,29 @@
             <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
             <li class="breadcrumb-item"><a href="/company">Firmy</a></li>
             <li class="breadcrumb-item"><a href="/company/list">Lista Firm</a></li>
-            <li class="breadcrumb-item active">Firma - szczegóły</li>
+            <li class="breadcrumb-item active">Firma - Szczegóły</li>
         </ol>
         <!--Buttons-->
         <div class="row">
             <div class="col col-12">
                 <div class="d-flex justify-content-center btn-group-lg border-bottom p-2 mb-4" role="group">
-                    <a th:href="@{/company/edit/{id}(id=${company.id})}">
+                    <a sec:authorize="hasAuthority('company:update')" th:href="@{/company/edit/{id}(id=${company.id})}">
                         <button class="btn btn-outline-warning m-1" data-toggle="tooltip"
                                 data-placement="top" title="Edytuj Firmę">
                             <i class="fas fa-edit" style="font-size: x-large"></i><br>
                             Edytuj Firmę
                         </button>
                     </a>
-                    <a th:href="@{/company/delete/{id}(id=${company.id})}">
+                    <a sec:authorize="hasAuthority('company:delete')"
+                       th:href="@{/company/delete/{id}(id=${company.id})}">
                         <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
                                 data-placement="top" title="Usuń Firmę">
                             <i class="fas fa-trash" style="font-size: x-large"></i><br>
                             Usuń Firmę
                         </button>
                     </a>
-                    <a th:if="${company.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}"
+                    <a sec:authorize="hasAuthority('company:set_status')"
+                       th:if="${company.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}"
                        th:href="@{/company/active/{id}(id=${company.id})}">
                         <button class="btn btn-outline-success m-1" data-toggle="tooltip"
                                 data-placement="top" title="Ustaw status: Aktywny">
@@ -50,7 +53,8 @@
                             Ustaw status: Aktywny
                         </button>
                     </a>
-                    <a th:if="${company.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}"
+                    <a sec:authorize="hasAuthority('company:set_status')"
+                       th:if="${company.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}"
                        th:href="@{/company/inactive/{id}(id=${company.id})}">
                         <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
                                 data-placement="top" title="Ustaw status: Nieaktywny">
@@ -66,7 +70,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-info me-1"></i>
-                        Firma - szczegóły
+                        Informacje o Firmie
                     </div>
                     <div class="card-body">
                         <table class="table">

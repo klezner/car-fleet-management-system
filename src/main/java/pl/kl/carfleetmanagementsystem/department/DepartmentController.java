@@ -1,6 +1,7 @@
 package pl.kl.carfleetmanagementsystem.department;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,14 @@ public class DepartmentController {
     private final CompanyService companyService;
     private final DepartmentService departmentService;
 
+    @PreAuthorize("hasAuthority('department:read')")
     @GetMapping
     public String getDepartmentHomePage() {
         return "department/index";
     }
 
-    @GetMapping("/form")
+    @PreAuthorize("hasAuthority('department:create')")
+    @GetMapping("/add")
     public String getDepartmentAddForm(Model model) {
         final List<CompanyResponse> companies = companyService.fetchAllCompaniesResponses();
         model.addAttribute("companies", companies);
@@ -30,12 +33,14 @@ public class DepartmentController {
         return "department/add-form";
     }
 
+    @PreAuthorize("hasAuthority('department:create')")
     @PostMapping("/save")
     public String submitDepartmentAddForm(DepartmentRequest departmentRequest) {
         departmentService.saveNewDepartment(departmentRequest);
         return "redirect:/department/list";
     }
 
+    @PreAuthorize("hasAuthority('department:read')")
     @GetMapping("/list")
     public String getDepartmentList(Model model) {
         final List<DepartmentResponse> departments = departmentService.fetchAllDepartmentsResponses();
@@ -43,6 +48,7 @@ public class DepartmentController {
         return "department/list";
     }
 
+    @PreAuthorize("hasAuthority('department:update')")
     @GetMapping("/edit/{id}")
     public String getDepartmentEditForm(Model model, @PathVariable(name = "id") Long id) {
         final DepartmentRequest department = departmentService.fetchDepartmentRequest(id);
@@ -52,12 +58,14 @@ public class DepartmentController {
         return "department/edit-form";
     }
 
+    @PreAuthorize("hasAuthority('department:update')")
     @RequestMapping(value = "/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String submitDepartmentEditForm(DepartmentRequest departmentRequest) {
         departmentService.saveEditedDepartment(departmentRequest);
         return "redirect:/department/list";
     }
 
+    @PreAuthorize("hasAuthority('department:read')")
     @GetMapping("/{id}")
     public String getDepartmentDetails(Model model, @PathVariable(name = "id") Long id) {
         final DepartmentResponse department = departmentService.fetchDepartmentResponse(id);
@@ -65,18 +73,21 @@ public class DepartmentController {
         return "department/details";
     }
 
+    @PreAuthorize("hasAuthority('department:delete')")
     @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteDepartment(@PathVariable(name = "id") Long id) {
         departmentService.deleteDepartment(id);
         return "redirect:/department/list";
     }
 
+    @PreAuthorize("hasAuthority('department:set_status')")
     @GetMapping("/active/{id}")
     public String setActive(@PathVariable(name = "id") Long id) {
         departmentService.setActive(id);
         return "redirect:/department/{id}";
     }
 
+    @PreAuthorize("hasAuthority('department:set_status')")
     @GetMapping("/inactive/{id}")
     public String setInactive(@PathVariable(name = "id") Long id) {
         departmentService.setInactive(id);

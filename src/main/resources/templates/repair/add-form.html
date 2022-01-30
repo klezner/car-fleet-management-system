@@ -78,11 +78,11 @@
                                        th:field="*{comments}">
                             </div>
                             <div class="mb-3">
-                                <label for="carWorkshopId">Warsztat</label>
-                                <select class="form-control" id="carWorkshopId" required th:field="*{carWorkshopId}">
+                                <label for="workshopId">Warsztat</label>
+                                <select class="form-control" id="workshopId" required th:field="*{workshopId}">
                                     <option th:value="${null}" disabled>-- Brak Warsztatu --</option>
-                                    <option th:each="carWorkshop : ${carWorkshops}" th:value="${carWorkshop.id}"
-                                            th:text="${carWorkshop.name}"></option>
+                                    <option th:each="workshop : ${workshops}" th:value="${workshop.id}"
+                                            th:text="${workshop.name}"></option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -108,7 +108,7 @@
 <th:block layout:fragment="script">
     <script>
         $('document').ready(function () {
-            $('#carWorkshopId').prop('selectedIndex', 0);
+            $('#workshopId').prop('selectedIndex', 0);
             $('#vehicleId').prop('selectedIndex', 0);
             $('#vehicleId').change(function () {
                 let vehicleId = $(this).val();

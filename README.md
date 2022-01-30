@@ -1,6 +1,6 @@
-# Car Fleet Management System - Backend and Frontend
+# Car Fleet Management System - Full App
 
-System for managing a fleet of cars in the company.
+System for managing a fleet of vehicles in the company.
 
 ## Table of Contents
 
@@ -20,11 +20,13 @@ System for managing a fleet of cars in the company.
 ## General Information
 
 - App as a backend and frontend.
-- App can help to manage a fleet of cars in the company.
-- App also allows to manage information about company, departments and employees, trips with refuelings and repairs,
-  fleet (refueling) cards and car workshops.
+- App can help to manage a fleet of vehicles in the company.
+- App also allows managing information about company, departments and employees, trips with refuelings and repairs,
+  fleet (refueling) cards and workshops.
 - Data are received via forms.
 - Date are presented in different ways on websites.
+- App supports users security by logging in users.
+- Users can be created by Admin panel by users with ADMIN role only.
 
 ## Technologies Used
 
@@ -37,12 +39,11 @@ System for managing a fleet of cars in the company.
 - Spring Validation
 - Spring Security
 - Thymeleaf
+- Thymeleaf Extras for Spring Security
 - Bootstrap
 - Font Awesome
 
 ## Features
-
-List the ready features here:
 
 - Create, read, update, delete data about:
   - Companies
@@ -80,11 +81,12 @@ All app paths are available on local server running on base url:
 
 Available paths:
 
-`/car`, `/fleet-card`, `/company`, `/department`, `/employee`, `/trip`, `/refueling`, `/repair`, `/car-workshop`
+`/car`, `/fleet-card`, `/company`, `/department`, `/employee`, `/trip`, `/refueling`, `/repair`, `/workshop`
+, `/user/profile`, `/admin`, `/login` and `/logout`
 
-[comment]: <> (with basic auth credentials:)
+with basic auth credentials:
 
-[comment]: <> (`U: admin/ P: admin1`)
+`U: user/ P: user1` or `U: admin/ P: admin1`
 
 ## Project Status
 
@@ -92,7 +94,7 @@ Available paths:
 
 ## Room for Improvement
 
--
+- ...
 
 ## Contact
 

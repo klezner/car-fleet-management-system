@@ -33,8 +33,8 @@ public class RepairRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickupDate;
     private String comments;
-    @NotNull(message = "Car workshop is necessary")
-    private Long carWorkshopId;
+    @NotNull(message = "Workshop is necessary")
+    private Long workshopId;
     @NotNull(message = "Vehicle cannot is necessary")
     private Long vehicleId;
 }

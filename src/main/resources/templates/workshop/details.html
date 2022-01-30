@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Warsztat - Szczegóły</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/workshop/list">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Listy
+                        Warsztatów
+                    </button>
+                </a>
+            </div>
+        </div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+            <li class="breadcrumb-item"><a href="/workshop">Warsztaty</a></li>
+            <li class="breadcrumb-item"><a href="/workshop/list">Lista Warsztatów</a></li>
+            <li class="breadcrumb-item active">Warsztat - Szczegóły</li>
+        </ol>
+        <!--Buttons-->
+        <div class="row">
+            <div class="col col-12">
+                <div class="d-flex justify-content-center btn-group-lg border-bottom p-2 mb-4" role="group">
+                    <a sec:authorize="hasAuthority('workshop:update')"
+                       th:href="@{/workshop/edit/{id}(id=${workshop.id})}">
+                        <button class="btn btn-outline-warning m-1" data-toggle="tooltip"
+                                data-placement="top" title="Edytuj Warsztat">
+                            <i class="fas fa-edit" style="font-size: x-large"></i><br>
+                            Edytuj Warsztat
+                        </button>
+                    </a>
+                    <a sec:authorize="hasAuthority('workshop:delete')"
+                       th:href="@{/workshop/delete/{id}(id=${workshop.id})}">
+                        <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
+                                data-placement="top" title="Usuń Warsztat">
+                            <i class="fas fa-trash" style="font-size: x-large"></i><br>
+                            Usuń Warsztat
+                        </button>
+                    </a>
+                    <a sec:authorize="hasAuthority('workshop:set_status')"
+                       th:if="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}"
+                       th:href="@{/workshop/active/{id}(id=${workshop.id})}">
+                        <button class="btn btn-outline-success m-1" data-toggle="tooltip"
+                                data-placement="top" title="Ustaw status: Aktywna">
+                            <i class="fas fa-check-circle" style="font-size: x-large"></i><br>
+                            Ustaw status: Aktywny
+                        </button>
+                    </a>
+                    <a sec:authorize="hasAuthority('workshop:set_status')"
+                       th:if="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}"
+                       th:href="@{/workshop/inactive/{id}(id=${workshop.id})}">
+                        <button class="btn btn-outline-danger m-1" data-toggle="tooltip"
+                                data-placement="top" title="Ustaw status: Nieaktywna">
+                            <i class="fas fa-times-circle" style="font-size: x-large"></i><br>
+                            Ustaw status: Nieaktywny
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 col-sm-8 col-md-6 col-lg-6 col-xxl-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-info me-1"></i>
+                        Informacje o Warsztacie
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th class="col col-3" scope="row">#</th>
+                                <td class="col col-9" th:text="${workshop.id}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Nazwa</th>
+                                <td class="col col-9" th:text="${workshop.name}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Kod pocztowy</th>
+                                <td class="col col-9" th:text="${workshop.zipCode}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Miasto</th>
+                                <td class="col col-9" th:text="${workshop.city}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Ulica</th>
+                                <td class="col col-9" th:text="${workshop.street}"></td>
+                            </tr>
+                            <tr>
+                                <th class="col col-3" scope="row">Numer</th>
+                                <td class="col col-9" th:text="${workshop.number}"></td>
+                            </tr>
+                            <tr th:class="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
+                                <th class="col col-3" scope="row">Status</th>
+                                <td class="col col-9">
+                                    <span th:if="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}">
+                                        <i class="fas fa-check me-1"></i><span
+                                            th:text="${workshop.status.getCommonName()}"></span>
+                                    </span>
+                                    <span th:if="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}">
+                                        <i class="fas fa-times me-1"></i><span
+                                            th:text="${workshop.status.getCommonName()}"></span>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

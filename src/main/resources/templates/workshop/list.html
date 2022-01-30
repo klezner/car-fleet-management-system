@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Lista Warsztatów</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+                <a href="/workshop">
+                    <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do Menu Warsztatów
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/">Strona główna</a></li>
+                    <li class="breadcrumb-item"><a href="/workshop">Warsztaty</a></li>
+                    <li class="breadcrumb-item active">Lista Warsztatów</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div sec:authorize="hasAuthority('workshop:create')" class="col col-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center btn-group-lg" role="group">
+                            <a href="/workshop/add">
+                                <button class="btn btn-outline-primary m-1">
+                                    <i class="fas fa-plus" style="font-size: x-large"></i><br>
+                                    Dodaj Warsztat
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Lista Warsztatów
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th class="col col-4">Nazwa</th>
+                                <th class="col col-1">Kod pocztowy</th>
+                                <th class="col col-2">Miasto</th>
+                                <th class="col col-2">Ulica</th>
+                                <th class="col col-1">Numer</th>
+                                <th class="col col-1">Status</th>
+                                <th class="col col-1">Akcje</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th class="col col-4">Nazwa</th>
+                                <th class="col col-1">Kod pocztowy</th>
+                                <th class="col col-2">Miasto</th>
+                                <th class="col col-2">Ulica</th>
+                                <th class="col col-1">Numer</th>
+                                <th class="col col-1">Status</th>
+                                <th class="col col-1">Akcje</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="workshop : ${workshops}"
+                                th:class="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE} ? 'table-light'">
+                                <td class="col col-4" th:text="${workshop.name}"></td>
+                                <td class="col col-1" th:text="${workshop.zipCode}"></td>
+                                <td class="col col-2" th:text="${workshop.city}"></td>
+                                <td class="col col-2" th:text="${workshop.street}"></td>
+                                <td class="col col-1" th:text="${workshop.number}"></td>
+                                <td class="col col-1">
+                                    <span th:if="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).ACTIVE}">
+                                        <i class="fas fa-check me-1"></i><span
+                                            th:text="${workshop.status.getCommonName()}"></span>
+                                    </span>
+                                    <span th:if="${workshop.status == T(pl.kl.carfleetmanagementsystem.status.Status).INACTIVE}">
+                                        <i class="fas fa-times me-1"></i><span
+                                            th:text="${workshop.status.getCommonName()}"></span>
+                                    </span>
+                                </td>
+                                <td class="col col-1">
+                                    <div sec:authorize="hasAuthority('workshop:read')"
+                                         class="d-flex justify-content-center btn-group-sm" role="group">
+                                        <a th:href="@{/workshop/{id}(id=${workshop.id})}">
+                                            <button class="btn btn-sm btn-outline-info m-1" data-toggle="tooltip"
+                                                    data-placement="top" title="Szczegóły Warsztatu">
+                                                <i class="fas fa-info-circle"></i> Szczegóły
+                                            </button>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

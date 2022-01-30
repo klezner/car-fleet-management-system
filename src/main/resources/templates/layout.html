@@ -1,40 +1,58 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Layout</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+            crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="/">Company</a>
     <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+            class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                   aria-describedby="btnNavbarSearch"/>
             <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
         </div>
     </form>
     <!-- Navbar-->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Settings</a></li>
-                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#!">Logout</a></li>
+                <li sec:authorize="!isAuthenticated()"><a class="dropdown-item" href="/login">Zaloguj się</a></li>
+                <!--                <li>-->
+                <!--                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>-->
+                <!--                </li>-->
+                <li sec:authorize="isAuthenticated()"><a class="dropdown-item">Zalogowany Użytkownik:<br><span
+                        sec:authentication="name"></span></a></li>
+                <li>
+                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>
+                </li>
+                <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="/user/profile">Profil</a></li>
+                <li sec:authorize="isAuthenticated() && hasRole('ADMIN')"><a class="dropdown-item"
+                                                                             href="/admin">Panel Admina</a></li>
+                <li sec:authorize="isAuthenticated()">
+                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>
+                </li>
+                <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="/logout">Wyloguj się</a></li>
             </ul>
         </li>
     </ul>
@@ -49,162 +67,204 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Strona główna
                     </a>
-                    <div class="sb-sidenav-menu-heading">Moduły</div>
-                    <!--Company-->
-                    <a class="nav-link collapsed" href="/company" data-bs-toggle="collapse"
-                       data-bs-target="#collapseCompany"
-                       aria-expanded="false" aria-controls="collapseCompany">
-                        <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
-                        Firmy
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseCompany" aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/company/list">Lista Firm</a>
-                            <a class="nav-link" href="/company/form">Dodaj Firmę</a>
-                        </nav>
+                    <div sec:authorize="isAuthenticated()" class="sidenav-elements">
+                        <div class="sb-sidenav-menu-heading">Moduły</div>
+                        <!--Company-->
+                        <a class="nav-link collapsed" href="/company" data-bs-toggle="collapse"
+                           data-bs-target="#collapseCompany"
+                           aria-expanded="false" aria-controls="collapseCompany">
+                            <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
+                            Firmy
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseCompany" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a sec:authorize="hasAuthority('company:read')" class="nav-link" href="/company/list">Lista
+                                    Firm</a>
+                                <a sec:authorize="hasAuthority('company:create')" class="nav-link" href="/company/add">Dodaj
+                                    Firmę</a>
+                            </nav>
+                        </div>
+                        <!--Department-->
+                        <a class="nav-link collapsed" href="/department" data-bs-toggle="collapse"
+                           data-bs-target="#collapseDepartment"
+                           aria-expanded="false" aria-controls="collapseDepartment">
+                            <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
+                            Departamenty
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseDepartment" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a sec:authorize="hasAuthority('department:read')" class="nav-link"
+                                   href="/department/list">Lista Departamentów</a>
+                                <a sec:authorize="hasAuthority('department:create')" class="nav-link"
+                                   href="/department/add">Dodaj Departament</a>
+                            </nav>
+                        </div>
+                        <!--Vehicle-->
+                        <a class="nav-link collapsed" href="/vehicle" data-bs-toggle="collapse"
+                           data-bs-target="#collapseVehicle"
+                           aria-expanded="false" aria-controls="collapseVehicle">
+                            <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
+                            Pojazdy
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseVehicle" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a sec:authorize="hasAuthority('vehicle:read')" class="nav-link" href="/vehicle/list">Lista
+                                    Pojazdów</a>
+                                <a sec:authorize="hasAuthority('vehicle:create')" class="nav-link" href="/vehicle/add">Dodaj
+                                    Pojazd</a>
+                            </nav>
+                        </div>
+                        <!--Trip-->
+                        <a class="nav-link collapsed" href="/trip" data-bs-toggle="collapse"
+                           data-bs-target="#collapseTrip"
+                           aria-expanded="false" aria-controls="collapseTrip">
+                            <div class="sb-nav-link-icon"><i class="fas fa-road"></i></div>
+                            Wyjazdy
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseTrip" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a sec:authorize="hasAuthority('trip:read')" class="nav-link" href="/trip/list">Lista
+                                    Wyjazdów</a>
+                                <a sec:authorize="hasAuthority('trip:create')" class="nav-link" href="/trip/add">Dodaj
+                                    Wyjazd</a>
+                            </nav>
+                        </div>
+                        <!--Refueling-->
+                        <a class="nav-link collapsed" href="/refueling" data-bs-toggle="collapse"
+                           data-bs-target="#collapseRefueling"
+                           aria-expanded="false" aria-controls="collapseRefueling">
+                            <div class="sb-nav-link-icon"><i class="fas fa-plug"></i></div>
+                            Tankowania
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseRefueling" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a sec:authorize="hasAuthority('refueling:read')" class="nav-link"
+                                   href="/refueling/list">Lista Tankowań</a>
+                                <a sec:authorize="hasAuthority('refueling:create')" class="nav-link"
+                                   href="/refueling/add">Dodaj Tankowanie</a>
+                            </nav>
+                        </div>
+                        <!--FleetCard-->
+                        <a class="nav-link collapsed" href="/fleetcard" data-bs-toggle="collapse"
+                           data-bs-target="#collapseFleetCard" aria-expanded="false" aria-controls="collapseFleetCard">
+                            <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
+                            Karty floty
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseFleetCard" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a sec:authorize="hasAuthority('fleetcard:read')" class="nav-link"
+                                   href="/fleetcard/list">Lista Kart floty</a>
+                                <a sec:authorize="hasAuthority('fleetcard:create')" class="nav-link"
+                                   href="/fleetcard/add">Dodaj Kartę floty</a>
+                            </nav>
+                        </div>
+                        <!--Repair-->
+                        <a class="nav-link collapsed" href="/repair" data-bs-toggle="collapse"
+                           data-bs-target="#collapseRepair"
+                           aria-expanded="false" aria-controls="collapseRepair">
+                            <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
+                            Naprawy
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseRepair" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a sec:authorize="hasAuthority('repair:read')" class="nav-link" href="/repair/list">Lista
+                                    Napraw</a>
+                                <a sec:authorize="hasAuthority('repair:create')" class="nav-link" href="/repair/add">Dodaj
+                                    Naprawę</a>
+                            </nav>
+                        </div>
+                        <!--Workshop-->
+                        <a class="nav-link collapsed" href="/workshop" data-bs-toggle="collapse"
+                           data-bs-target="#collapseWorkshop" aria-expanded="false" aria-controls="collapseWorkshop">
+                            <div class="sb-nav-link-icon"><i class="fas fa-university"></i></div>
+                            Warsztaty
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseWorkshop" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a sec:authorize="hasAuthority('workshop:read')" class="nav-link" href="/workshop/list">Lista
+                                    Warsztatów</a>
+                                <a sec:authorize="hasAuthority('workshop:create')" class="nav-link"
+                                   href="/workshop/add">Dodaj Warsztat</a>
+                            </nav>
+                        </div>
                     </div>
-                    <!--Department-->
-                    <a class="nav-link collapsed" href="/department" data-bs-toggle="collapse"
-                       data-bs-target="#collapseDepartment"
-                       aria-expanded="false" aria-controls="collapseDepartment">
-                        <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
-                        Departamenty
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseDepartment" aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/department/list">Lista Departamentów</a>
-                            <a class="nav-link" href="/department/form">Dodaj Departament</a>
-                        </nav>
+                    <div class="sb-sidenav-menu-heading">Akcje</div>
+                    <div sec:authorize="!isAuthenticated()">
+                        <!--Login-->
+                        <a class="nav-link collapsed" href="/login">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-in-alt"></i></div>
+                            Zaloguj się
+                        </a>
                     </div>
-                    <!--Car-->
-                    <a class="nav-link collapsed" href="/vehicle" data-bs-toggle="collapse"
-                       data-bs-target="#collapseVehicle"
-                       aria-expanded="false" aria-controls="collapseVehicle">
-                        <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
-                        Pojazdy
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseVehicle" aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/vehicle/list">Lista Pojazdów</a>
-                            <a class="nav-link" href="/vehicle/form">Dodaj Pojazd</a>
-                        </nav>
+                    <div sec:authorize="isAuthenticated()">
+                        <!--Logout-->
+                        <a class="nav-link collapsed" href="/logout">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
+                            Wyloguj się
+                        </a>
                     </div>
-                    <!--Trip-->
-                    <a class="nav-link collapsed" href="/trip" data-bs-toggle="collapse"
-                       data-bs-target="#collapseTrip"
-                       aria-expanded="false" aria-controls="collapseTrip">
-                        <div class="sb-nav-link-icon"><i class="fas fa-road"></i></div>
-                        Wyjazdy
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseTrip" aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/trip/list">Lista Wyjazdów</a>
-                            <a class="nav-link" href="/trip/form">Dodaj Wyjazd</a>
-                        </nav>
-                    </div>
-                    <!--Refueling-->
-                    <a class="nav-link collapsed" href="/refueling" data-bs-toggle="collapse"
-                       data-bs-target="#collapseRefueling"
-                       aria-expanded="false" aria-controls="collapseRefueling">
-                        <div class="sb-nav-link-icon"><i class="fas fa-plug"></i></div>
-                        Tankowania
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseRefueling" aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/refueling/list">Lista Tankowań</a>
-                            <a class="nav-link" href="/refueling/form">Dodaj Tankowanie</a>
-                        </nav>
-                    </div>
-                    <!--FleetCard-->
-                    <a class="nav-link collapsed" href="/fleet-card" data-bs-toggle="collapse"
-                       data-bs-target="#collapseFleetCard" aria-expanded="false" aria-controls="collapseFleetCard">
-                        <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
-                        Karty floty
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseFleetCard" aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/fleet-card/list">Lista Kart floty</a>
-                            <a class="nav-link" href="/fleet-card/form">Dodaj Kartę floty</a>
-                        </nav>
-                    </div>
-                    <!--Repair-->
-                    <a class="nav-link collapsed" href="/repair" data-bs-toggle="collapse"
-                       data-bs-target="#collapseRepair"
-                       aria-expanded="false" aria-controls="collapseRepair">
-                        <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
-                        Naprawy
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseRepair" aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/repair/list">Lista Napraw</a>
-                            <a class="nav-link" href="/repair/form">Dodaj Naprawę</a>
-                        </nav>
-                    </div>
-                    <!--CarWorkshop-->
-                    <a class="nav-link collapsed" href="/car-workshop" data-bs-toggle="collapse"
-                       data-bs-target="#collapseCarWorkshop" aria-expanded="false" aria-controls="collapseCarWorkshop">
-                        <div class="sb-nav-link-icon"><i class="fas fa-university"></i></div>
-                        Warsztaty
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseCarWorkshop" aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="/car-workshop/list">Lista Warsztatów</a>
-                            <a class="nav-link" href="/car-workshop/form">Dodaj Warsztat</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
-                       aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Pages
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                Authentication
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="login.html">Login</a>
-                                    <a class="nav-link" href="register.html">Register</a>
-                                    <a class="nav-link" href="password.html">Forgot Password</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                Error
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="401.html">401 Page</a>
-                                    <a class="nav-link" href="404.html">404 Page</a>
-                                    <a class="nav-link" href="500.html">500 Page</a>
-                                </nav>
-                            </div>
-                        </nav>
+                    <div sec:authorize="isAuthenticated()" class="pages-elements">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+                           aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Pages
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                   data-bs-target="#pagesCollapseAuth" aria-expanded="false"
+                                   aria-controls="pagesCollapseAuth">
+                                    Authentication
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
+                                     data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="login.html">Login</a>
+                                        <a class="nav-link" href="register.html">Register</a>
+                                        <a class="nav-link" href="password.html">Forgot Password</a>
+                                    </nav>
+                                </div>
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                   data-bs-target="#pagesCollapseError" aria-expanded="false"
+                                   aria-controls="pagesCollapseError">
+                                    Error
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
+                                     data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="401.html">401 Page</a>
+                                        <a class="nav-link" href="404.html">404 Page</a>
+                                        <a class="nav-link" href="500.html">500 Page</a>
+                                    </nav>
+                                </div>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
-                Default User
+            <div sec:authorize="isAuthenticated()" class="sb-sidenav-footer">
+                <div class="small">Zalogowany Użytkownik:</div>
+                <div sec:authentication="name"></div>
             </div>
         </nav>
     </div>
