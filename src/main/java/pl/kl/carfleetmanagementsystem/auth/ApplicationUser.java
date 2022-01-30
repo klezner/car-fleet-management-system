@@ -1,5 +1,7 @@
 package pl.kl.carfleetmanagementsystem.auth;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +15,8 @@ import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ApplicationUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +62,10 @@ public class ApplicationUser implements UserDetails {
                 .collect(Collectors.joining(";"));
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public String getPassword() {
         return password;
@@ -86,5 +94,17 @@ public class ApplicationUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isEnabled;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEnable() {
+        isEnabled = true;
+    }
+
+    public void setDisable() {
+        isEnabled = false;
     }
 }

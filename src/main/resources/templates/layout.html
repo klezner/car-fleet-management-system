@@ -38,14 +38,19 @@
                aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li sec:authorize="!isAuthenticated()"><a class="dropdown-item" href="/login">Zaloguj się</a></li>
+                <!--                <li>-->
+                <!--                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>-->
+                <!--                </li>-->
+                <li sec:authorize="isAuthenticated()"><a class="dropdown-item">Zalogowany Użytkownik:<br><span
+                        sec:authentication="name"></span></a></li>
                 <li>
-                    <hr class="dropdown-divider"/>
+                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>
                 </li>
                 <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="/user/profile">Profil</a></li>
                 <li sec:authorize="isAuthenticated() && hasRole('ADMIN')"><a class="dropdown-item"
-                                                                             href="/admin">Admin</a></li>
+                                                                             href="/admin">Panel Admina</a></li>
                 <li sec:authorize="isAuthenticated()">
-                    <hr class="dropdown-divider"/>
+                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>
                 </li>
                 <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="/logout">Wyloguj się</a></li>
             </ul>
@@ -258,7 +263,7 @@
                 </div>
             </div>
             <div sec:authorize="isAuthenticated()" class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
+                <div class="small">Zalogowany Użytkownik:</div>
                 <div sec:authentication="name"></div>
             </div>
         </nav>
