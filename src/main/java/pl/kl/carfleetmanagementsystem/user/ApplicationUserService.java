@@ -34,14 +34,14 @@ public class ApplicationUserService {
     }
 
     @Transactional
-    public void updateUserPassword(PasswordChangeRequest passwordChangeRequest) {
-        final ApplicationUser applicationUser = (ApplicationUser) userDetailsService.loadUserByUsername(passwordChangeRequest.getUsername());
-        PasswordValidator.validatePasswordChange(passwordChangeRequest.getOldPassword(),
-                passwordChangeRequest.getNewPassword(),
-                passwordChangeRequest.getNewPasswordConfirm()
+    public void updateUserPassword(PasswordChangeUserRequest passwordChangeUserRequest) {
+        final ApplicationUser applicationUser = (ApplicationUser) userDetailsService.loadUserByUsername(passwordChangeUserRequest.getUsername());
+        PasswordValidator.validatePasswordChange(passwordChangeUserRequest.getOldPassword(),
+                passwordChangeUserRequest.getNewPassword(),
+                passwordChangeUserRequest.getNewPasswordConfirm()
         );
-        passwordEncoder.matches(passwordChangeRequest.getNewPassword(), applicationUser.getPassword());
-        applicationUser.setPassword(passwordEncoder.encode(passwordChangeRequest.getNewPassword()));
+        passwordEncoder.matches(passwordChangeUserRequest.getNewPassword(), applicationUser.getPassword());
+        applicationUser.setPassword(passwordEncoder.encode(passwordChangeUserRequest.getNewPassword()));
         applicationUserRepository.save(applicationUser);
     }
 
@@ -78,6 +78,16 @@ public class ApplicationUserService {
     @Transactional
     public void saveNewUser(ApplicationUserRequest applicationUserRequest) {
         final ApplicationUser applicationUser = applicationUserMapper.mapApplicationUserRequestToApplicationUser(applicationUserRequest);
+        applicationUserRepository.save(applicationUser);
+    }
+
+    public String fetchApplicationUserUsername(Long id) {
+        return applicationUserRepository.findApplicationUserUsernameById(id);
+    }
+
+    public void updateUserPasswordByAdmin(PasswordChangeAdminRequest passwordChangeAdminRequest) {
+        final ApplicationUser applicationUser = (ApplicationUser) userDetailsService.loadUserByUsername(passwordChangeAdminRequest.getUsername());
+        applicationUser.setPassword(passwordEncoder.encode(passwordChangeAdminRequest.getNewPassword()));
         applicationUserRepository.save(applicationUser);
     }
 }

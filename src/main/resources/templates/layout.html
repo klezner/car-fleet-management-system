@@ -41,13 +41,14 @@
                 <!--                <li>-->
                 <!--                    <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>-->
                 <!--                </li>-->
-                <li sec:authorize="isAuthenticated()"><a class="dropdown-item" sec:authentication="name"></a></li>
+                <li sec:authorize="isAuthenticated()"><a class="dropdown-item">Zalogowany Użytkownik:<br><span
+                        sec:authentication="name"></span></a></li>
                 <li>
                     <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>
                 </li>
                 <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="/user/profile">Profil</a></li>
                 <li sec:authorize="isAuthenticated() && hasRole('ADMIN')"><a class="dropdown-item"
-                                                                             href="/admin">Admin</a></li>
+                                                                             href="/admin">Panel Admina</a></li>
                 <li sec:authorize="isAuthenticated()">
                     <hr class="dropdown-divider" sec:authorize="isAuthenticated()"/>
                 </li>
@@ -262,7 +263,7 @@
                 </div>
             </div>
             <div sec:authorize="isAuthenticated()" class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
+                <div class="small">Zalogowany Użytkownik:</div>
                 <div sec:authentication="name"></div>
             </div>
         </nav>

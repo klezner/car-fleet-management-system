@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.kl.carfleetmanagementsystem.auth.ApplicationUser;
 import pl.kl.carfleetmanagementsystem.auth.LoggedInApplicationUserService;
 import pl.kl.carfleetmanagementsystem.security.ApplicationUserRole;
@@ -43,16 +41,16 @@ public class ApplicationUserController {
     @GetMapping("/user/change-password")
     public String getUserPasswordChangeForm(Model model) {
         final ApplicationUser applicationUser = loggedInApplicationUserService.getLoggedInApplicationUser();
-        final PasswordChangeRequest passwordChangeRequest = new PasswordChangeRequest();
-        passwordChangeRequest.setUsername(applicationUser.getUsername());
-        model.addAttribute("passwordChange", passwordChangeRequest);
+        final PasswordChangeUserRequest passwordChangeUserRequest = new PasswordChangeUserRequest();
+        passwordChangeUserRequest.setUsername(applicationUser.getUsername());
+        model.addAttribute("passwordChange", passwordChangeUserRequest);
         return "user/password-change-form";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PostMapping("/user/update-password")
-    public String submitUserPasswordChangeForm(PasswordChangeRequest passwordChangeRequest) {
-        applicationUserService.updateUserPassword(passwordChangeRequest);
+    @RequestMapping(value = "/user/update-password", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String submitUserPasswordChangeForm(PasswordChangeUserRequest passwordChangeUserRequest) {
+        applicationUserService.updateUserPassword(passwordChangeUserRequest);
         return "redirect:/user/profile";
     }
 
@@ -91,6 +89,23 @@ public class ApplicationUserController {
     @PostMapping("/admin/user-save")
     public String submitUserAddForm(ApplicationUserRequest applicationUserRequest) {
         applicationUserService.saveNewUser(applicationUserRequest);
+        return "redirect:/admin";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/admin/change-password/{id}")
+    public String getUserPasswordChangeByAdminForm(@PathVariable(name = "id") Long id, Model model) {
+        final String username = applicationUserService.fetchApplicationUserUsername(id);
+        final PasswordChangeAdminRequest passwordChangeAdminRequest = new PasswordChangeAdminRequest();
+        passwordChangeAdminRequest.setUsername(username);
+        model.addAttribute("passwordChange", passwordChangeAdminRequest);
+        return "user/password-change-admin-form";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/admin/update-password", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String submitUserPasswordChangeByAdminForm(PasswordChangeAdminRequest passwordChangeAdminRequest) {
+        applicationUserService.updateUserPasswordByAdmin(passwordChangeAdminRequest);
         return "redirect:/admin";
     }
 }

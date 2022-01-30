@@ -108,15 +108,15 @@
                                 <td class="col col-2"
                                     th:text="${applicationUser.isCredentialsNonExpired} ? 'Tak' : 'Nie'"></td>
                                 <td class="col col-1">
-                                    <!--                                    <div sec:authorize="hasRole('ROLE_ADMIN')"-->
-                                    <!--                                         class="d-flex justify-content-center btn-group-sm" role="group">-->
-                                    <!--                                        <a th:href="@{/user/{id}(id=${applicationUser.id})}">-->
-                                    <!--                                            <button class="btn btn-sm btn-outline-info m-1" data-toggle="tooltip"-->
-                                    <!--                                                    data-placement="top" title="Szczegóły Użytkownika">-->
-                                    <!--                                                <i class="fas fa-info-circle"></i> Szczegóły-->
-                                    <!--                                            </button>-->
-                                    <!--                                        </a>-->
-                                    <!--                                    </div>-->
+                                    <div sec:authorize="hasRole('ROLE_ADMIN')"
+                                         class="d-flex justify-content-center btn-group-sm" role="group">
+                                        <a th:href="@{/admin/change-password/{id}(id=${applicationUser.id})}">
+                                            <button class="btn btn-sm btn-outline-info m-1" data-toggle="tooltip"
+                                                    data-placement="top" title="Zmień Hasło Użytkownika">
+                                                <i class="fas fa-info-circle"></i> Zmień Hasło
+                                            </button>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>
